@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.AppHost", "Src\AppHo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aspire.AppHost.ServiceDefaults", "Src\AppHost\Aspire.AppHost\Aspire.AppHost.ServiceDefaults\Aspire.AppHost.ServiceDefaults.csproj", "{41115CF6-07B1-4A6F-8B4A-71679E7876A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Messaging", "Src\Shared\BuildingBlocks.Messaging\BuildingBlocks.Messaging.csproj", "{F195A5AA-99AC-48D4-93FA-5FE74CF112ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{41115CF6-07B1-4A6F-8B4A-71679E7876A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{41115CF6-07B1-4A6F-8B4A-71679E7876A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41115CF6-07B1-4A6F-8B4A-71679E7876A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F195A5AA-99AC-48D4-93FA-5FE74CF112ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F195A5AA-99AC-48D4-93FA-5FE74CF112ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F195A5AA-99AC-48D4-93FA-5FE74CF112ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F195A5AA-99AC-48D4-93FA-5FE74CF112ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,6 +51,7 @@ Global
 		{2B4D7523-89F4-4079-ACC0-4BCAB6272042} = {31E40028-9CE2-45A4-996C-6A6E858BE294}
 		{4390F2EB-2C14-4318-88F5-05042D89454F} = {2B4D7523-89F4-4079-ACC0-4BCAB6272042}
 		{41115CF6-07B1-4A6F-8B4A-71679E7876A6} = {2B4D7523-89F4-4079-ACC0-4BCAB6272042}
+		{F195A5AA-99AC-48D4-93FA-5FE74CF112ED} = {C1F1F303-A955-4E59-B6FD-733FBDAA0F13}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F95E290E-203A-456C-BBD6-1B08D102C4F5}
