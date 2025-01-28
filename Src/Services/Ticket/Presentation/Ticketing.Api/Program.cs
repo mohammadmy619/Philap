@@ -1,6 +1,16 @@
+using Testcontainers.MongoDb;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+
+//await using var mongoContainer = new MongoDbBuilder()
+//    .WithImage("mongo:6.0")
+//    .Build();
+
+//await mongoContainer.StartAsync();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

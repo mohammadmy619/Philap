@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Testcontainers.MongoDb" Version="3.10.0" />
   </ItemGroup>
 
 </Project>
