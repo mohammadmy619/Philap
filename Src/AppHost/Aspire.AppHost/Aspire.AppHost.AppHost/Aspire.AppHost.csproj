@@ -19,6 +19,7 @@
     <ProjectReference Include="..\..\..\Services\Authentication\Presentation\Authentication.Api\Authentication.Api.csproj" />
     <ProjectReference Include="..\..\..\Services\Person\Presentation\Person.Api\Person.Api\Person.Api.csproj" />
     <ProjectReference Include="..\..\..\Services\Ticket\Presentation\Ticketing.Api\Ticketing.Api\Ticketing.Api.csproj" />
+    <ProjectReference Include="..\..\..\Services\Trip\Preasntion\Trip.Api\Trip.Api.csproj" />
   </ItemGroup>
 
 </Project>
