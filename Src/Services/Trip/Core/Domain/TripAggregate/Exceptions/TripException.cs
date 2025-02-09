@@ -68,13 +68,13 @@ namespace Domain.TripAggregate.Exceptions
         public InvalidTravelDateException(string message = "Travel Start Date must be before Travel End Date", string code = "0314006") : base(message, code)
         {
         }
-    } 
-    //public class InvalidTripStatusException : DomainException
-    //{
-    //    public InvalidTripStatusException(string message = "Travel Trip Status must be Not Null", string code = "0314010") : base(message, code)
-    //    {
-    //    }
-    //}
+    }
+    public class InvalidTripStatusException : DomainException
+    {
+        public InvalidTripStatusException(string message = "Travel Trip Status must be Not Null", string code = "0314010") : base(message, code)
+        {
+        }
+    }
 
 
 }
