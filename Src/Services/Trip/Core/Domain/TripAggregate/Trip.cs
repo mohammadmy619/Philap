@@ -11,6 +11,7 @@ namespace Domain.TripAggregate
 {
     public class Trip: AggregateRoot<Guid>
     {
+        #region Constractor
         public Trip(Guid tripId, Guid leaderId, DateTime travelStartDate, DateTime travelEndDate, string locationName, TripStatus tripStatus, Price price): base(tripId)
         {
             Tripid = tripId;
@@ -27,7 +28,8 @@ namespace Domain.TripAggregate
         {
 
         }
-
+        #endregion
+        #region propertys
         public Guid Tripid { get; private set; }
         public Guid LeaderId { get; private set; }
         public DateTime TravelStartDate { get; private set; }
@@ -36,10 +38,10 @@ namespace Domain.TripAggregate
         public Price Price { get; private set; }
         public TripStatus TripStatus { get; private set; }
 
-
+        #endregion
         #region GuardAgainst 
 
-      
+
         private static void GuardAgainstLeaderId(Guid leaderId)
         {
             if (leaderId == Guid.Empty)

@@ -10,11 +10,15 @@ namespace Domain.Persons
     {
 
 
+        #region propertys
+  
+
         public string Street { get; private set; }
         public string City { get; private set; }
         public string State { get; private set; }
         public string ZipCode { get; private set; }
-
+        #endregion
+        #region Constractor
         public Address(string street, string city, string state, string zipCode)
         {
             Street = street;
@@ -22,7 +26,9 @@ namespace Domain.Persons
             State = state;
             ZipCode = zipCode;
         }
+        #endregion
 
+        #region Methods
         //Override Equals و GetHashCode برای شناسایی بر اساس مقادیر
         public override bool Equals(object obj)
         {
@@ -45,5 +51,6 @@ namespace Domain.Persons
         {
             return $"{Street}, {City}, {State} {ZipCode}";
         }
+        #endregion
     }
 }
