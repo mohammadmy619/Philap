@@ -23,7 +23,10 @@ namespace Domain.TripAggregate
             Price = price;
             TripStatus = tripStatus;
         }
+        protected Trip(Guid tripId) :base( tripId)
+        {
 
+        }
 
         public Guid Tripid { get; private set; }
         public Guid LeaderId { get; private set; }
