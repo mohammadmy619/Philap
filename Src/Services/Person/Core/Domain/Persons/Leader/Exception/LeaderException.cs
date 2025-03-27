@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Persons.Leader.Leader.Exception
+namespace Domain.Persons.Leader.Exception
 {
     public class TitleIsNullException : DomainException
     {
