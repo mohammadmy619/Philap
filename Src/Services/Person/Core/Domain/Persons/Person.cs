@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Domain;
+using Domain.Persons.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,20 +13,30 @@ namespace Domain.Persons
     public class Person : AggregateRoot<Guid>
     {
         #region property
-        protected Guid Id { get; private set; }
-        protected List<Guid> TripIds { get; private set; }
-        protected string Name { get; private set; }
-        protected string LastName { get; private set; }
-        protected string Email { get; private set; }
-        protected string PhoneNumber { get; private set; }
-        protected DateTime DateOfBirth { get; private set; }
-        protected Gender Gender { get; private set; }
-        protected Address Address { get; private set; }
+        public Guid Id { get; private set; }
+        public List<Guid> TripIds { get; private set; }
+        public string Name { get; private set; }
+        public string LastName { get; private set; }
+        public string Email { get; private set; }
+        public string PhoneNumber { get; private set; }
+        public DateTime DateOfBirth { get; private set; }
+        public Gender Gender { get; private set; }
+        public string Nationality { get; private set; }
+        public Address Address { get; private set; }
+
         #endregion
         #region Constractor
-        protected Person(Guid Id, string name, string lastName, string email, string phoneNumber, DateTime dateOfBirth, Gender gender, Address address, string nationality) : base(Id)
+        protected Person(Guid Id, List<Guid> TripIds, string name, string lastName, string email, string phoneNumber, DateTime dateOfBirth, Gender gender, Address address, string nationality) : base(Id)
         {
-
+            GuardAgainstLeaderId(Id);
+            GuardAgainstTripIds(TripIds);
+            GuardAgainstName(name);
+            GuardAgainstLastName(lastName);
+            GuardAgainstEmail(email);
+            GuardAgainstPhoneNumber(phoneNumber);
+            GuardAgainstDateOfBirth(dateOfBirth);
+            GuardAgainstGender(gender);
+            GuardAgainstNationality(nationality);
             Id = Guid.NewGuid();
             Name = name;
             LastName = lastName;
@@ -34,9 +45,73 @@ namespace Domain.Persons
             DateOfBirth = dateOfBirth;
             Gender = gender;
             Address = address;
+            Nationality = nationality;
         }
+
+        private Person(Guid Id) : base(Id)
+        {
+                
+        }
+
         #endregion
         #region Guards
+        private static void GuardAgainstLeaderId(Guid leaderId)
+        {
+            if (leaderId == Guid.Empty)
+                throw new LeaderIdIsNullException();
+        } 
+        private static void GuardAgainstTripIds(List<Guid> TripIds)
+        {
+            //to do check TripId with acl
+            if (TripIds.Count>1) { }
+            //throw new TripIds();
+        }
+
+        private static void GuardAgainstName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new LeaderNameIsNullException();
+        }
+
+        private static void GuardAgainstLastName(string lastName)
+        {
+            if (string.IsNullOrWhiteSpace(lastName))
+                throw new LeaderLastNameIsNullException();
+        }
+
+        private static void GuardAgainstEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                throw new LeaderEmailIsNullException();
+        }
+
+        private static void GuardAgainstPhoneNumber(string phoneNumber)
+        {
+            if (string.IsNullOrWhiteSpace(phoneNumber))
+                throw new LeaderPhoneNumberIsNullException();
+        }
+
+        private static void GuardAgainstDateOfBirth(DateTime dateOfBirth)
+        {
+            if (dateOfBirth == default(DateTime))
+                throw new LeaderDateOfBirthIsNullException();
+        }
+        private static void GuardAgainstGender(Gender Gender)
+        {
+
+
+            if (Enum.IsDefined(typeof(Gender), Gender))
+                throw new LeaderGenderIsNullException();
+        } 
+        private static void GuardAgainstNationality(string Nationality)
+        {
+
+
+            if (string.IsNullOrEmpty(Nationality))
+                throw new NationalityIsNullException();
+        }
+
+
         #endregion
     }
 }
