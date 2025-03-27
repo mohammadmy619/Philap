@@ -9,7 +9,11 @@ namespace Domain.TripAggregate.Exceptions
 {
 
 
-
+    public class TripIdIsInvalidException : DomainException
+    {
+        public TripIdIsInvalidException(string message = "Trip ID must be a valid GUID.", string code = "0314000")
+            : base(message, code) { }
+    }
     public class LeaderIdIsNullException : DomainException
     {
         public LeaderIdIsNullException(string message = "Leader Id is Required", string code = "0314001") : base(message, code)

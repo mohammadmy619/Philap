@@ -1,11 +1,12 @@
 ﻿using Domain.Persons.Exceptions;
+using Domain.Persons.Passenger.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Persons
+namespace Domain.Persons.Passenger
 {
     public class Passenger : Person
     {

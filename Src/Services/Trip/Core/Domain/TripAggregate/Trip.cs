@@ -9,22 +9,27 @@ using System.Threading.Tasks;
 
 namespace Domain.TripAggregate
 {
-    public class Trip: AggregateRoot<Guid>
+    public class Trip : AggregateRoot<Guid>
     {
         #region Constractor
-        public Trip(Guid tripId, Guid leaderId, DateTime travelStartDate, DateTime travelEndDate, string locationName, TripStatus tripStatus, Price price): base(tripId)
+        public Trip(Guid tripId, Guid leaderId, DateTime travelStartDate, DateTime travelEndDate, string locationName, TripStatus tripStatus, Price price) : base(tripId)
         {
-            Tripid = tripId;
+            GuardAgainstTripId(tripId);
             GuardAgainstLeaderId(leaderId);
             GuardAgainstTravelStartDate(travelStartDate);
             GuardAgainstTravelEndDate(travelEndDate);
             GuardAgainstLocationName(locationName);
             GuardAgainstTravelDates(travelStartDate, travelEndDate);
             GuardAgainstTripStatus(tripStatus);
+            Tripid = tripId;
+            LeaderId = leaderId;
+            TravelStartDate = travelStartDate;
+            TravelEndDate = travelEndDate;
+            LocationName = locationName;
             Price = price;
             TripStatus = tripStatus;
         }
-        protected Trip(Guid tripId) :base( tripId)
+        protected Trip(Guid tripId) : base(tripId)
         {
 
         }
@@ -40,6 +45,13 @@ namespace Domain.TripAggregate
 
         #endregion
         #region GuardAgainst 
+        private void GuardAgainstTripId(Guid tripId)
+        {
+            if (tripId == Guid.Empty)
+            {
+                throw new TripIdIsInvalidException();  
+            }
+        }
 
 
         private static void GuardAgainstLeaderId(Guid leaderId)
@@ -52,7 +64,7 @@ namespace Domain.TripAggregate
         {
             if (travelStartDate == default)
                 throw new TravelStartDateIsNullException();
-            if(travelStartDate <  DateTime.Now)
+            if (travelStartDate < DateTime.Now)
                 throw new TravelStartDateISnotValidException();
 
 
@@ -63,7 +75,7 @@ namespace Domain.TripAggregate
             if (travelEndDate == default)
                 throw new TravelEndDateIsNullException();
 
-          
+
         }
 
         private static void GuardAgainstLocationName(string locationName)
@@ -71,23 +83,23 @@ namespace Domain.TripAggregate
             if (string.IsNullOrEmpty(locationName))
                 throw new LocationNameIsNullException();
         }
- 
+
 
         private static void GuardAgainstTravelDates(DateTime travelStartDate, DateTime travelEndDate)
         {
             if (travelStartDate >= travelEndDate)
                 throw new InvalidTravelDateException();
-        } 
+        }
 
 
         private static void GuardAgainstTripStatus(TripStatus tripStatus)
         {
 
-           
+
             if (Enum.IsDefined(typeof(TripStatus), tripStatus))
                 throw new InvalidTripStatusException();
-        } 
-        
+        }
+
 
         #endregion
 
