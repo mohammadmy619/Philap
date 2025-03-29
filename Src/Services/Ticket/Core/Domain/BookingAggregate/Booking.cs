@@ -76,7 +76,7 @@ namespace Domain.BookingAggregate
         private void GuardAgainstPrice(Price price)
         {
             
-            if (price == null || price.Amount <= 0)  
+            if (price.Amount <= 0)  
             {
                 throw new PriceIsInvalidException();
             }

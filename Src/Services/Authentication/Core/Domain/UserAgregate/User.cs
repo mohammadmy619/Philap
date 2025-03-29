@@ -14,7 +14,7 @@ namespace Domain.UserAgregate
         #region Constructor  
         public User(Guid id, string userName, string email, string passwordHash) : base(id)
         {
-            GuardAgainstId(id);
+    
             GuardAgainstUserName(userName);
             GuardAgainstEmail(email);
             GuardAgainstPasswordHash(passwordHash);
@@ -22,19 +22,19 @@ namespace Domain.UserAgregate
             UserName = userName;
             Email = email;
             PasswordHash = passwordHash;
-            UserRoles = new List<UserRole>(); // ایجاد لیست نقش‌ها  
+
         }
 
         protected User(Guid id) : base(id) { } // سازنده protected برای ORM  
         #endregion
 
         #region Properties  
+        
         public string UserName { get; private set; }
         public string Email { get; private set; }
         public string PasswordHash { get; private set; }
-        public ICollection<UserRole> UserRoles { get; private set; }
+        public ICollection<Guid> Roleds { get; private set; }
         #endregion
-
         #region Guard Against Methods  
         private void GuardAgainstId(Guid id)
         {

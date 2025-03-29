@@ -1,37 +1,33 @@
 ﻿using BuildingBlocks.Domain;
-using Domain.UserAgregate.Role.Exception;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.RoleAgregate.Exception;
+
 
 namespace Domain.RoleAgregate
 {
-    public class Role : Entity<int>
+    public class Role : AggregateRoot<Guid>
     {
         #region Constructor  
-        public Role(int id, string name) : base(id)
+        public Role(Guid id, string name) : base(id)
         {
-            GuardAgainstId(id);
+           
             GuardAgainstName(name);
 
             Name = name;
-            UserRoles = new List<UserRole>(); 
+       
         }
 
-        protected Role(int id) : base(id) { } 
+        protected Role(Guid id) : base(id) { }
         #endregion
 
         #region Properties  
         public string Name { get; private set; }  
-        public ICollection<UserRole> UserRoles { get; private set; } 
+        public ICollection<Guid> UserIds { get; private set; } 
         #endregion
 
         #region Guard Against Methods  
-        private static void GuardAgainstId(int id)
+        private static void GuardAgainstId(Guid id)
         {
-            if (id <= 0) 
+            if (id == Guid.Empty)
                 throw new RoleIdIsInvalidException();
         }
 

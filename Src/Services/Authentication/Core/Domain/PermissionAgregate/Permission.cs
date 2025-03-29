@@ -1,5 +1,5 @@
 ﻿using BuildingBlocks.Domain;
-using Domain.UserAgregate.Permission.Exception;
+using Domain.PermissionAgregate.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,30 +8,31 @@ using System.Threading.Tasks;
 
 namespace Domain.PermissionAgregate
 {
-    public class Permission : Entity<int>
+    public class Permission : AggregateRoot<Guid>
     {
         #region Constructor  
-        public Permission(int id, string name) : base(id)
+        public Permission(Guid id, string name) : base(id)
         {
-            GuardAgainstId(id);
+        
             GuardAgainstName(name);
 
             Name = name;
-            Roles = new List<RoleAgregate.Role>(); 
+            
         }
 
-        protected Permission(int id) : base(id) { } 
+        protected Permission(Guid id) : base(id) { }
         #endregion
 
         #region Properties  
+
         public string Name { get; private set; }
-        public ICollection<RoleAgregate.Role> Roles { get; private set; }
+        public ICollection<Guid> RoleIds { get; private set; }
         #endregion
 
         #region Guard Against Methods  
-        private static void GuardAgainstId(int id)
+        private static void GuardAgainstId(Guid id)
         {
-            if (id <= 0) 
+            if (id == Guid.Empty)
                 throw new PermissionIdIsInvalidException();
         }
 
