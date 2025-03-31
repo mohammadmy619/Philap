@@ -15,7 +15,7 @@ namespace Domain.RoleAgregate.Exception
 
     public class RoleNameIsNullException : DomainException
     {
-        public RoleNameIsNullException(string message = "Role name cannot be null or empty.", string code = "0874002")
+        public RoleNameIsNullException(string message = "Role  cannot be null or empty.", string code = "0874002")
             : base(message, code) { }
     }
 }

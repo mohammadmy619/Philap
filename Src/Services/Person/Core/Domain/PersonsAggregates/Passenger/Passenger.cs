@@ -19,9 +19,9 @@ namespace Domain.Persons.Passenger
 
         #region Constructor  
 
-        protected Passenger(Guid Id, List<Guid>? TripIds, string name, string lastName, string email, string phoneNumber,
+        protected Passenger(List<Guid>? TripIds, string name, string lastName, string email, string phoneNumber,
             DateTime dateOfBirth, Gender gender, Address address, string nationality, string passportNumber, List<string> frequentFlyerNumbers)
-            : base(Id, TripIds, name, lastName, email, phoneNumber, dateOfBirth, gender, address, nationality)
+            : base( TripIds, name, lastName, email, phoneNumber, dateOfBirth, gender, address, nationality)
         {
             GuardAgainstPassportNumber(passportNumber);
             GuardAgainstFrequentFlyerNumbers(frequentFlyerNumbers);

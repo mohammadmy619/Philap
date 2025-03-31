@@ -22,8 +22,8 @@ namespace Domain.BookingAggregate
 
         #region Constructor  
 
-        public Booking(Guid id, Guid tripId, Guid ticketId, Guid passengerId, DateTime purchaseDate, Price price)
-            : base(id)
+        public Booking( Guid tripId, Guid ticketId, Guid passengerId, DateTime purchaseDate, Price price)
+            
         {
             GuardAgainstTripId(tripId);
             GuardAgainstTicketId(ticketId);

@@ -29,5 +29,10 @@ namespace Domain.UserAgregate.Exception
     {
         public PasswordHashIsNullException(string message = "Password hash cannot be null or empty.", string code = "0814004")
             : base(message, code) { }
+    } 
+    public class RollIdNotValidsException : DomainException
+    {
+        public RollIdNotValidsException(string message = "RollIds Not Valids Exception", string code = "0814055")
+            : base(message, code) { }
     }
 }

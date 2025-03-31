@@ -7,7 +7,7 @@ namespace Domain.RoleAgregate
     public class Role : AggregateRoot<Guid>
     {
         #region Constructor  
-        public Role(Guid id, string name) : base(id)
+        public Role(string name) 
         {
            
             GuardAgainstName(name);
@@ -16,12 +16,12 @@ namespace Domain.RoleAgregate
        
         }
 
-        protected Role(Guid id) : base(id) { }
+        protected Role() { }
         #endregion
 
         #region Properties  
         public string Name { get; private set; }  
-        public ICollection<Guid> UserIds { get; private set; } 
+        public ICollection<Guid> PermissionIds { get; private set; } 
         #endregion
 
         #region Guard Against Methods  

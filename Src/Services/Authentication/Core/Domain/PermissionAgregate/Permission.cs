@@ -11,7 +11,7 @@ namespace Domain.PermissionAgregate
     public class Permission : AggregateRoot<Guid>
     {
         #region Constructor  
-        public Permission(Guid id, string name) : base(id)
+        public Permission( string name) 
         {
         
             GuardAgainstName(name);
@@ -20,7 +20,7 @@ namespace Domain.PermissionAgregate
             
         }
 
-        protected Permission(Guid id) : base(id) { }
+        protected Permission()  { }
         #endregion
 
         #region Properties  

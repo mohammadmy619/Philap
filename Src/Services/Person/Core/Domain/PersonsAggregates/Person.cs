@@ -26,7 +26,7 @@ namespace Domain.Persons
 
         #endregion
         #region Constractor
-        protected Person(Guid Id, List<Guid> TripIds, string name, string lastName, string email, string phoneNumber, DateTime dateOfBirth, Gender gender, Address address, string nationality) : base(Id)
+        protected Person( List<Guid> TripIds, string name, string lastName, string email, string phoneNumber, DateTime dateOfBirth, Gender gender, Address address, string nationality)
         {
             GuardAgainstLeaderId(Id);
             GuardAgainstTripIds(TripIds);
@@ -37,7 +37,7 @@ namespace Domain.Persons
             GuardAgainstDateOfBirth(dateOfBirth);
             GuardAgainstGender(gender);
             GuardAgainstNationality(nationality);
-            Id = Guid.NewGuid();
+            
             Name = name;
             LastName = lastName;
             Email = email;
@@ -48,7 +48,7 @@ namespace Domain.Persons
             Nationality = nationality;
         }
 
-        private Person(Guid Id) : base(Id)
+        private Person()
         {
                 
         }

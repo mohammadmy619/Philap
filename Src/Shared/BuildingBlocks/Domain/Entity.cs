@@ -4,10 +4,7 @@ public abstract class Entity<TId> where TId : notnull
 {
     public TId Id { get; protected set; }
 
-    protected Entity(TId id)
-    {
-        Id = id;
-    }
+  
 
     public override bool Equals(object? obj)
         => obj is not null &&

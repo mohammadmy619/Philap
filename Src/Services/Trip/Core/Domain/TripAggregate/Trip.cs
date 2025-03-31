@@ -12,16 +12,15 @@ namespace Domain.TripAggregate
     public class Trip : AggregateRoot<Guid>
     {
         #region Constractor
-        public Trip(Guid tripId, Guid leaderId, DateTime travelStartDate, DateTime travelEndDate, string locationName, TripStatus tripStatus, Price price) : base(tripId)
+        public Trip( Guid leaderId, DateTime travelStartDate, DateTime travelEndDate, string locationName, TripStatus tripStatus, Price price) 
         {
-            GuardAgainstTripId(tripId);
+         
             GuardAgainstLeaderId(leaderId);
             GuardAgainstTravelStartDate(travelStartDate);
             GuardAgainstTravelEndDate(travelEndDate);
             GuardAgainstLocationName(locationName);
             GuardAgainstTravelDates(travelStartDate, travelEndDate);
-            GuardAgainstTripStatus(tripStatus);
-            Tripid = tripId;
+            GuardAgainstTripStatus(tripStatus);   
             LeaderId = leaderId;
             TravelStartDate = travelStartDate;
             TravelEndDate = travelEndDate;
@@ -29,7 +28,7 @@ namespace Domain.TripAggregate
             Price = price;
             TripStatus = tripStatus;
         }
-        protected Trip(Guid tripId) : base(tripId)
+        protected Trip() 
         {
 
         }

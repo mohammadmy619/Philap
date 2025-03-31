@@ -1,4 +1,5 @@
-﻿using Domain.RoleAgregate;
+﻿using BuildingBlocks.Interface;
+using Domain.RoleAgregate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Domain.UserAgregate
 {
-    public interface IUserRepository
+    public interface IUserRepository: IRepository
     {
    
-        Task AddUserAsync(User user);
-        Task UpdateUserAsync(User user);
-        Task DeleteUserAsync(int userId);
-        Task<User> GetUserByIdAsync(int userId);
-        Task<IEnumerable<User>> GetAllUsersAsync();
-        Task<IEnumerable<User>> FindUsersAsync(Func<User, bool> predicate);
+        Task AddUserAsync(User user,CancellationToken cancellationToken);
+        Task UpdateUserAsync(User user, CancellationToken cancellationToken);
+        Task DeleteUserAsync(Guid userId, CancellationToken cancellationToken);
+        Task<User> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken);
+        Task<IEnumerable<User>> GetAllUsersAsync( CancellationToken cancellationToken);
+        Task<IEnumerable<User>> FindUsersAsync(Func<User, bool> predicate, CancellationToken cancellationToken);
 
         // Save changes  
-        Task SaveChangesAsync(); // ذخیره تغییرات   
+        Task SaveChangesAsync(CancellationToken cancellationToken); // ذخیره تغییرات   
     }
 }

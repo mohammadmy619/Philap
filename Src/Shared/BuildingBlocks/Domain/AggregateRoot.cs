@@ -1,12 +1,13 @@
 ﻿namespace BuildingBlocks.Domain;
-public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot
+public abstract class AggregateRoot<TId> :  IAggregateRoot
     where TId : notnull
 {
+    public TId Id { get; protected set; }
     public IReadOnlyCollection<IDomainEvent> Events => [.. _events];
 
     private readonly List<IDomainEvent> _events;
 
-    protected AggregateRoot(TId id) : base(id)
+    protected AggregateRoot() 
     {
         _events = [];
     }

@@ -17,6 +17,11 @@
 
   <ItemGroup>
     <Folder Include="MapperModel\" />
+    <Folder Include="Permission\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>
