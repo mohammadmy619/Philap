@@ -16,6 +16,7 @@ namespace Domain.PermissionAgregate
         Task<Permission> GetPermissionByIdAsync(int permissionId, CancellationToken cancellationToken);
         Task<IEnumerable<Permission>> GetAllPermissionsAsync(CancellationToken cancellationToken);
         Task<IEnumerable<Permission>> FindPermissionsAsync(Func<Permission, bool> predicate, CancellationToken cancellationToken);
+        Task<IEnumerable<Guid>> GetPermissionIdsAsync(IEnumerable<Guid> PermissionId, CancellationToken cancellationToken);
 
         // Save changes  
         Task SaveChangesAsync(CancellationToken cancellationToken); // ذخیره تغییرات 

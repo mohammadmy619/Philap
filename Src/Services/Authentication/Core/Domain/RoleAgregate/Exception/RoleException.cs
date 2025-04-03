@@ -18,4 +18,9 @@ namespace Domain.RoleAgregate.Exception
         public RoleNameIsNullException(string message = "Role  cannot be null or empty.", string code = "0874002")
             : base(message, code) { }
     }
+    public class PermissionIdNotValidsException : DomainException
+    {
+        public PermissionIdNotValidsException(string message = "Permission Not Valids Exception", string code = "0814055")
+            : base(message, code) { }
+    }
 }

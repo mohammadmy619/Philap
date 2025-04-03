@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Domain.Domain_Services;
 using Domain.RoleAgregate;
 using Domain.RoleAgregate.Exception;
 using MediatR;
 
 namespace Application.Role.CreateRole
 {
-    public class CreateRoleCommandHandler(IRoleRepository _roleRepository) : IRequestHandler<CreateRoleCommand, CreateRoleResponse>
+    public class CreateRoleCommandHandler(IRoleRepository _roleRepository, IPermissonValidationService _PermissonValidationService) : IRequestHandler<CreateRoleCommand, CreateRoleResponse>
     {
    
         public async Task<CreateRoleResponse> Handle(CreateRoleCommand request, CancellationToken cancellationToken)
         {
-            if (request.Name == null)
-            {
-                throw new RoleNameIsNullException();  
-            }
+           
             var role = new Domain.RoleAgregate.Role( request.Name);
-            //////todo : use domain service
+            if (request.PermissionIds.Any())await _PermissonValidationService.ValidatePermissions(request.PermissionIds, role, cancellationToken);
             await _roleRepository.AddRoleAsync(role, cancellationToken);
             await _roleRepository.SaveChangesAsync(cancellationToken);
             return new CreateRoleResponse(request.PermissionIds, role.Name);

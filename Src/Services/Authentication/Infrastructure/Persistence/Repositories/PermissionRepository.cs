@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Domain.PermissionAgregate;
+using Domain.RoleAgregate;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -53,9 +54,19 @@ public class PermissionRepository(AuthenticationDbContext _context) : IPermissio
             return _context.Permission.AsQueryable().Where(predicate).ToList();
         }, cancellationToken);
     }
+    public  async Task<IEnumerable<Guid>> GetPermissionIdsAsync(IEnumerable<Guid> PermissionId, CancellationToken cancellationToken)
+    {
+        return await _context.Permission
+     .Where(role => PermissionId.Contains(role.Id))
+     .Select(s => s.Id)
+     .ToListAsync(cancellationToken);
+    }
 
+   
     public async Task SaveChangesAsync(CancellationToken cancellationToken)
     {
         await _context.SaveChangesAsync(cancellationToken); // ذخیره تغییرات  
     }
+
+   
 }

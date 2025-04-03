@@ -25,7 +25,7 @@ namespace Application.User.CreateUser
                 email: request.Email,
                 passwordHash: passwordHash
                 );
-            await _RoleValidationService.ValidateRoleIdsAsync(request.RoleId, user,cancellationToken);
+            if (request.RoleId.Any()) await _RoleValidationService.ValidateRoleIdsAsync(request.RoleId, user, cancellationToken);
 
 
             // Persist

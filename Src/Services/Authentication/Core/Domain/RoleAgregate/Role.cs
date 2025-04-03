@@ -1,5 +1,7 @@
 ﻿using BuildingBlocks.Domain;
 using Domain.RoleAgregate.Exception;
+using Domain.UserAgregate.Exception;
+using System.Xml.Linq;
 
 
 namespace Domain.RoleAgregate
@@ -35,6 +37,29 @@ namespace Domain.RoleAgregate
         {
             if (string.IsNullOrWhiteSpace(name)) 
                 throw new RoleNameIsNullException();
+        }
+        #endregion
+
+        #region Methods
+        public void AddPermissionIdsToRole(List<Guid> PermissionToAdd)
+        {
+            if (PermissionToAdd == null || PermissionToAdd.Count == 0)
+                throw new Exception.PermissionIdNotValidsException();
+            PermissionIds.Clear();
+            foreach (var role in PermissionToAdd)
+            {
+                if (!PermissionIds.Contains(role))
+                {
+                    PermissionIds.Add(role);
+                }
+            }
+        }
+
+        public void UpdateRole(Guid id,string name)
+        {
+            GuardAgainstName(name);
+            Id = id;
+            Name = name;
         }
         #endregion
     }

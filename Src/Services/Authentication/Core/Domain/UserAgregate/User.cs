@@ -70,7 +70,7 @@ namespace Domain.UserAgregate
         public void AddRolesToUser(List<Guid> rolesToAdd)
         {
             if (rolesToAdd == null || rolesToAdd.Count == 0)
-                throw new RollIdNotValidsException();
+                throw new RoleIdNotValidsException();
             foreach (var role in rolesToAdd)
             {
                 if (!Roleds.Contains(role))
@@ -80,11 +80,12 @@ namespace Domain.UserAgregate
             }
         }
 
-        public void UpdateUser(string userName, string email, string passwordHash)
+        public void UpdateUser(Guid id,string userName, string email, string passwordHash)
         {
             GuardAgainstUserName(userName);
             GuardAgainstEmail(email);
             GuardAgainstPasswordHash(passwordHash);
+            Id = id;
             UserName = userName;
             Email = email;
             PasswordHash = passwordHash;
