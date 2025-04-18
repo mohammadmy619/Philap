@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 
-public class UserRepository(AuthenticationDbContext _context) : IUserRepository
+public class UserRepository(IdentityDbContext _context) : IUserRepository
 {
 
     public async Task AddUserAsync(User user, CancellationToken cancellationToken)

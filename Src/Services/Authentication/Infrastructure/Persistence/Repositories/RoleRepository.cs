@@ -9,7 +9,7 @@ using Domain.UserAgregate;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-public class RoleRepository(AuthenticationDbContext _context) : IRoleRepository
+public class RoleRepository(IdentityDbContext _context) : IRoleRepository
 {
 
 

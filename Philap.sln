@@ -63,7 +63,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Person.Api", "Src\Services\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ocelot.ApiGateways", "Ocelot.ApiGateways\Ocelot.ApiGateways.csproj", "{8FB226FC-6E76-2224-6FEC-5A5BE2F30ECF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentication", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{8B5B369C-47C3-4B9D-A083-C82624DC1F4E}"
 EndProject
@@ -75,7 +75,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Src\Services
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Src\Services\Authentication\Core\Domain\Domain.csproj", "{2BD58E04-EAE6-496C-A8B4-C53FB3BDD402}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authentication.Api", "Src\Services\Authentication\Presentation\Authentication.Api\Authentication.Api.csproj", "{DA9DCA4D-8684-E561-26EA-23BCA6B60791}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Api", "Src\Services\Authentication\Presentation\Authentication.Api\Identity.Api.csproj", "{DA9DCA4D-8684-E561-26EA-23BCA6B60791}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Src\Services\Authentication\Infrastructure\Infrastructure\Infrastructure\Infrastructure.csproj", "{30BEB575-C2DE-4562-B832-03E34F95FFD5}"
 EndProject

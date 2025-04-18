@@ -7,9 +7,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Persistence
 {
-    public class AuthenticationDbContext : DbContext
+    public class IdentityDbContext : DbContext
     {
-        public AuthenticationDbContext(DbContextOptions options) : base(options)
+        public IdentityDbContext(DbContextOptions options) : base(options)
         {
         }
 
@@ -22,7 +22,7 @@ namespace Persistence
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder
-                .ApplyConfigurationsFromAssembly(typeof(AuthenticationDbContext).Assembly);
+                .ApplyConfigurationsFromAssembly(typeof(IdentityDbContext).Assembly);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

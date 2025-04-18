@@ -8,7 +8,7 @@ using Domain.RoleAgregate;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-public class PermissionRepository(AuthenticationDbContext _context) : IPermissionRepository
+public class PermissionRepository(IdentityDbContext _context) : IPermissionRepository
 {
    
 

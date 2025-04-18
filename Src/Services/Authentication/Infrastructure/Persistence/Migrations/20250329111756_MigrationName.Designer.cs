@@ -11,7 +11,7 @@ using Persistence;
 
 namespace Persistence.Migrations
 {
-    [DbContext(typeof(AuthenticationDbContext))]
+    [DbContext(typeof(IdentityDbContext))]
     [Migration("20250329111756_MigrationName")]
     partial class MigrationName
     {
