@@ -71,15 +71,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{9CE71F76-B9B6-45EB-83E6-AD50507FC407}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Src\Services\Authentication\Core\Application\Application.csproj", "{895ECD09-B059-4603-A1AD-06690BFCEC12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Src\Services\Identity\Core\Application\Application.csproj", "{895ECD09-B059-4603-A1AD-06690BFCEC12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Src\Services\Authentication\Core\Domain\Domain.csproj", "{2BD58E04-EAE6-496C-A8B4-C53FB3BDD402}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Src\Services\Identity\Core\Domain\Domain.csproj", "{2BD58E04-EAE6-496C-A8B4-C53FB3BDD402}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Api", "Src\Services\Authentication\Presentation\Authentication.Api\Identity.Api.csproj", "{DA9DCA4D-8684-E561-26EA-23BCA6B60791}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Api", "Src\Services\Identity\Presentation\Identity.Api\Identity.Api.csproj", "{DA9DCA4D-8684-E561-26EA-23BCA6B60791}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Src\Services\Authentication\Infrastructure\Infrastructure\Infrastructure\Infrastructure.csproj", "{30BEB575-C2DE-4562-B832-03E34F95FFD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Src\Services\Identity\Infrastructure\Infrastructure\Infrastructure\Infrastructure.csproj", "{30BEB575-C2DE-4562-B832-03E34F95FFD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Src\Services\Authentication\Infrastructure\Persistence\Persistence.csproj", "{F13BDACA-0DBB-4307-811B-13806448BF53}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Src\Services\Identity\Infrastructure\Persistence\Persistence.csproj", "{F13BDACA-0DBB-4307-811B-13806448BF53}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Trip", "Trip", "{B27693EE-80A6-4AD4-B446-36B7D5662333}"
 EndProject
