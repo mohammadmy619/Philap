@@ -24,7 +24,7 @@ public class PermissionRepository(IdentityDbContext _context) : IPermissionRepos
         await Task.CompletedTask;
     }
 
-    public async Task DeletePermissionAsync(int permissionId, CancellationToken cancellationToken)
+    public async Task DeletePermissionAsync(Guid permissionId, CancellationToken cancellationToken)
     {
         var permission = await _context.Permission.FindAsync(new object[] { permissionId }, cancellationToken);
         if (permission != null)
@@ -37,7 +37,7 @@ public class PermissionRepository(IdentityDbContext _context) : IPermissionRepos
         }
     }
 
-    public async Task<Permission> GetPermissionByIdAsync(int permissionId, CancellationToken cancellationToken)
+    public async Task<Permission> GetPermissionByIdAsync(Guid permissionId, CancellationToken cancellationToken)
     {
         return await _context.Permission.FindAsync(new object[] { permissionId }, cancellationToken);
     }

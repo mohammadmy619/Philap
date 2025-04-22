@@ -24,12 +24,17 @@ namespace Domain.UserAgregate.Exception
         public EmailIsNullException(string message = "Email cannot be null or empty.", string code = "0814003")
             : base(message, code) { }
     }
+    public class InvalidEmailException : DomainException
+    {
+        public InvalidEmailException(string message = " The provided email is not in a valid format.", string code = "0814003")
+            : base(message, code) { }
+    }
 
     public class PasswordHashIsNullException : DomainException
     {
         public PasswordHashIsNullException(string message = "Password hash cannot be null or empty.", string code = "0814004")
             : base(message, code) { }
-    } 
+    }
     public class RoleIdNotValidsException : DomainException
     {
         public RoleIdNotValidsException(string message = "PermissionIds Not Valids Exception", string code = "0814012")

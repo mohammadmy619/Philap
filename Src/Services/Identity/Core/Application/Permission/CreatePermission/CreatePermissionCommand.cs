@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace Application.Permission.CreatePermission
 {
-    public record CreatePermissionCommand(string Name) : IRequest<CreatePermissionResponse>;
+    public record UpdatePermissionCommand(string Name,List<Guid> RoleIds) : IRequest<CreatePermissionResponse>;
    
 }

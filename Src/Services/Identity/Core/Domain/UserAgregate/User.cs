@@ -2,11 +2,13 @@
 using Domain.Domain_Services;
 using Domain.RoleAgregate;
 using Domain.RoleAgregate.Exception;
+using Domain.Services;
 using Domain.UserAgregate.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 
@@ -15,17 +17,17 @@ namespace Domain.UserAgregate
     public class User : AggregateRoot<Guid>
     {
         #region Constructor  
-
-        public User(string userName, string email, string passwordHash)
-        {
-
+        private readonly IEmailService _emailService;
+        public  User(string userName, string email, string passwordHash, IEmailService? emailService=null)
+        { 
             GuardAgainstUserName(userName);
-            GuardAgainstEmail(email);
+            GuardAgainstEmail(email, emailService);
             GuardAgainstPasswordHash(passwordHash);
             UserName = userName;
             Email = email;
             PasswordHash = passwordHash;
-            Roleds = new List<Guid>();
+            _emailService = emailService;
+            _RoleIds = new List<Guid>();
 
         }
 
@@ -37,7 +39,9 @@ namespace Domain.UserAgregate
         public string UserName { get; private set; }
         public string Email { get; private set; }
         public string PasswordHash { get; private set; }
-        public ICollection<Guid> Roleds { get; private set; }
+
+        public readonly List<Guid> _RoleIds = new List<Guid>();
+        public IReadOnlyCollection<Guid> RoleIds => _RoleIds.AsReadOnly();
         #endregion
         #region Guard Against Methods  
         private void GuardAgainstId(Guid id)
@@ -51,12 +55,20 @@ namespace Domain.UserAgregate
             if (string.IsNullOrWhiteSpace(userName))
                 throw new UserNameIsNullException();
         }
-
-        private static void GuardAgainstEmail(string email)
+   
+        private static void GuardAgainstEmail(string email, IEmailService emailService)
         {
             if (string.IsNullOrWhiteSpace(email))
                 throw new EmailIsNullException();
-            // می‌توانید بررسی الگوی ایمیل را نیز اضافه کنید  
+           
+            if (!emailService.CheckEmail(email))
+            {
+                throw new InvalidEmailException();
+            }
+            //var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            //if (!Regex.IsMatch(email, emailPattern))
+            //    throw new InvalidEmailException("The email format is invalid.");
+
         }
 
         private static void GuardAgainstPasswordHash(string passwordHash)
@@ -69,21 +81,23 @@ namespace Domain.UserAgregate
        
         public void AddRolesToUser(List<Guid> rolesToAdd)
         {
+
             if (rolesToAdd == null || rolesToAdd.Count == 0)
                 throw new RoleIdNotValidsException();
             foreach (var role in rolesToAdd)
             {
-                if (!Roleds.Contains(role))
+                if (!_RoleIds.Contains(role))
                 {
-                    Roleds.Add(role);
+                    _RoleIds.Add(role);
                 }
             }
-        }
+        }  
 
-        public void UpdateUser(Guid id,string userName, string email, string passwordHash)
+        public void UpdateUser(Guid id,string userName, string email, string passwordHash, IEmailService emailService)
         {
+            GuardAgainstId(id);
             GuardAgainstUserName(userName);
-            GuardAgainstEmail(email);
+            GuardAgainstEmail(email, emailService);
             GuardAgainstPasswordHash(passwordHash);
             Id = id;
             UserName = userName;

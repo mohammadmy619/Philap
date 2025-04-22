@@ -17,5 +17,20 @@ namespace Domain.PermissionAgregate.Exception
     {
         public PermissionNameIsNullException(string message = "Permission name cannot be null or empty.", string code = "0864002")
             : base(message, code) { }
+    } 
+    public class DuplicateAccessControlException : DomainException
+    {
+        public DuplicateAccessControlException(string message = "Duplicate Access Control", string code = "0864003")
+            : base(message, code) { }
+    }
+    public class NotfoundAccessControlException : DomainException
+    {
+        public NotfoundAccessControlException(string message = "found Access Control", string code = "0864013")
+            : base(message, code) { }
+    }
+    public class RoleIdNotValidsException : DomainException
+    {
+        public RoleIdNotValidsException(string message = "PermissionIds Not Valids Exception", string code = "0814012")
+            : base(message, code) { }
     }
 }

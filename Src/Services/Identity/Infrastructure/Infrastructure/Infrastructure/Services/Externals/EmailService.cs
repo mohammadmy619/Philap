@@ -1,4 +1,5 @@
 ﻿using Application.ApplicationServices;
+using Domain.Services;
 using Microsoft.Extensions.Options;
 using System.Net;
 using System.Net.Mail;
@@ -8,6 +9,28 @@ namespace Infrastructure.Services.Externals;
 public class EmailService(IOptions<EmailSettings> options) : IEmailService
 {
     private readonly EmailSettings _emailSettings = options.Value;
+
+    public bool CheckEmail(string Email)
+    {
+
+        var trimmedEmail = Email.Trim();
+
+    
+        try
+        {
+            var addr = new MailAddress(trimmedEmail);
+      
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+
+
+
+
+    }
 
     public async Task SendAsync(string email, string subject, string content, CancellationToken cancellationToken)
     {

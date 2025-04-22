@@ -37,7 +37,7 @@ namespace Application.User.CreateUser
                 UserName: user.UserName,
                 Email: user.Email,
                 CreatedAt: DateTime.UtcNow,
-                AssignedRoles: user.Roleds?.ToList() ?? new List<Guid>());
+                AssignedRoles: user?._RoleIds.ToList() ?? new List<Guid>());
         }
     }
 }

@@ -24,7 +24,10 @@ namespace Application.User.UpdateUser
             if (!string.IsNullOrEmpty(request.Password)) _passwordHasher.EncodePasswordMd5(request.Password);
 
             user.UpdateUser(request.UserId,request.UserName,request.Email,request.Password);
+
             if(request.RoleId.Any()) await _RoleValidationService.ValidateRoleIdsAsync(request.RoleId, user, cancellationToken);
+
+
 
             await _userRepository.UpdateUserAsync(user, cancellationToken);
 
