@@ -6,11 +6,20 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Domain.UserAgregate;
 using Domain.UserAgregate.Exception;
+using Domain.Services;
+using Infrastructure.Services.Externals;
+using Moq;
 
 namespace IdentityDomain_Test
 {
     public class UserConstructorTests
     {
+
+        public UserConstructorTests()
+        {
+                
+        }
+
         [Fact]
         public void Constructor_WithValidParameters_InitializesProperties()
         {
@@ -18,9 +27,9 @@ namespace IdentityDomain_Test
             string userName = "testuser";
             string email = "test@example.com";
             string passwordHash = "hashedpassword123";
-
+            var mockEmailService = new Mock<IEmailService>();
             // Act
-            var user = new User(userName, email, passwordHash);
+            var user = new User(userName, email, passwordHash, mockEmailService.Object);
 
             // Assert
             Assert.Equal(userName, user.UserName);
@@ -36,8 +45,11 @@ namespace IdentityDomain_Test
         [InlineData("  ", "test@example.com", "hashedpassword123")]
         public void Constructor_WithInvalidUserName_ThrowsException(string invalidUserName, string email, string passwordHash)
         {
+            //Areange
+            var mockEmailService = new Mock<IEmailService>();
+
             // Act
-            Action user = () => new User(invalidUserName, email, passwordHash);
+            Action user = () => new User(invalidUserName, email, passwordHash, mockEmailService.Object);
 
 
             // & Assert
@@ -51,19 +63,25 @@ namespace IdentityDomain_Test
         [InlineData("testuser", "  ", "hashedpassword123")]
         public void Constructor_WithInvalidEmail_ThrowsException(string userName, string invalidEmail, string passwordHash)
         {
+            //Areange
+            var mockEmailService = new Mock<IEmailService>();
 
-            Action user = () => new User(userName, invalidEmail, passwordHash);
+
+
+            Action user = () => new User(userName, invalidEmail, passwordHash, mockEmailService.Object);
             // Act & Assert
             user.Should().Throw<EmailIsNullException>("Email cannot be null or empty.");
         }
         [Theory]
         [InlineData("invalid-email")] // Invalid format
-        //[InlineData("user@domain")]   // Missing TLD
-        //[InlineData("@domain.com")]   // Missing local part
+   
         public void Constructor_WithInvalidEmailFormat_ThrowsInvalidEmailException(string invalidEmail)
         {
             // Arrange & Act
-            Action act = () => new User("testuser", invalidEmail, "hashedpassword123");
+            //Areange
+            var mockEmailService = new Mock<IEmailService>();
+
+            Action act = () => new User("testuser", invalidEmail, "hashedpassword123", mockEmailService.Object);
 
             // Assert
             act.Should().Throw<InvalidEmailException>()
@@ -76,8 +94,12 @@ namespace IdentityDomain_Test
         [InlineData("testuser", "test@example.com", "  ")]
         public void Constructor_WithInvalidPasswordHash_ThrowsException(string userName, string email, string invalidPasswordHash)
         {
+            //Areange
+            var mockEmailService = new Mock<IEmailService>();
+
+
             // Act & Assert
-            Assert.Throws<ArgumentException>(() => new User(userName, email, invalidPasswordHash));
+            Assert.Throws<ArgumentException>(() => new User(userName, email, invalidPasswordHash,mockEmailService.Object));
         }
     }
 }

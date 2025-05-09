@@ -68,5 +68,8 @@ public class PermissionRepository(IdentityDbContext _context) : IPermissionRepos
         await _context.SaveChangesAsync(cancellationToken); // ذخیره تغییرات  
     }
 
-   
+    public Task<IEnumerable<Permission>> GetAllAccessControlAsync(CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }

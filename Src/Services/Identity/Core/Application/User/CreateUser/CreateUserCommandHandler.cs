@@ -2,10 +2,11 @@
 using MediatR;
 using Application.services;
 using Domain.Domain_Services;
+using Domain.Services;
 
 namespace Application.User.CreateUser
 {
-    public class CreateUserCommandHandler(IUserRepository _userRepository, IRoleValidationService _RoleValidationService, PasswordHelper _passwordHasher) : IRequestHandler<CreateUserCommand, CreateUserResponse>
+    public class CreateUserCommandHandler(IUserRepository _userRepository, IRoleValidationService _RoleValidationService, PasswordHelper _passwordHasher, IEmailService _EmailService) : IRequestHandler<CreateUserCommand, CreateUserResponse>
     {
 
         public async Task<CreateUserResponse> Handle(
@@ -23,7 +24,8 @@ namespace Application.User.CreateUser
             var user = new Domain.UserAgregate.User(
                 userName: request.UserName,
                 email: request.Email,
-                passwordHash: passwordHash
+                passwordHash: passwordHash,
+                _EmailService
                 );
             if (request.RoleId.Any()) await _RoleValidationService.ValidateRoleIdsAsync(request.RoleId, user, cancellationToken);
 

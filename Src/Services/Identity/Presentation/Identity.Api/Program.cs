@@ -1,3 +1,5 @@
+using Scalar.AspNetCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
@@ -16,6 +18,12 @@ app.MapDefaultEndpoints();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference(opt =>
+    {
+        opt.Title = "Identity";
+        opt.Theme = ScalarTheme.Purple;
+        opt.DefaultHttpClient = new(ScalarTarget.Http, ScalarClient.Http11);
+    });
 }
 
 app.UseHttpsRedirection();

@@ -18,7 +18,7 @@ namespace Domain.UserAgregate
     {
         #region Constructor  
         private readonly IEmailService _emailService;
-        public  User(string userName, string email, string passwordHash, IEmailService? emailService=null)
+        public  User(string userName, string email, string passwordHash, IEmailService emailService)
         { 
             GuardAgainstUserName(userName);
             GuardAgainstEmail(email, emailService);
@@ -65,9 +65,7 @@ namespace Domain.UserAgregate
             {
                 throw new InvalidEmailException();
             }
-            //var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-            //if (!Regex.IsMatch(email, emailPattern))
-            //    throw new InvalidEmailException("The email format is invalid.");
+          
 
         }
 

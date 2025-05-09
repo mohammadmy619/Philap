@@ -4,10 +4,11 @@ using Application.services;
 using Application.User.Exceptions;
 using Application.User.CreateUser;
 using Domain.Domain_Services;
+using Domain.Services;
 
 namespace Application.User.UpdateUser
 {
-    public class UpdateUserCommandHandler(IUserRepository _userRepository, IRoleValidationService _RoleValidationService, PasswordHelper _passwordHasher) : IRequestHandler<UpdateUserCommand, UpdateUserResponse>
+    public class UpdateUserCommandHandler(IUserRepository _userRepository, IRoleValidationService _RoleValidationService, PasswordHelper _passwordHasher,IEmailService _EmailService) : IRequestHandler<UpdateUserCommand, UpdateUserResponse>
     {
        
 
@@ -23,7 +24,7 @@ namespace Application.User.UpdateUser
 
             if (!string.IsNullOrEmpty(request.Password)) _passwordHasher.EncodePasswordMd5(request.Password);
 
-            user.UpdateUser(request.UserId,request.UserName,request.Email,request.Password);
+            user.UpdateUser(request.UserId,request.UserName,request.Email,request.Password, _EmailService);
 
             if(request.RoleId.Any()) await _RoleValidationService.ValidateRoleIdsAsync(request.RoleId, user, cancellationToken);
 

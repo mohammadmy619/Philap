@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Application.Permission.CreatePermission
 {
-    public class CreatePermissionCommandHandler(IPermissionRepository _permissionRepository, IRoleValidationService _RoleValidationService) : IRequestHandler<UpdatePermissionCommand, CreatePermissionResponse>
+    public class CreatePermissionCommandHandler(IPermissionRepository _permissionRepository, IRoleValidationService _RoleValidationService) : IRequestHandler<CreatePermissionCommand, CreatePermissionResponse>
     {
       
 
-        public async Task<CreatePermissionResponse> Handle(UpdatePermissionCommand request, CancellationToken cancellationToken)
+        public async Task<CreatePermissionResponse> Handle(CreatePermissionCommand request, CancellationToken cancellationToken)
         {
            
             var permission = new Domain.PermissionAgregate.Permission(request.Name);
@@ -22,8 +22,6 @@ namespace Application.Permission.CreatePermission
        
             await _permissionRepository.AddPermissionAsync(permission, cancellationToken);
             await _permissionRepository.SaveChangesAsync(cancellationToken);
-
-           
             return new CreatePermissionResponse(permission.Id, permission.Name);
         }
     }
