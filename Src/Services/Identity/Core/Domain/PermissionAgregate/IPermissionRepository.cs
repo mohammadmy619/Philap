@@ -19,7 +19,7 @@ namespace Domain.PermissionAgregate
         Task<IEnumerable<Guid>> GetPermissionIdsAsync(IEnumerable<Guid> PermissionId, CancellationToken cancellationToken);
 
         //AccessControl methods
-        Task<IEnumerable<Permission>> GetAllAccessControlAsync(Guid permissionId,CancellationToken cancellationToken);
+        Task<IReadOnlyCollection<AccessControl>> GetAllAccessControlAsync(Guid permissionId,CancellationToken cancellationToken);
 
         // Save changes  
         Task SaveChangesAsync(CancellationToken cancellationToken); // ذخیره تغییرات 

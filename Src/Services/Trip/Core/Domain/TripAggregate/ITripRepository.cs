@@ -8,19 +8,21 @@ namespace Domain.TripAggregate
 {
     public interface ITripRepository
     {
+        Task AddTripAsync(Trip trip, CancellationToken cancellationToken);
 
-        void AddTripAsync(Trip trip);
+        Task UpdateTripAsync(Trip trip, CancellationToken cancellationToken);
 
-        Task UpdateTripAsync(Trip trip);
+        Task DeleteTripAsync(int tripId, CancellationToken cancellationToken);
 
-        Task DeleteTripAsync(int tripId);
+        Task<Trip> GetTripByIdAsync(Guid tripId, CancellationToken cancellationToken);
 
-        Task<Trip> GetTripByIdAsync(int tripId);
+        Task<IEnumerable<Trip>> GetAllTripsAsync(CancellationToken cancellationToken);
 
-        Task<IEnumerable<Trip>> GetAllTripsAsync();
+        Task<IReadOnlyCollection<Trip>> GetTripsWithPaginationAsync(
+                int pageNumber,
+                int pageSize,
+                CancellationToken cancellationToken);
 
-        Task<IEnumerable<Trip>> FindTripsAsync(Func<Trip, bool> predicate);
-
-        Task SaveChangesAsync();
+        Task SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

@@ -24,10 +24,8 @@ namespace Persistence.Configurations
                 .IsRequired() // الزامی بودن نام  
                 .HasMaxLength(100); // مقدار حداکثر طول نام  
 
-            //// تنظیم RoleIds به‌عنوان یک مجموعه، اگر نیاز به ارتباط داشته باشد  
-            //builder.HasMany<Role>() // فرض بر این است که RoleIds به یک موجودیت Role مرتبط است  
-            //    .WithMany() // یک رابطه چند به چند  
-            //    .UsingEntity(j => j.ToTable("RolePermissions")); // نام جدول میانجی برای رابطه  
+            builder.HasMany<AccessControl>();
+ 
         }
     }
 }

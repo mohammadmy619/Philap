@@ -10,4 +10,10 @@
     <PackageReference Include="MongoDB.EntityFrameworkCore" Version="8.2.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
 </Project>

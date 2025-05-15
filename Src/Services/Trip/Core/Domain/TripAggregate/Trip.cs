@@ -43,6 +43,26 @@ namespace Domain.TripAggregate
         public TripStatus TripStatus { get; private set; }
 
         #endregion
+        #region Methods
+        public void UpdateTrip(Guid Id, Guid leaderId, DateTime travelStartDate, DateTime travelEndDate, string locationName, TripStatus tripStatus, Price price)
+        {
+            GuardAgainstTripId(Id);
+            GuardAgainstLeaderId(leaderId);
+            GuardAgainstTravelStartDate(travelStartDate);
+            GuardAgainstTravelEndDate(travelEndDate);
+            GuardAgainstLocationName(locationName);
+            GuardAgainstTravelDates(travelStartDate, travelEndDate);
+            GuardAgainstTripStatus(tripStatus);
+            LeaderId = leaderId;
+            TravelStartDate = travelStartDate;
+            TravelEndDate = travelEndDate;
+            LocationName = locationName;
+            Price = price;
+            TripStatus = tripStatus;
+
+        }
+        #endregion
+
         #region GuardAgainst 
         private void GuardAgainstTripId(Guid tripId)
         {

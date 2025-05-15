@@ -68,8 +68,16 @@ public class PermissionRepository(IdentityDbContext _context) : IPermissionRepos
         await _context.SaveChangesAsync(cancellationToken); // ذخیره تغییرات  
     }
 
-    public Task<IEnumerable<Permission>> GetAllAccessControlAsync(CancellationToken cancellationToken)
+    public async Task<IEnumerable<Permission>> GetAllAccessControlAsync(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return  await _context.Permission.AsNoTracking().ToListAsync(cancellationToken);
+   
+    }
+
+    public async Task<IReadOnlyCollection<AccessControl>> GetAllAccessControlAsync(Guid permissionId, CancellationToken cancellationToken)
+    {
+       var res= await _context.Permission.AsNoTracking().Select(s => s.AccessControl).ToListAsync(cancellationToken);
+
+        return (IReadOnlyCollection<AccessControl>)res;
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Permission.CreatePermission;
+using Application.Permission.UpdatePermission;
 using Application.Role.CreateRole;
 using FluentValidation;
 

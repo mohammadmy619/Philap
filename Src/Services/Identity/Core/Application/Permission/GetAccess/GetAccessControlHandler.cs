@@ -17,8 +17,8 @@ namespace Application.Permission.GetAccess
            .GetAllAccessControlAsync(request.permissionId, cancellationToken);
 
             var responses = accessControls
-            .SelectMany(ac => ac.AccessControl.Select(item =>
-                new GetAccessControlResponse(item.Action, item.Resource)))
+            .Select(item =>
+                new GetAccessControlResponse(item.Action, item.Resource))
             .ToList();
 
             return responses;
