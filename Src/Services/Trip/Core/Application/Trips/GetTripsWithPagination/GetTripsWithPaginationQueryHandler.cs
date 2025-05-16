@@ -31,7 +31,8 @@ namespace Application.Trips.GetTripsWithPagination
                 trip.TravelStartDate,
                 trip.TravelEndDate,
                 trip.LocationName,
-                trip.Price.price,
+                trip.Price.Amount,
+                trip.Price.Currency,
                 trip.TripStatus
             )).ToList();
 

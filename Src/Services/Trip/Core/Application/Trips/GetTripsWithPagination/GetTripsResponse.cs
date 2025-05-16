@@ -14,6 +14,7 @@ namespace Application.Trips.GetTripsWithPagination
       DateTime TravelEndDate,
       string LocationName,
       decimal PriceAmount,
+      string PriceCurrency,
       TripStatus TripStatus
       );
 }

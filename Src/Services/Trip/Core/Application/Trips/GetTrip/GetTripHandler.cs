@@ -27,7 +27,8 @@ namespace Application.Trips.GetTrip
                          trip.TravelStartDate,
                          trip.TravelEndDate,
                          trip.LocationName,
-                         trip.Price.price.Scale,
+                         trip.Price.Amount,
+                         trip.Price.Currency,
                          trip.TripStatus);
         }
     }

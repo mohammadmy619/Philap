@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Domain.TripAggregate;
 
 namespace Application.Trips.GetTrip
-{
-    public record class GetTripResponse(  Guid TripId ,Guid LeaderId, DateTime TravelStartDa, DateTime TravelEndDate , string LocationName, decimal PriceAmount, TripStatus TripStatus) ;
+{ 
+    public record class GetTripResponse(  Guid TripId ,Guid LeaderId, DateTime TravelStartDa, DateTime TravelEndDate , string LocationName, decimal PriceAmount, string Currency,TripStatus TripStatus) ;
 
 }

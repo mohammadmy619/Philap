@@ -16,7 +16,7 @@ public class UpdateTripCommandHandler(ITripRepository _tripRepository) : IReques
         if (trip == null)
             throw new GetTripNotFoundException();
 
-        trip.UpdateTrip(request.TripId,request.LeaderId,request.TravelStartDate,request.TravelEndDate,request.LocationName,request.TripStatus,new  Price(request.PriceAmount));
+        trip.UpdateTrip(request.TripId,request.LeaderId,request.TravelStartDate,request.TravelEndDate,request.LocationName,request.TripStatus,new  Price(request.PriceAmount, request.PriceCurrency));
   
 
         await _tripRepository.UpdateTripAsync(trip, cancellationToken);

@@ -10,31 +10,44 @@ namespace Domain.TripAggregate
 {
    public class Price : ValueObject<Price>
     {
-        public Price(decimal price)
+        public Price(decimal Amount, string Currency)
         {
-            GuardAgainstPrice(price);
-            this.price = price;
+            GuardAgainstPrice(Amount);
+            GuardAgainstInvalidCurrency(Currency);
+            this.Amount = Amount;
+            this.Currency = Currency;
         }
 
-        public decimal price { get; private set; }
-
+        public decimal Amount { get; private set; }
+        public string Currency { get; private set; }
 
         #region GuardAgainst
-        private static void GuardAgainstPrice(decimal price)
+        private static void GuardAgainstPrice(decimal Amount)
         {
             // Check if price is less than or equal to zero  
-            if (price <= 0)
+            if (Amount <= 0)
             {
                 throw new InvalidPriceException();
             }
         }
+        private static void GuardAgainstInvalidCurrency(string currency)
+        {
+            if (string.IsNullOrWhiteSpace(currency))
+            {
+                throw new InvalidCurrencyException("Currency code cannot be null or empty.", nameof(currency));
+            }
 
+            if (currency.Length != 3 || !currency.All(char.IsUpper))
+            {
+                throw new InvalidCurrencyException("Currency code must be exactly 3 uppercase letters.", nameof(currency));
+            }
+        }
 
         #endregion
         public override IEnumerable<object> GetEqualityComponents()
         {
-            yield return price;
-
+            yield return Amount;
+            yield return Currency;
         }
     }
 }

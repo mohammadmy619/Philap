@@ -12,7 +12,7 @@ namespace Domain.TripAggregate
 
         Task UpdateTripAsync(Trip trip, CancellationToken cancellationToken);
 
-        Task DeleteTripAsync(int tripId, CancellationToken cancellationToken);
+        Task DeleteTripAsync(Guid tripId, CancellationToken cancellationToken);
 
         Task<Trip> GetTripByIdAsync(Guid tripId, CancellationToken cancellationToken);
 

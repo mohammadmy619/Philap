@@ -16,7 +16,7 @@ namespace Application.Trips.CreateTrip
                 travelEndDate: request.TravelEndDate,
                 locationName: request.LocationName,
                 tripStatus: request.TripStatus,
-                price: new Price(request.PriceAmount));
+                price: new Price(request.PriceAmount, request.PriceCurrency));
 
             // ذخیره در Repository
             await _tripRepository.AddTripAsync(trip, cancellationToken);
