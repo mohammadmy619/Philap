@@ -17,7 +17,7 @@ namespace Domain.Persons.Leader
 
         #region Constructor  
 
-        public Leader( List<Guid>? tripIds, string name, string lastName, string email, string phoneNumber,
+        public Leader( List<Guid> tripIds, string name, string lastName, string email, string phoneNumber,
             DateTime dateOfBirth, Gender gender, Address address, string nationality,
             string title, string department, DateTime joiningDate, List<string> skills, string bio)
             : base(tripIds, name, lastName, email, phoneNumber, dateOfBirth, gender, address, nationality)

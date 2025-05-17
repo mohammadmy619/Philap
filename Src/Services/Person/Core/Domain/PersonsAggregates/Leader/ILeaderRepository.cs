@@ -8,18 +8,16 @@ namespace Domain.Persons.Leader
 {
     public interface ILeaderRepository
     {
-        Task AddLeaderAsync(Leader leader);  
+        Task AddLeaderAsync(Leader leader,CancellationToken cancellationToken);  
 
-        Task UpdateLeaderAsync(Leader leader); 
+        Task UpdateLeaderAsync(Leader leader, CancellationToken cancellationToken); 
 
-        Task DeleteLeaderAsync(Guid leaderId);  
+        Task DeleteLeaderAsync(Guid leaderId, CancellationToken cancellationToken);  
 
-        Task<Leader?> GetLeaderByIdAsync(Guid leaderId); 
+        Task<Leader?> GetLeaderByIdAsync(Guid leaderId, CancellationToken cancellationToken); 
 
-        Task<IEnumerable<Leader>> GetAllLeadersAsync(); 
+        Task<IEnumerable<Leader>> FindLeadersAsync(Func<Leader, bool> predicate, CancellationToken cancellationToken);
 
-        Task<IEnumerable<Leader>> FindLeadersAsync(Func<Leader, bool> predicate);
-
-        Task SaveChangesAsync(); 
+        Task SaveChangesAsync(CancellationToken cancellationToken ); 
     }
 }
