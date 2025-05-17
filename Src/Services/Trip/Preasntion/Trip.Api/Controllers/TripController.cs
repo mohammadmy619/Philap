@@ -14,10 +14,10 @@ namespace Trip.Api.Controllers
 
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(Guid id)
-        {          
-                var query = new GetTripQuery(id);
-                var response = await _mediator.Send(query);
-                return Ok(response);
+        {
+            var query = new GetTripQuery(id);
+            var response = await _mediator.Send(query);
+            return Ok(response);
         }
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] GetTripsWithPaginationQuery query)
@@ -29,13 +29,13 @@ namespace Trip.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateTripCommand command)
         {
-       
-                var trip = await _mediator.Send(command);
+
+            var trip = await _mediator.Send(command);
             return Ok(trip);
-       
+
         }
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Update( [FromBody] UpdateTripCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateTripCommand command)
         {
             await _mediator.Send(command);
             return NoContent();
