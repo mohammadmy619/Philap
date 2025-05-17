@@ -24,7 +24,7 @@ namespace Persistence
             db.Database.AutoTransactionBehavior = AutoTransactionBehavior.Never;
 
             db.Database.EnsureCreated();
-            services.AddSingleton<ITripRepository, TripRepository>();
+            services.AddScoped<ITripRepository, TripRepository>();
 
 
 

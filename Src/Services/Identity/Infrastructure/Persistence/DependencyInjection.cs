@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Application.services;
 using Domain.Domain_Services;
 using Domain.PermissionAgregate;
 using Domain.RoleAgregate;
@@ -36,12 +37,12 @@ namespace Persistence
             });
 
 
-            services.AddSingleton<IEmailService, EmailService>();
-            services.AddSingleton<IPermissionRepository, PermissionRepository>();
-            services.AddSingleton<IRoleRepository, RoleRepository>();
-            services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<IPermissonValidationService, PermissonValidationService>();
-            services.AddSingleton<IRoleValidationService, RoleValidationService>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IPermissionRepository, PermissionRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPermissonValidationService, PermissonValidationService>();
+            services.AddScoped<IRoleValidationService, RoleValidationService>();
 
 
             return services;

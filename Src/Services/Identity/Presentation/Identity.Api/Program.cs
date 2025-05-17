@@ -1,5 +1,6 @@
 using Scalar.AspNetCore;
 using Application;
+using Persistence;
 using Identity.Api;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ builder.AddServiceDefaults();
 
 builder.Configuration.AddEnvironmentVariables();
 
+builder.Services.ConfigureInfrastructureLayer(builder.Configuration);
 builder.Services.ConfigureApplicationLayer(builder.Configuration);
 
 builder.Services.AddControllers();

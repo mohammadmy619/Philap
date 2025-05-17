@@ -8,7 +8,7 @@ using Domain.Services;
 
 namespace Application.User.UpdateUser
 {
-    public class UpdateUserCommandHandler(IUserRepository _userRepository, IRoleValidationService _RoleValidationService, PasswordHelper _passwordHasher,IEmailService _EmailService) : IRequestHandler<UpdateUserCommand, UpdateUserResponse>
+    public class UpdateUserCommandHandler(IUserRepository _userRepository, IRoleValidationService _RoleValidationService, IPasswordHelper _passwordHasher,IEmailService _EmailService) : IRequestHandler<UpdateUserCommand, UpdateUserResponse>
     {
        
 

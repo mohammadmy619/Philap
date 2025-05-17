@@ -6,7 +6,7 @@ using Domain.Services;
 
 namespace Application.User.CreateUser
 {
-    public class CreateUserCommandHandler(IUserRepository _userRepository, IRoleValidationService _RoleValidationService, PasswordHelper _passwordHasher, IEmailService _EmailService) : IRequestHandler<CreateUserCommand, CreateUserResponse>
+    public class CreateUserCommandHandler(IUserRepository _userRepository, IRoleValidationService _RoleValidationService, IPasswordHelper _passwordHasher, IEmailService _EmailService) : IRequestHandler<CreateUserCommand, CreateUserResponse>
     {
 
         public async Task<CreateUserResponse> Handle(
