@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Leader\" />
     <Folder Include="Passenger\" />
+    <Folder Include="Validator\Leader\" />
     <Folder Include="Validator\Passenger\" />
   </ItemGroup>
 

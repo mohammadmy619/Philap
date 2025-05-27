@@ -26,7 +26,7 @@ namespace Domain.Persons
 
         #endregion
         #region Constractor
-        protected Person( List<Guid> TripIds, string name, string lastName, string email, string phoneNumber, DateTime dateOfBirth, Gender gender, Address address, string nationality)
+        protected Person(List<Guid> TripIds, string name, string lastName, string email, string phoneNumber, DateTime dateOfBirth, Gender gender, Address address, string nationality)
         {
             GuardAgainstLeaderId(Id);
             GuardAgainstTripIds(TripIds);
@@ -37,7 +37,7 @@ namespace Domain.Persons
             GuardAgainstDateOfBirth(dateOfBirth);
             GuardAgainstGender(gender);
             GuardAgainstNationality(nationality);
-            
+
             Name = name;
             LastName = lastName;
             Email = email;
@@ -50,20 +50,51 @@ namespace Domain.Persons
 
         private Person()
         {
-                
-        }
 
+        }
+        public void UpdatePerson(
+         List<Guid> tripIds,
+         string name,
+         string lastName,
+         string email,
+         string phoneNumber,
+         DateTime dateOfBirth,
+         Gender gender,
+         Address address,
+         string nationality)
+        {
+            // اعتبارسنجی تمام فیلدها
+            GuardAgainstTripIds(tripIds);
+            GuardAgainstName(name);
+            GuardAgainstLastName(lastName);
+            GuardAgainstEmail(email);
+            GuardAgainstPhoneNumber(phoneNumber);
+            GuardAgainstDateOfBirth(dateOfBirth);
+            GuardAgainstGender(gender);
+            GuardAgainstNationality(nationality);
+
+            // آپدیت مقادیر
+            TripIds = tripIds;
+            Name = name;
+            LastName = lastName;
+            Email = email;
+            PhoneNumber = phoneNumber;
+            DateOfBirth = dateOfBirth;
+            Gender = gender;
+            Address = address;
+            Nationality = nationality;
+        }
         #endregion
         #region Guards
         private static void GuardAgainstLeaderId(Guid leaderId)
         {
             if (leaderId == Guid.Empty)
                 throw new LeaderIdIsNullException();
-        } 
+        }
         private static void GuardAgainstTripIds(List<Guid> TripIds)
         {
             //to do check TripId with acl
-            if (TripIds.Count>1) { }
+            if (TripIds.Count > 1) { }
             //throw new TripIds();
         }
 
@@ -102,7 +133,7 @@ namespace Domain.Persons
 
             if (Enum.IsDefined(typeof(Gender), Gender))
                 throw new LeaderGenderIsNullException();
-        } 
+        }
         private static void GuardAgainstNationality(string Nationality)
         {
 

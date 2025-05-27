@@ -1,14 +1,9 @@
-﻿using Domain.Persons.Leader;
+﻿using Domain.Persons;
+using Domain.Persons.Leader;
 using MediatR;
 
-public class CreateLeaderCommandHandler : IRequestHandler<CreateLeaderCommand, CreateLeaderResponse>
+public class CreateLeaderCommandHandler(ILeaderRepository _leaderRepository) : IRequestHandler<CreateLeaderCommand, CreateLeaderResponse>
 {
-    private readonly ILeaderRepository _leaderRepository;
-
-    public CreateLeaderCommandHandler(ILeaderRepository leaderRepository)
-    {
-        _leaderRepository = leaderRepository;
-    }
 
     public async Task<CreateLeaderResponse> Handle(CreateLeaderCommand request, CancellationToken ct)
     {
@@ -20,7 +15,7 @@ public class CreateLeaderCommandHandler : IRequestHandler<CreateLeaderCommand, C
                 phoneNumber: request.PhoneNumber,
                 dateOfBirth: request.DateOfBirth,
                 gender: request.Gender,
-                address: request.Address,
+                address: new Address(request.Street,request.City,request.State,request.ZipCode),
                 nationality: request.Nationality,
                 title: request.Title,
                 department: request.Department,
@@ -30,8 +25,9 @@ public class CreateLeaderCommandHandler : IRequestHandler<CreateLeaderCommand, C
             );
 
             await _leaderRepository.AddLeaderAsync(leader, ct);
+            await _leaderRepository.SaveChangesAsync(ct);
 
-            return CreateLeaderResponse.SuccessResponse(leader.Id);
+            return new  CreateLeaderResponse(leader.Id);
       
        
     }
