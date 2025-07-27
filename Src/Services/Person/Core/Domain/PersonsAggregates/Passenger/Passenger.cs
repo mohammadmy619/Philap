@@ -19,7 +19,7 @@ namespace Domain.Persons.Passenger
 
         #region Constructor  
 
-        protected Passenger(List<Guid>? TripIds, string name, string lastName, string email, string phoneNumber,
+        public Passenger(List<Guid>? TripIds, string name, string lastName, string email, string phoneNumber,
             DateTime dateOfBirth, Gender gender, Address address, string nationality, string passportNumber, List<string> frequentFlyerNumbers)
             : base( TripIds, name, lastName, email, phoneNumber, dateOfBirth, gender, address, nationality)
         {
@@ -31,7 +31,43 @@ namespace Domain.Persons.Passenger
         }
 
         #endregion
+        #region
+        // --- متود Update ---
+        public void Update(
+            List<Guid>? tripIds,
+            string name,
+            string lastName,
+            string email,
+            string phoneNumber,
+            DateTime dateOfBirth,
+            Gender gender,
+            Address address,
+            string nationality,
+            string passportNumber,
+            List<string> frequentFlyerNumbers)
+        {
+            // 1. آپدیت فیلدهای Person
+            UpdatePerson(
+                tripIds: tripIds,
+                name: name,
+                lastName: lastName,
+                email: email,
+                phoneNumber: phoneNumber,
+                dateOfBirth: dateOfBirth,
+                gender: gender,
+                address: address,
+                nationality: nationality);
 
+            // 2. اعتبارسنجی پاسپورت و شماره‌های مسافر تکراری
+            GuardAgainstPassportNumber(passportNumber);
+            GuardAgainstFrequentFlyerNumbers(frequentFlyerNumbers);
+
+            // 3. به‌روزرسانی فیلدهای خاص Passenger
+            PassportNumber = passportNumber;
+            FrequentFlyerNumbers = frequentFlyerNumbers;
+        }
+
+        #endregion
         #region Guard Methods  
 
         private void GuardAgainstPassportNumber(string passportNumber)

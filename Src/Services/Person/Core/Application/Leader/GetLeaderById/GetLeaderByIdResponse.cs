@@ -18,7 +18,10 @@ namespace Application.Leader.GetLeaderById
         string PhoneNumber,
         DateTime DateOfBirth,
         Gender gender,
-        AddressDto Address,
+        string Street,
+        string City,
+        string State,
+        string ZipCode,
         string Nationality,
         string Title,
         string Department,
@@ -26,11 +29,7 @@ namespace Application.Leader.GetLeaderById
         List<string> Skills,
         string Bio)
     {
-        public record AddressDto(
-            string Street,
-            string City,
-            string State,
-            string ZipCode);
+       
  
     }
 }

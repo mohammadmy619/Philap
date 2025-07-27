@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.User.CreateUser
 {
-    public record CreateUserResponse(
+    public record RegisterUserResponse(
     Guid UserId,
     string UserName,
     string Email,

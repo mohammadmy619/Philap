@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Persons.Leader;
+using Domain.Persons.Passenger;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -15,7 +16,9 @@ namespace Persistence
         {
         }
 
+        //public DbSet<Leader> Leaders { get; set; }
         public DbSet<Leader> Leaders { get; set; }
+        public DbSet<Passenger> Passengers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

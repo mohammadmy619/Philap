@@ -26,10 +26,9 @@ namespace Identity.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserCommand CreateUser)
+        public async Task<IActionResult> RegisterUser([FromBody] RegisterUserCommand Register)
         {
-            var result = await _mediator.Send(CreateUser);
-
+            var result = await _mediator.Send(Register);
             return Ok(result);
         }
 

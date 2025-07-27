@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Application.Validator.UserValidation
 {
-    public class CreateUserValidation : AbstractValidator<CreateUserCommand>   
+    public class CreateUserValidation : AbstractValidator<RegisterUserCommand>   
     {
         public CreateUserValidation()
         {

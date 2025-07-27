@@ -22,7 +22,7 @@ namespace Domain.Persons
         public DateTime DateOfBirth { get; private set; }
         public Gender Gender { get; private set; }
         public string Nationality { get; private set; }
-        public Address Address { get; private set; }
+        public Address Address { get; private set; }/// value object
 
         #endregion
         #region Constractor

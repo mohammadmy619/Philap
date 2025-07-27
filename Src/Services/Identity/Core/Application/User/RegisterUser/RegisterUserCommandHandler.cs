@@ -6,11 +6,11 @@ using Domain.Services;
 
 namespace Application.User.CreateUser
 {
-    public class CreateUserCommandHandler(IUserRepository _userRepository, IRoleValidationService _RoleValidationService, IPasswordHelper _passwordHasher, IEmailService _EmailService) : IRequestHandler<CreateUserCommand, CreateUserResponse>
+    public class RegisterUserCommandHandler(IUserRepository _userRepository, IRoleValidationService _RoleValidationService, IPasswordHelper _passwordHasher, IEmailService _EmailService) : IRequestHandler<RegisterUserCommand, RegisterUserResponse>
     {
 
-        public async Task<CreateUserResponse> Handle(
-            CreateUserCommand request,
+        public async Task<RegisterUserResponse> Handle(
+            RegisterUserCommand request,
             CancellationToken cancellationToken)
         {
 
@@ -34,7 +34,7 @@ namespace Application.User.CreateUser
             await _userRepository.AddUserAsync(user, cancellationToken);
             await _userRepository.SaveChangesAsync(cancellationToken);
             // Return Response
-            return new CreateUserResponse(
+            return new RegisterUserResponse(
                 UserId: user.Id,
                 UserName: user.UserName,
                 Email: user.Email,

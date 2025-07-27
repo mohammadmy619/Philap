@@ -15,4 +15,8 @@
     <ProjectReference Include="..\..\..\..\..\AppHost\Aspire.AppHost\Aspire.AppHost.ServiceDefaults\Aspire.AppHost.ServiceDefaults.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
