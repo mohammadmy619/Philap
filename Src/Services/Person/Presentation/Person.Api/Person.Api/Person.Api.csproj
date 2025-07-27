@@ -7,16 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
     <PackageReference Include="Scalar.AspNetCore" Version="2.3.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\AppHost\Aspire.AppHost\Aspire.AppHost.ServiceDefaults\Aspire.AppHost.ServiceDefaults.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\..\..\Core\Application\Application.csproj" />
   </ItemGroup>
 
 </Project>
