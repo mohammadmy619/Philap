@@ -22,6 +22,14 @@ namespace Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // تنظیم TPC برای Leader
+            modelBuilder.Entity<Leader>()
+                .ToTable("Leaders");
+
+            // تنظیم TPC برای Passenger
+            modelBuilder.Entity<Passenger>()
+                .ToTable("Passengers");
+
             base.OnModelCreating(modelBuilder);
             modelBuilder
                 .ApplyConfigurationsFromAssembly(typeof(PersonDbContext).Assembly);
