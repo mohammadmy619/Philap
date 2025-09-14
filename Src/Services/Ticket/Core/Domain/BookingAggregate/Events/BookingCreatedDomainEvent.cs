@@ -24,10 +24,5 @@ namespace Domain.TripAggregate.Events
         public BookingStatus Status { get;  }= Status;
         public DateTime OccurredOn => DateTime.Now;
 
-
-
-
-
-
     }
 }

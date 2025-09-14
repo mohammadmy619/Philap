@@ -18,7 +18,6 @@ namespace Application.Ticketing
             
             // ساخت Aggregate Root Booking
             var booking =new Booking(
-                ticketId: command.TicketId,
                 tripId: command.TripId,
                 passengerId: command.PassengerId,
                 purchaseDate: command.PurchaseDate,
@@ -32,7 +31,6 @@ namespace Application.Ticketing
             // بازگرداندن پاسخ
             return new CreateBookingResponse(
                 BookingId: booking.Id,
-                TicketId: booking.TicketId,
                 TripId: booking.TripId,
                 PassengerId: booking.PassengerId,
                 PurchaseDate: booking.PurchaseDate,

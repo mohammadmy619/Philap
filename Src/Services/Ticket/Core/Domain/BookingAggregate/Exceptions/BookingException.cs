@@ -30,6 +30,18 @@ namespace Domain.BookingAggregate.Exceptions
         public PurchaseDateIsInvalidException(string message = "Purchase date cannot be in the future.", string code = "0517004")
             : base(message, code) { }
     }
+   
+    public class InvalidBookingStatusTransitionException : DomainException
+    {
+        public BookingStatus CurrentStatus { get; }
+        public BookingStatus TargetStatus { get; }
 
+        public InvalidBookingStatusTransitionException(BookingStatus current, BookingStatus target)
+            : base($"Cannot transition booking from {current} to {target}")
+        {
+            CurrentStatus = current;
+            TargetStatus = target;
+        }
+    }
 
 }

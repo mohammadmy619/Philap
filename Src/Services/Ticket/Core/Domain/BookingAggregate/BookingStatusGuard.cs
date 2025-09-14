@@ -1,32 +1,25 @@
-﻿public static class BookingStatusGuard
+﻿using Domain.BookingAggregate.Exceptions;
+
+public static class BookingStatusGuard
 {
     public static void GuardAgainstInvalidStatusTransition(BookingStatus currentStatus, BookingStatus newStatus)
     {
-        if (!IsValidTransition(currentStatus, newStatus))
+        if (!CanTransitionFrom(currentStatus, newStatus))
         {
             throw new InvalidBookingStatusTransitionException(currentStatus, newStatus);
         }
     }
 
-    private static bool IsValidTransition(BookingStatus current, BookingStatus next)
-    {
-        return (current, next) switch
+       private static bool CanTransitionFrom(BookingStatus current, BookingStatus target)
         {
-            (BookingStatus.Created, BookingStatus.Confirmed) => true,
-            (BookingStatus.Created, BookingStatus.Cancelled) => true,
-            (BookingStatus.Created, BookingStatus.PendingPayment) => true,
-            (BookingStatus.Created, BookingStatus.Expired) => true,
-
-            (BookingStatus.PendingPayment, BookingStatus.Confirmed) => true,
-            (BookingStatus.PendingPayment, BookingStatus.Cancelled) => true,
-            (BookingStatus.PendingPayment, BookingStatus.Expired) => true,
-
-            (BookingStatus.Confirmed, BookingStatus.Cancelled) => true,
-            (BookingStatus.Confirmed, BookingStatus.Completed) => true,
-
-            (BookingStatus.Completed, BookingStatus.Cancelled) => true,
-
-            _ => false
-        };
-    }
+            // منطق تغییر وضعیت
+            return (current, target) switch
+            {
+                (BookingStatus.Created, BookingStatus.Confirmed or BookingStatus.Cancelled) => true,
+                //(BookingStatus.PendingPayment, BookingStatus.Confirmed or BookingStatus.Cancelled or BookingStatus.Expired) => true,
+                (BookingStatus.Confirmed, BookingStatus.Cancelled or BookingStatus.Created) => true,
+                //(BookingStatus.Completed, BookingStatus.Cancelled) => true,
+                _ => current == target // اجازه برابر بودن
+            };
+        }
 }

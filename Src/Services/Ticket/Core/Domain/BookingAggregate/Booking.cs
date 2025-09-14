@@ -8,7 +8,6 @@ namespace Domain.BookingAggregate
     public class Booking : AggregateRoot<Guid>
     {
         #region Properties  
-        public Guid TicketId { get; private set; }
         public Guid TripId { get; private set; }
         public Guid PassengerId { get; private set; }
         public DateTime PurchaseDate { get; private set; }
@@ -17,6 +16,8 @@ namespace Domain.BookingAggregate
         #endregion
 
         #region Constructor  
+        // Constructor برای EF Core
+        private Booking() { }
 
         public Booking(Guid tripId, Guid passengerId, DateTime purchaseDate, Price price)
 
@@ -77,33 +78,8 @@ namespace Domain.BookingAggregate
         }
 
 
-        //public void ChangeStatus(BookingStatus newStatus)
-        //{
-        //    BookingGuards.GuardAgainstInvalidStatusTransition(Status, newStatus);
-
-        //    var oldStatus = Status;
-        //    Status = newStatus;
-
-        //    AddDomainEvent(new BookingStatusChangedDomainEvent(
-        //        Id,
-        //        oldStatus,
-        //        newStatus,
-        //        TripId,
-        //        PassengerId
-        //    ));
-        //}
-        private static bool CanTransitionFrom(BookingStatus current, BookingStatus target)
-        {
-            // منطق تغییر وضعیت
-            return (current, target) switch
-            {
-                (BookingStatus.Created, BookingStatus.Confirmed or BookingStatus.Cancelled) => true,
-                //(BookingStatus.PendingPayment, BookingStatus.Confirmed or BookingStatus.Cancelled or BookingStatus.Expired) => true,
-                (BookingStatus.Confirmed, BookingStatus.Cancelled or BookingStatus.Created) => true,
-                //(BookingStatus.Completed, BookingStatus.Cancelled) => true,
-                _ => current == target // اجازه برابر بودن
-            };
-        }
+      
+    
         private void GuardAgainstTripId(Guid tripId)
         {
             if (tripId == Guid.Empty)
@@ -112,13 +88,6 @@ namespace Domain.BookingAggregate
             }
         }
 
-        //private void GuardAgainstTicketId(Guid ticketId)
-        //{
-        //    if (ticketId == Guid.Empty)
-        //    {
-        //        throw new TicketIdIsNullException();
-        //    }
-        //}
 
         private void GuardAgainstPassengerId(Guid passengerId)
         {
