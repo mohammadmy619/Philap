@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Domain.PermissionAgregate;
@@ -47,12 +48,10 @@ public class PermissionRepository(IdentityDbContext _context) : IPermissionRepos
         return await _context.Permission.ToListAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<Permission>> FindPermissionsAsync(Func<Permission, bool> predicate, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Permission>> FindPermissionsAsync(Expression<Func<Permission, bool>> predicate, CancellationToken cancellationToken)
     {
-        return await Task.Run(() =>
-        {
-            return _context.Permission.AsQueryable().Where(predicate).ToList();
-        }, cancellationToken);
+        return await _context.Permission.AsQueryable().Where(predicate).ToListAsync(cancellationToken);
+    
     }
     public  async Task<IEnumerable<Guid>> GetPermissionIdsAsync(IEnumerable<Guid> PermissionId, CancellationToken cancellationToken)
     {

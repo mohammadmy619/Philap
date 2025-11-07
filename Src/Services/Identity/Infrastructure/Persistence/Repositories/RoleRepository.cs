@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Domain.PermissionAgregate;
@@ -45,7 +46,7 @@ public class RoleRepository(IdentityDbContext _context) : IRoleRepository
         return await _context.Role.ToListAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<Role>> FindRolesAsync(Func<Role, bool> predicate, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Role>> FindRolesAsync(Expression<Func<Role, bool>> predicate, CancellationToken cancellationToken)
     {
         return await Task.Run(() =>
         {

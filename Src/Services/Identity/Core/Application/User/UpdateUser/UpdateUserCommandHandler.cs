@@ -3,12 +3,12 @@ using MediatR;
 using Application.services;
 using Application.User.Exceptions;
 using Application.User.CreateUser;
-using Domain.Domain_Services;
 using Domain.Services;
+using Domain.RoleAgregate;
 
 namespace Application.User.UpdateUser
 {
-    public class UpdateUserCommandHandler(IUserRepository _userRepository, IRoleValidationService _RoleValidationService, IPasswordHelper _passwordHasher,IEmailService _EmailService) : IRequestHandler<UpdateUserCommand, UpdateUserResponse>
+    public class UpdateUserCommandHandler(IUserRepository _userRepository, IRoleRepository _RoleRepository, IPasswordHelper _passwordHasher,IEmailService _EmailService) : IRequestHandler<UpdateUserCommand, UpdateUserResponse>
     {
        
 
@@ -26,7 +26,12 @@ namespace Application.User.UpdateUser
 
             user.UpdateUser(request.UserId,request.UserName,request.Email,request.Password, _EmailService);
 
-            if(request.RoleId.Any()) await _RoleValidationService.ValidateRoleIdsAsync(request.RoleId, user, cancellationToken);
+            if (request.RoleId.Any()) {
+
+                var roles = await _RoleRepository.GetRoleIdsAsync(request.RoleId, cancellationToken);
+                user.AddRolesToUser(roles.ToList());
+
+            } 
 
 
 

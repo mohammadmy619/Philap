@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Domain.RoleAgregate;
 using Domain.UserAgregate;
@@ -43,18 +44,23 @@ public class UserRepository(IdentityDbContext _context) : IUserRepository
         return await _context.User.ToListAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<User>> FindUsersAsync(Func<User, bool> predicate, CancellationToken cancellationToken)
+    public async Task<IEnumerable<User>> FindUsersAsync(Expression<Func<User, bool>> predicate, CancellationToken cancellationToken)
     {
-
-        return await Task.Run(() =>
-        {
-            return _context.User.AsQueryable().Where(predicate).ToList();
-        }, cancellationToken);
+        return await _context.User.AsQueryable().Where(predicate).ToListAsync(cancellationToken);
 
     }
+    public async Task<User?> FindUserAsync(Expression<Func<User, bool>> predicate, CancellationToken cancellationToken)
+    {
 
+        return await _context.User
+        .Where(predicate)
+        .FirstOrDefaultAsync(cancellationToken);
+
+    }
     public async Task SaveChangesAsync(CancellationToken cancellationToken)
     {
         await _context.SaveChangesAsync(cancellationToken);
     }
+
+   
 }

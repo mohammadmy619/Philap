@@ -4,13 +4,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Domain.RoleAgregate;
 using MediatR;
-using Domain.Domain_Services;
 using System.IO;
 using Domain.RoleAgregate.Exception;
+using Domain.PermissionAgregate;
 
 namespace Application.Role.UpdateRole
 {
-    public class UpdateRoleCommandHandler(IRoleRepository _roleRepository, IPermissonValidationService _permissionValidationService) : IRequestHandler<UpdateRoleCommand, UpdateRoleResponse>
+    public class UpdateRoleCommandHandler(IRoleRepository _roleRepository, IPermissionRepository _PermissionRepository) : IRequestHandler<UpdateRoleCommand, UpdateRoleResponse>
     {
 
         public async Task<UpdateRoleResponse> Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
@@ -27,8 +27,8 @@ namespace Application.Role.UpdateRole
             // Validate permissions if any permission IDs are provided  
             if (request.PermissionIds != null && request.PermissionIds.Any())
             {
-                await _permissionValidationService.ValidatePermissions(request.PermissionIds, role, cancellationToken);
-                role.AddPermissionIdsToRole(request.PermissionIds); 
+                var Permission = await _PermissionRepository.GetPermissionIdsAsync(request.PermissionIds, cancellationToken);
+                role.AddPermissionIdsToRole(Permission.ToList());
             }
 
             await _roleRepository.UpdateRoleAsync(role, cancellationToken);

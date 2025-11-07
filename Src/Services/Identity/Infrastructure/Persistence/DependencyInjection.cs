@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.services;
-using Domain.Domain_Services;
 using Domain.PermissionAgregate;
 using Domain.RoleAgregate;
 using Domain.Services;
@@ -41,8 +40,8 @@ namespace Persistence
             services.AddScoped<IPermissionRepository, PermissionRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IPermissonValidationService, PermissonValidationService>();
-            services.AddScoped<IRoleValidationService, RoleValidationService>();
+            //services.AddScoped<IPermissonValidationService, PermissonValidationService>();
+            //services.AddScoped<IRoleValidationService, RoleValidationService>();
 
 
             return services;

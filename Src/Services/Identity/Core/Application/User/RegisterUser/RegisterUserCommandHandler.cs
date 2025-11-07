@@ -1,12 +1,12 @@
 ﻿using Domain.UserAgregate;
 using MediatR;
 using Application.services;
-using Domain.Domain_Services;
 using Domain.Services;
+using Domain.RoleAgregate;
 
 namespace Application.User.CreateUser
 {
-    public class RegisterUserCommandHandler(IUserRepository _userRepository, IRoleValidationService _RoleValidationService, IPasswordHelper _passwordHasher, IEmailService _EmailService) : IRequestHandler<RegisterUserCommand, RegisterUserResponse>
+    public class RegisterUserCommandHandler(IUserRepository _userRepository, IRoleRepository _RoleRepository, IPasswordHelper _passwordHasher, IEmailService _EmailService) : IRequestHandler<RegisterUserCommand, RegisterUserResponse>
     {
 
         public async Task<RegisterUserResponse> Handle(
@@ -27,7 +27,12 @@ namespace Application.User.CreateUser
                 passwordHash: passwordHash,
                 _EmailService
                 );
-            if (request.RoleId.Any()) await _RoleValidationService.ValidateRoleIdsAsync(request.RoleId, user, cancellationToken);
+            if (request.RoleId.Any()) 
+            {
+                var roles = await _RoleRepository.GetRoleIdsAsync(request.RoleId, cancellationToken);
+                user.AddRolesToUser(roles.ToList());
+
+            } 
 
 
             // Persist

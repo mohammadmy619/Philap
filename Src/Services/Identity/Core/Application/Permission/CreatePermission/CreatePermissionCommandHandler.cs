@@ -1,12 +1,12 @@
-﻿using Domain.Domain_Services;
-using Domain.PermissionAgregate;
+﻿using Domain.PermissionAgregate;
+using Domain.RoleAgregate;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Permission.CreatePermission
 {
-    public class CreatePermissionCommandHandler(IPermissionRepository _permissionRepository, IRoleValidationService _RoleValidationService) : IRequestHandler<CreatePermissionCommand, CreatePermissionResponse>
+    public class CreatePermissionCommandHandler(IPermissionRepository _permissionRepository, IRoleRepository _RoleRepository) : IRequestHandler<CreatePermissionCommand, CreatePermissionResponse>
     {
       
 
@@ -17,7 +17,9 @@ namespace Application.Permission.CreatePermission
 
             if (request.RoleIds.Any() && request.RoleIds.Count > 0)
             {
-               await _RoleValidationService.ValidateRoleIdsAsync(request.RoleIds,permission, cancellationToken);
+                var roles = await _RoleRepository.GetRoleIdsAsync(request.RoleIds, cancellationToken);
+                permission.AddRoleIds(roles.ToList());
+                
             }
        
             await _permissionRepository.AddPermissionAsync(permission, cancellationToken);

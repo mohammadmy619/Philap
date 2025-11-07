@@ -25,12 +25,7 @@ namespace Identity.Api.Controllers
 
         }
 
-        [HttpPost]
-        public async Task<IActionResult> RegisterUser([FromBody] RegisterUserCommand Register)
-        {
-            var result = await _mediator.Send(Register);
-            return Ok(result);
-        }
+      
 
         [HttpPut]
         [ProducesResponseType(typeof(UpdateUserResponse), StatusCodes.Status200OK)]

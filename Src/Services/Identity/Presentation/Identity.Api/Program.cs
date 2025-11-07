@@ -2,6 +2,10 @@ using Scalar.AspNetCore;
 using Application;
 using Persistence;
 using Identity.Api;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +22,23 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.ConfigureCors();
+var key = Encoding.ASCII.GetBytes("THIS_IS_A_VERY_LONG_AND_SECURE_SECRET_KEY_1234567890"); 
+
+
+builder.Services.AddAuthentication()
+    .AddJwtBearer("Bearer", options =>
+    {
+        // ??? Authority ??? Identity Server ???? ???
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ClockSkew = TimeSpan.Zero
+        };
+        options.RequireHttpsMetadata = false; // ??? ???? ?????
+    });
 
 var app = builder.Build();
 
@@ -37,6 +58,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

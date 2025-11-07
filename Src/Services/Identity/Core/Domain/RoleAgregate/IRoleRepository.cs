@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@ namespace Domain.RoleAgregate
         Task<Role> GetRoleByIdAsync(Guid roleId, CancellationToken cancellationToken);
         Task<IEnumerable<Guid>> GetRoleIdsAsync(IEnumerable<Guid> roleId, CancellationToken cancellationToken);
         Task<IEnumerable<Role>> GetAllRolesAsync(CancellationToken cancellationToken);
-        Task<IEnumerable<Role>> FindRolesAsync(Func<Role, bool> predicate, CancellationToken cancellationToken);
+        Task<IEnumerable<Role>> FindRolesAsync(Expression<Func<Role, bool>> predicate, CancellationToken cancellationToken);
 
 
         // Save changes  
