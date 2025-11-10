@@ -11,7 +11,8 @@ namespace Domain.AccountingAggregate
 {
     public class Accounting:AggregateRoot<Guid>
     {
-    
+
+        #region Properties
         public Guid BookingId { get; private set; }
         public Guid TripId { get; private set; }
         public Guid PassengerId { get; private set; }
@@ -25,5 +26,8 @@ namespace Domain.AccountingAggregate
         public PaymentStatus PaymentStatus { get; private set; }
 
         public string Description { get; private set; }
+        #endregion
+
+
     }
 }
