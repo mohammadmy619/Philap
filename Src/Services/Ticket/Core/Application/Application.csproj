@@ -15,4 +15,9 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Accountings\" />
+    <Folder Include="Discounts\" />
+  </ItemGroup>
+
 </Project>

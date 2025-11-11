@@ -14,6 +14,7 @@ public class DiscountUsage : Entity<Guid>
     private DiscountUsage() { }
     public DiscountUsage(Guid discountId, Guid? bookingId, Guid? passengerId, Guid? tripId, decimal appliedAmount)
     {
+        GuardAgainstAppliedAmount(appliedAmount);
         Id = Guid.NewGuid();
         DiscountId = discountId;
         PassengerId = passengerId;

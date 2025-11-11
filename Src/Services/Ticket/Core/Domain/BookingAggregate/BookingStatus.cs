@@ -15,20 +15,20 @@
     /// </summary>
     Cancelled = 3,
 
-    ///// <summary>
-    ///// رزرو در انتظار پرداخت است
-    ///// </summary>
-    //PendingPayment = 4,
+    /// <summary>
+    /// رزرو در انتظار پرداخت است
+    /// </summary>
+    PendingPayment = 4,
 
-    ///// <summary>
-    ///// رزرو تکمیل شده است
-    ///// </summary>
-    //Completed = 5,
+    /// <summary>
+    /// رزرو تکمیل شده است
+    /// </summary>
+    Completed = 5,
 
-    ///// <summary>
-    ///// رزرو منقضی شده است
-    ///// </summary>
-    //Expired = 6,
+    /// <summary>
+    /// رزرو منقضی شده است
+    /// </summary>
+    Expired = 6,
 
     /// <summary>
     /// رزرو رد شده است
