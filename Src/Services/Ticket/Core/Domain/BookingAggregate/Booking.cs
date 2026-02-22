@@ -11,7 +11,7 @@ namespace Domain.BookingAggregate
         public Guid TripId { get; private set; }
         public Guid PassengerId { get; private set; }
         public DateTime PurchaseDate { get; private set; }
-        public Price Price { get; private set; }
+        public Money Price { get; private set; }
         public BookingStatus Status { get; private set; }
         #endregion
 
@@ -19,7 +19,7 @@ namespace Domain.BookingAggregate
         // Constructor برای EF Core
         private Booking() { }
 
-        public Booking(Guid tripId, Guid passengerId, DateTime purchaseDate, Price price)
+        public Booking(Guid tripId, Guid passengerId, DateTime purchaseDate, Money price)
 
         {
             GuardAgainstTripId(tripId);
@@ -105,7 +105,7 @@ namespace Domain.BookingAggregate
             }
         }
 
-        private void GuardAgainstPrice(Price price)
+        private void GuardAgainstPrice(Money price)
         {
 
             if (price.Amount <= 0)

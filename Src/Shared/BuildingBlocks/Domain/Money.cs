@@ -1,5 +1,6 @@
 ﻿using BuildingBlocks.Domain;
-using Domain.AccountingAggregate.Exceptions;
+using BuildingBlocks.Exeptions;
+namespace BuildingBlocks.Domain;
 
 public class Money : ValueObject<Money>
 {

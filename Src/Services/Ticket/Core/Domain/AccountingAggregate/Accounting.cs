@@ -156,6 +156,8 @@ namespace Domain.AccountingAggregate
             }
         }
         #endregion
+        #region Methods
+        #endregion
 
 
 

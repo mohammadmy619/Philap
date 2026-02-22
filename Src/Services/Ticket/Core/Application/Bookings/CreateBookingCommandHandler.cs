@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Domain.BookingAggregate;
+using BuildingBlocks.Domain;
 
 namespace Application.Ticketing
 {
@@ -21,7 +22,7 @@ namespace Application.Ticketing
                 tripId: command.TripId,
                 passengerId: command.PassengerId,
                 purchaseDate: command.PurchaseDate,
-                price:new Price(command.PriceAmount)
+                price:new Money(command.PriceAmount)
             );
 
             // ذخیره در ریپوزیتوری

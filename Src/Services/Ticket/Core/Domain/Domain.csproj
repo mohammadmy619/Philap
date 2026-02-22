@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\BuildingBlocks.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DomainServices\" />
+  </ItemGroup>
+
 </Project>
