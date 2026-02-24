@@ -2,7 +2,7 @@
 using Domain.BookingAggregate;
 using BuildingBlocks.Domain;
 
-namespace Application.Ticketing
+namespace Application.Bookings.CreateBookings
 {
     public class CreateBookingCommandHandler : IRequestHandler<CreateBookingCommand, CreateBookingResponse>
     {

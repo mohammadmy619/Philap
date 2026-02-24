@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.Ticketing
+namespace Application.Bookings.CreateBookings
 {
     public record CreateBookingCommand(
        Guid TicketId,

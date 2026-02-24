@@ -68,7 +68,30 @@ namespace Domain.BookingAggregate
                 oldStatus
             ));
         }
+        public void Update(Guid tripId, Guid passengerId, DateTime purchaseDate, Money price)
+        {
+            // اعتبارسنجی مقادیر جدید با استفاده از گارد متدهای موجود
+            GuardAgainstTripId(tripId);
+            GuardAgainstPassengerId(passengerId);
+            GuardAgainstPurchaseDate(purchaseDate);
+            GuardAgainstPrice(price);
 
+            // اعمال تغییرات
+            TripId = tripId;
+            PassengerId = passengerId;
+            PurchaseDate = purchaseDate;
+            Price = price;
+
+            // ثبت ایونت برای ردیابی تغییرات (اختیاری اما توصیه شده)
+            //AddEvent(new BookingUpdatedDomainEvent(
+            //    Id,
+            //    TripId,
+            //    PassengerId,
+            //    PurchaseDate,
+            //    Price.Amount,
+            //    Status
+            //));
+        }
         #endregion
 
         #region Guard Methods  
