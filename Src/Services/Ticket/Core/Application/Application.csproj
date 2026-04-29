@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <Folder Include="Accountings\" />
-    <Folder Include="Discounts\" />
     <Folder Include="Validator\AccountingValdation\" />
   </ItemGroup>
 

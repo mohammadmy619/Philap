@@ -1,6 +1,7 @@
-﻿using MediatR;
+﻿using Domain.DiscountAggregate;
+using MediatR;
 
-namespace Application.Bookings.CreateBookings
+namespace Application.Ticketing
 {
     public record CreateBookingCommand(
        Guid TicketId,
@@ -13,3 +14,5 @@ namespace Application.Bookings.CreateBookings
 
 
 }
+
+

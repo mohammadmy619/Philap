@@ -1,4 +1,4 @@
-﻿using Application.Bookings.GetBookingById;
+﻿using Application.Ticketing;
 using Domain.BookingAggregate;
 using MediatR;
 

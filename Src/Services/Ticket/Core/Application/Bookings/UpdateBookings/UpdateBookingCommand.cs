@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.Bookings.UpdateBookings
+namespace Application.Ticketing
 {
     // کامند برای آپدیت اطلاعات رزرو
     public record UpdateBookingCommand(
