@@ -1,21 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Aspire.AppHost.Sdk/13.1.0">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <IsAspireHost>true</IsAspireHost>
-    <UserSecretsId>eaa880e1-5802-4960-aceb-b564bd84c7ec</UserSecretsId>
+    <UserSecretsId>d1403ef4-713d-4b72-ac94-4ca684ed6810</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.0" />
-    <PackageReference Include="Aspire.Hosting.Redis" Version="8.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Ocelot.ApiGateways\Ocelot.ApiGateways.csproj" />
+    <ProjectReference Include="..\..\..\Ocelot.ApiGateways\Ocelot.ApiGateways\Ocelot.ApiGateways.csproj" />
     <ProjectReference Include="..\..\..\Services\Identity\Presentation\Identity.Api\Identity.Api.csproj" />
     <ProjectReference Include="..\..\..\Services\Person\Presentation\Person.Api\Person.Api\Person.Api.csproj" />
     <ProjectReference Include="..\..\..\Services\Ticket\Presentation\Ticketing.Api\Ticketing.Api\Ticketing.Api.csproj" />
