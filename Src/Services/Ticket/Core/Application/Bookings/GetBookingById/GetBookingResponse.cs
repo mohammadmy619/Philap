@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Bookings.GetBookingById
+namespace Application.Ticketing
 {
 
     // پاسخ شامل تمام پراپرتی‌های مورد نیاز

@@ -1,5 +1,4 @@
-﻿using Application.Bookings.UpdateBookings;
-using BuildingBlocks.Domain;
+﻿using BuildingBlocks.Domain;
 using Domain.BookingAggregate;
 using MediatR;
 
