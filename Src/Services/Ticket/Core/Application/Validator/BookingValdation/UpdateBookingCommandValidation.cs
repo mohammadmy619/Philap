@@ -1,6 +1,7 @@
 ﻿using Application.Ticketing;
 using FluentValidation;
 
+namespace Application.Validator.BookingValdation;
 public class UpdateBookingCommandValidation : AbstractValidator<UpdateBookingCommand>
 {
     public UpdateBookingCommandValidation()
