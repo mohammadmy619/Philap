@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using BuildingBlocks.Exeptions;
+using MediatR;
 
 public class UpdateDiscountCommandHandler : IRequestHandler<UpdateDiscountCommand, DiscountUpdatedResponse>
 {

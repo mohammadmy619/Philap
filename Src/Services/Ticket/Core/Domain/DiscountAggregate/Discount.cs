@@ -97,6 +97,67 @@ namespace Domain.DiscountAggregate
         #endregion
 
         #region Methods
+
+
+        public void Update(
+        string? code = null,
+        DiscountType? type = null,
+        decimal? value = null,
+        DateTime? validFrom = null,
+        DateTime? validTo = null,
+        int? maxUsageCount = null,
+        Guid? applicableTripId = null,
+        Guid? applicablePassengerId = null)
+        {
+            // اگر قرار است مقدار تغییر کند، validate شود
+            if (value.HasValue && type.HasValue)
+            {
+                GuardAgainstValue(value.Value, type.Value);
+            }
+            else if (value.HasValue)
+            {
+                GuardAgainstValue(value.Value, Type);
+            }
+            else if (type.HasValue)
+            {
+                GuardAgainstValue(Value, type.Value);
+            }
+
+            // validate validity period
+            if (validFrom.HasValue || validTo.HasValue)
+            {
+                GuardAgainstValidityPeriod(validFrom ?? ValidFrom, validTo ?? ValidTo);
+            }
+
+            // validate max usage count
+            if (maxUsageCount.HasValue)
+            {
+                GuardAgainstMaxUsageCount(maxUsageCount);
+                if (UsedCount > maxUsageCount.Value)
+                {
+                    throw new DiscountMaxUsageExceededException(
+                        "You cannot reduce max usage count below current used count.");
+                }
+            }
+
+            // حالا مقادیر را اعمال می‌کنیم
+            if (code is not null) Code = code;
+            if (type.HasValue) Type = type.Value;
+            if (value.HasValue) Value = value.Value;
+
+            if (validFrom.HasValue) ValidFrom = validFrom;
+            if (validTo.HasValue) ValidTo = validTo;
+
+            if (maxUsageCount.HasValue) MaxUsageCount = maxUsageCount;
+
+            ApplicableTripId = applicableTripId;
+            ApplicablePassengerId = applicablePassengerId;
+
+            //Todo ADD Domain Event 
+            // AddEvent(new DiscountUpdatedDomainEvent(Id));
+        }
+
+
         // Method to apply discount logic
         public decimal ApplyDiscount(decimal originalAmount, Guid? tripId = null, Guid? passengerId = null)
         {
