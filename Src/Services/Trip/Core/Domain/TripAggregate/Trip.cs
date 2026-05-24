@@ -14,7 +14,8 @@ namespace Domain.TripAggregate
         #region Constractor
         public Trip( Guid leaderId, DateTime travelStartDate, DateTime travelEndDate, string locationName, TripStatus tripStatus, Price price) 
         {
-         
+          
+            //Id = Guid.NewGuid();
             GuardAgainstLeaderId(leaderId);
             GuardAgainstTravelStartDate(travelStartDate);
             GuardAgainstTravelEndDate(travelEndDate);
@@ -115,7 +116,7 @@ namespace Domain.TripAggregate
         {
 
 
-            if (Enum.IsDefined(typeof(TripStatus), tripStatus))
+            if (!Enum.IsDefined(typeof(TripStatus), tripStatus))
                 throw new InvalidTripStatusException();
         }
 
