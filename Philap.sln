@@ -112,10 +112,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ocelot.ApiGateways", "Src\Ocelot.ApiGateways\Ocelot.ApiGateways\Ocelot.ApiGateways.csproj", "{C2F492AF-2988-6A05-E957-F1144CF9FC85}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Person.test", "Person.test", "{5B2DF0FC-0234-4E4C-9CB5-ADF2042E0636}"
+	ProjectSection(SolutionItems) = preProject
+		Test\Person.test\PersonDomain Test\PersonDomain Test.csproj = Test\Person.test\PersonDomain Test\PersonDomain Test.csproj
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ticketing.test", "Ticketing.test", "{5813F7AA-63ED-43E0-A0DF-30F020FB4181}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonDomain Test", "C:\Users\Mohammad\source\repos\Philap\Test\Person.test\PersonDomain Test\PersonDomain Test.csproj", "{65F50037-1C71-5384-ECE2-6E07F1734935}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingDomain test", "Test\Ticketing.test\TicketingDomain test\TicketingDomain test.csproj", "{3FB87D89-B247-4BEF-A104-9751C5C471A1}"
 EndProject
@@ -237,10 +238,6 @@ Global
 		{C2F492AF-2988-6A05-E957-F1144CF9FC85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2F492AF-2988-6A05-E957-F1144CF9FC85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2F492AF-2988-6A05-E957-F1144CF9FC85}.Release|Any CPU.Build.0 = Release|Any CPU
-		{65F50037-1C71-5384-ECE2-6E07F1734935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65F50037-1C71-5384-ECE2-6E07F1734935}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65F50037-1C71-5384-ECE2-6E07F1734935}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65F50037-1C71-5384-ECE2-6E07F1734935}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3FB87D89-B247-4BEF-A104-9751C5C471A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3FB87D89-B247-4BEF-A104-9751C5C471A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FB87D89-B247-4BEF-A104-9751C5C471A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -304,7 +301,6 @@ Global
 		{C2F492AF-2988-6A05-E957-F1144CF9FC85} = {A824C7B1-F914-4C97-BEDE-8E648301E6B9}
 		{5B2DF0FC-0234-4E4C-9CB5-ADF2042E0636} = {01209564-A426-4678-A6BF-CE37C0DE8FCF}
 		{5813F7AA-63ED-43E0-A0DF-30F020FB4181} = {01209564-A426-4678-A6BF-CE37C0DE8FCF}
-		{65F50037-1C71-5384-ECE2-6E07F1734935} = {5B2DF0FC-0234-4E4C-9CB5-ADF2042E0636}
 		{3FB87D89-B247-4BEF-A104-9751C5C471A1} = {5813F7AA-63ED-43E0-A0DF-30F020FB4181}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
