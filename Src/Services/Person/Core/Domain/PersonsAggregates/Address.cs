@@ -71,13 +71,13 @@ namespace Domain.Persons
 
         private static void GuardAgainstState(string state)
         {
-            if (string.IsNullOrWhiteSpace(state) || state.Length < 2 || state.Length > 3)
+            if (string.IsNullOrWhiteSpace(state))
                 throw new StateIsNullException();
         }
 
         private static void GuardAgainstZipCode(string zipCode)
         {
-            if (string.IsNullOrWhiteSpace(zipCode) || zipCode.Length != 5)
+            if (string.IsNullOrWhiteSpace(zipCode) || zipCode.Length <= 5)
                 throw new ZipCodeIsNullException();
         }
 

@@ -47,7 +47,7 @@ namespace Domain.Persons.Leader
          Address Address,
          string Nationality,
          string Title,
-         string Department,
+         string department,
          DateTime newJoiningDate,
          List<string> newSkills,
          string newBio)
@@ -58,12 +58,12 @@ namespace Domain.Persons.Leader
 
             // Validate and update Leader-specific properties
             GuardAgainstTitle(Title);
-            GuardAgainstDepartment(Department);
+            GuardAgainstDepartment(department);
             GuardAgainstJoiningDate(newJoiningDate);
             GuardAgainstSkills(newSkills);
 
             this.Title = Title;
-            Department = Department;
+            Department = department;
             JoiningDate = newJoiningDate;
             Skills = newSkills;
             Bio = newBio;

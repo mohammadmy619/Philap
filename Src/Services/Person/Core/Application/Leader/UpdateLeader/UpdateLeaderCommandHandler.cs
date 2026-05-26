@@ -32,7 +32,7 @@ public class UpdateLeaderCommandHandler(ILeaderRepository _leaderRepository) : I
             Address: address,
             Nationality: request.Nationality,
             Title: request.Title,
-            Department: request.Department,
+            department: request.Department,
             newJoiningDate: request.JoiningDate,
             newSkills: request.Skills,
             newBio: request.Bio);

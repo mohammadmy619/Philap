@@ -28,7 +28,7 @@ namespace Domain.Persons
         #region Constractor
         protected Person(List<Guid> TripIds, string name, string lastName, string email, string phoneNumber, DateTime dateOfBirth, Gender gender, Address address, string nationality)
         {
-            GuardAgainstLeaderId(Id);
+            this.Id = Guid.NewGuid();
             GuardAgainstTripIds(TripIds);
             GuardAgainstName(name);
             GuardAgainstLastName(lastName);
@@ -131,7 +131,7 @@ namespace Domain.Persons
         {
 
 
-            if (Enum.IsDefined(typeof(Gender), Gender))
+            if (!Enum.IsDefined(typeof(Gender), Gender))
                 throw new LeaderGenderIsNullException();
         }
         private static void GuardAgainstNationality(string Nationality)

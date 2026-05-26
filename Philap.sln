@@ -112,13 +112,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ocelot.ApiGateways", "Src\Ocelot.ApiGateways\Ocelot.ApiGateways\Ocelot.ApiGateways.csproj", "{C2F492AF-2988-6A05-E957-F1144CF9FC85}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Person.test", "Person.test", "{5B2DF0FC-0234-4E4C-9CB5-ADF2042E0636}"
-	ProjectSection(SolutionItems) = preProject
-		Test\Person.test\PersonDomain Test\PersonDomain Test.csproj = Test\Person.test\PersonDomain Test\PersonDomain Test.csproj
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ticketing.test", "Ticketing.test", "{5813F7AA-63ED-43E0-A0DF-30F020FB4181}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingDomain test", "Test\Ticketing.test\TicketingDomain test\TicketingDomain test.csproj", "{3FB87D89-B247-4BEF-A104-9751C5C471A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonDomain Test", "Test\Person.test\PersonDomain Test\PersonDomain Test.csproj", "{8AB4BB3E-95AD-4AEC-A84E-3BBF5296A0C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -242,6 +241,10 @@ Global
 		{3FB87D89-B247-4BEF-A104-9751C5C471A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FB87D89-B247-4BEF-A104-9751C5C471A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FB87D89-B247-4BEF-A104-9751C5C471A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AB4BB3E-95AD-4AEC-A84E-3BBF5296A0C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AB4BB3E-95AD-4AEC-A84E-3BBF5296A0C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AB4BB3E-95AD-4AEC-A84E-3BBF5296A0C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AB4BB3E-95AD-4AEC-A84E-3BBF5296A0C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -302,6 +305,7 @@ Global
 		{5B2DF0FC-0234-4E4C-9CB5-ADF2042E0636} = {01209564-A426-4678-A6BF-CE37C0DE8FCF}
 		{5813F7AA-63ED-43E0-A0DF-30F020FB4181} = {01209564-A426-4678-A6BF-CE37C0DE8FCF}
 		{3FB87D89-B247-4BEF-A104-9751C5C471A1} = {5813F7AA-63ED-43E0-A0DF-30F020FB4181}
+		{8AB4BB3E-95AD-4AEC-A84E-3BBF5296A0C2} = {5B2DF0FC-0234-4E4C-9CB5-ADF2042E0636}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F95E290E-203A-456C-BBD6-1B08D102C4F5}
