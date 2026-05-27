@@ -1,10 +1,11 @@
-﻿using System;
+﻿using BuildingBlocks.Exeptions;
+using Domain.TripAggregate;
+using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain.TripAggregate;
-using MediatR;
 
 namespace Application.Trips.GetTrip
 {
@@ -18,11 +19,11 @@ namespace Application.Trips.GetTrip
             var trip = await _TripRepository.GetTripByIdAsync(request.TripID, cancellationToken);
 
             if (trip == null)
-                throw new GetTripNotFoundException();
+                throw new NotFoundException("Trip Not Found", "0814023");
 
            
             return new GetTripResponse(
-                         trip.Tripid,
+                         trip.Id,
                          trip.LeaderId,
                          trip.TravelStartDate,
                          trip.TravelEndDate,

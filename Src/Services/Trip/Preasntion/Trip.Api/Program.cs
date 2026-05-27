@@ -1,7 +1,7 @@
+using Application;
+using Persistence;
 using Scalar.AspNetCore;
 using Trip.Api;
-using Persistence;
-using Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +9,10 @@ builder.AddServiceDefaults();
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<NotFoundExceptionFilter>();
+});
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 
 
@@ -49,4 +52,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-    
+
+
+
+public partial class Program() { }

@@ -9,37 +9,72 @@ namespace Trip.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TripController(IMediator _mediator) : ControllerBase
+    public class TripController(IMediator mediator) : ControllerBase
     {
-
+        /// <summary>
+        /// دریافت اطلاعات یک سفر بر اساس شناسه
+        /// </summary>
         [HttpGet("{id:guid}")]
-        public async Task<IActionResult> Get(Guid id)
+        [ProducesResponseType(typeof(GetTripResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Get(
+            [FromRoute] Guid id,
+            CancellationToken cancellationToken)
         {
             var query = new GetTripQuery(id);
-            var response = await _mediator.Send(query);
+            var response = await mediator.Send(query, cancellationToken);
             return Ok(response);
         }
+
+        /// <summary>
+        /// دریافت لیست سفرها با قابلیت صفحه‌بندی
+        /// </summary>
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] GetTripsWithPaginationQuery query)
+        [ProducesResponseType(typeof(IReadOnlyCollection<GetTripsResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAll(
+            [FromQuery] GetTripsWithPaginationQuery query,
+            CancellationToken cancellationToken)
         {
-            var response = await _mediator.Send(query);
+            var response = await mediator.Send(query, cancellationToken);
             return Ok(response);
         }
 
+        /// <summary>
+        /// ایجاد یک سفر جدید
+        /// </summary>
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateTripCommand command)
+        [ProducesResponseType(typeof(CreateTripResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Create(
+            [FromBody] CreateTripCommand command,
+            CancellationToken cancellationToken)
         {
-
-            var trip = await _mediator.Send(command);
-            return Ok(trip);
-
+            var response = await mediator.Send(command, cancellationToken);
+            return Ok(response);
         }
-        [HttpPut("{id:guid}")]
-        public async Task<IActionResult> Update([FromBody] UpdateTripCommand command)
-        {
-            await _mediator.Send(command);
-            return NoContent();
 
+        /// <summary>
+        /// به‌روزرسانی اطلاعات یک سفر موجود
+        /// </summary>
+        [HttpPut("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Update(
+            [FromRoute] Guid id,
+            [FromBody] UpdateTripCommand command,
+            CancellationToken cancellationToken)
+        {
+            // اطمینان از هماهنگی ID در روت و بدنه درخواست
+            if (command.TripId != id)
+                return BadRequest("TripId in route and body must match.");
+
+            await mediator.Send(command, cancellationToken);
+            return NoContent();
         }
     }
 }

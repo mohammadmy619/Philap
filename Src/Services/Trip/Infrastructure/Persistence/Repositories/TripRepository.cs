@@ -37,8 +37,8 @@ namespace Persistence.Repositories
 
         public async Task<Trip> GetTripByIdAsync(Guid tripId, CancellationToken cancellationToken)
         {
-            return await _TripDbContext.Trip
-                .FirstOrDefaultAsync(t => t.Id == tripId, cancellationToken);
+            return await _TripDbContext.Trip.Where(v => v.Id == tripId).FirstOrDefaultAsync(cancellationToken);
+                
         }
 
         public async Task<IReadOnlyCollection<Trip>> GetTripsWithPaginationAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)

@@ -1,4 +1,5 @@
-﻿using Domain.TripAggregate;
+﻿using BuildingBlocks.Exeptions;
+using Domain.TripAggregate;
 using MediatR;
 
 public class UpdateTripCommandHandler(ITripRepository _tripRepository) : IRequestHandler<UpdateTripCommand>
@@ -10,7 +11,7 @@ public class UpdateTripCommandHandler(ITripRepository _tripRepository) : IReques
         var trip = await _tripRepository.GetTripByIdAsync(request.TripId, cancellationToken);
 
         if (trip == null)
-            throw new GetTripNotFoundException();
+            throw new NotFoundException("Trip Not Found", "0814023"); 
 
         trip.UpdateTrip(request.TripId, request.LeaderId, request.TravelStartDate, request.TravelEndDate, request.LocationName, request.TripStatus, new Price(request.PriceAmount, request.PriceCurrency));
 

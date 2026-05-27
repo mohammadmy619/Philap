@@ -154,19 +154,14 @@ namespace Domain.TripAggregate.Tests
         [Fact]
         public void Ctor_Should_Throw_InvalidTripStatusException_When_TripStatus_Is_Invalid()
         {
-            // توجه مهم:
-            // در کد شما:
-            // if (Enum.IsDefined(typeof(TripStatus), tripStatus))
-            //     throw new InvalidTripStatusException();
-            // این منطق برعکس است. این تست نشان می‌دهد که با مقداری معتبر هم Exception پرتاب می‌شود.
-            // در دنیای واقعی، منطق باید با !Enum.IsDefined اصلاح شود.
+         
 
             // Arrange
             var leaderId = Guid.NewGuid();
             var startDate = FutureDate(5);
             var endDate = FutureDate(10);
             var locationName = "Tehran";
-            var tripStatus = TripStatus.Active; // مقدار معتبر
+            var tripStatus = (TripStatus)999;
             var price = CreateValidPrice();
 
             // Act
@@ -188,7 +183,7 @@ namespace Domain.TripAggregate.Tests
             var startDate = FutureDate(5);
             var endDate = FutureDate(10);
             var locationName = "Tehran";
-            var tripStatus = (TripStatus)999; // چون منطق فعلی InvalidStatus برای مقدار معتبر Exception می‌اندازد،
+            var tripStatus = TripStatus.Active; // چون منطق فعلی InvalidStatus برای مقدار معتبر Exception می‌اندازد،
                                               // این‌جا برای تست "موفق" از مقدار غیر معتبر استفاده می‌کنیم!
             var price = CreateValidPrice();
 
@@ -198,7 +193,7 @@ namespace Domain.TripAggregate.Tests
             var newStartDate = FutureDate(20);
             var newEndDate = FutureDate(30);
             var newLocationName = "Isfahan";
-            var newTripStatus = (TripStatus)998; // متناسب با منطق فعلی
+            var newTripStatus = TripStatus.Cancelled; // متناسب با منطق فعلی
             var newPrice = new Price(2000m, "USD");
 
             var someTripId = Guid.NewGuid();
@@ -224,9 +219,10 @@ namespace Domain.TripAggregate.Tests
             var endDate = FutureDate(10);
             var locationName = "Tehran";
             var tripStatus = (TripStatus)999;
+            var tripStatusvalid = TripStatus.Active;
             var price = CreateValidPrice();
 
-            var trip = new Trip(leaderId, startDate, endDate, locationName, tripStatus, price);
+            var trip = new Trip(leaderId, startDate, endDate, locationName, tripStatusvalid, price);
 
             var invalidId = Guid.Empty;
 
@@ -245,7 +241,7 @@ namespace Domain.TripAggregate.Tests
             var startDate = FutureDate(5);
             var endDate = FutureDate(10);
             var locationName = "Tehran";
-            var tripStatus = (TripStatus)999;
+            var tripStatus = TripStatus.Active;
             var price = CreateValidPrice();
 
             var trip = new Trip(leaderId, startDate, endDate, locationName, tripStatus, price);
@@ -267,7 +263,7 @@ namespace Domain.TripAggregate.Tests
             var startDate = FutureDate(5);
             var endDate = FutureDate(10);
             var locationName = "Tehran";
-            var tripStatus = (TripStatus)999;
+            var tripStatus = TripStatus.Active;
             var price = CreateValidPrice();
 
             var trip = new Trip(leaderId, startDate, endDate, locationName, tripStatus, price);
@@ -294,7 +290,7 @@ namespace Domain.TripAggregate.Tests
             var startDate = FutureDate(5);
             var endDate = FutureDate(10);
             var locationName = "Tehran";
-            var tripStatus = (TripStatus)999;
+            var tripStatus = TripStatus.Active;
             var price = CreateValidPrice();
 
             var trip = new Trip(leaderId, startDate, endDate, locationName, tripStatus, price);
@@ -323,7 +319,7 @@ namespace Domain.TripAggregate.Tests
             var startDate = FutureDate(5);
             var endDate = FutureDate(10);
             var locationName = "Tehran";
-            var tripStatus = (TripStatus)999;
+            var tripStatus = TripStatus.Active;
             var price = CreateValidPrice();
 
             var trip = new Trip(leaderId, startDate, endDate, locationName, tripStatus, price);
@@ -350,7 +346,7 @@ namespace Domain.TripAggregate.Tests
             var startDate = FutureDate(5);
             var endDate = FutureDate(10);
             var locationName = "Tehran";
-            var tripStatus = (TripStatus)999;
+            var tripStatus = TripStatus.Active;
             var price = CreateValidPrice();
 
             var trip = new Trip(leaderId, startDate, endDate, locationName, tripStatus, price);
@@ -379,7 +375,7 @@ namespace Domain.TripAggregate.Tests
             var startDate = FutureDate(5);
             var endDate = FutureDate(10);
             var locationName = "Tehran";
-            var tripStatus = (TripStatus)999;
+            var tripStatus = TripStatus.Active;
             var price = CreateValidPrice();
 
             var trip = new Trip(leaderId, startDate, endDate, locationName, tripStatus, price);
@@ -410,12 +406,12 @@ namespace Domain.TripAggregate.Tests
             var startDate = FutureDate(5);
             var endDate = FutureDate(10);
             var locationName = "Tehran";
-            var invalidLogicTripStatus = (TripStatus)999; // برای ساخت Trip معتبر
+            var invalidLogicTripStatus = TripStatus.Active; // برای ساخت Trip معتبر
             var price = CreateValidPrice();
 
             var trip = new Trip(leaderId, startDate, endDate, locationName, invalidLogicTripStatus, price);
 
-            var validStatus = TripStatus.Active; // enum معتبر
+            var validStatus = (TripStatus)999; // enum معتبر
 
             // Act
             Action act = () => trip.UpdateTrip(

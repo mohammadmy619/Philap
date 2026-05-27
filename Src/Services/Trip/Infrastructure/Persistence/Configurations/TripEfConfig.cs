@@ -14,14 +14,12 @@ namespace Persistence.Configurations
         public void Configure(EntityTypeBuilder<Trip> builder)
         {
             builder.HasKey(t => t.Id);
-            builder.Property(t => t.Id);
-                   
+            
 
             builder.Property(t => t.LocationName)
                    .IsRequired()
                    .HasMaxLength(100);
 
-            // LeaderId یک foreign key است، اگر رابطه داشته باشد
             builder.Property(t => t.LeaderId)
                    .IsRequired();
 

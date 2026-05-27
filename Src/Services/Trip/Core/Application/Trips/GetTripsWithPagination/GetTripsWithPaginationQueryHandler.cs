@@ -13,7 +13,7 @@ namespace Application.Trips.GetTripsWithPagination
     public class GetTripsWithPaginationQueryHandler(ITripRepository _tripRepository)
       : IRequestHandler<GetTripsWithPaginationQuery, IReadOnlyCollection<GetTripsResponse>>
     {
-        private readonly ITripRepository _tripRepository;
+       
 
       
         public async Task<IReadOnlyCollection<GetTripsResponse>> Handle(
@@ -26,7 +26,7 @@ namespace Application.Trips.GetTripsWithPagination
                 cancellationToken);
 
             var responseItems = trips.Select(trip => new GetTripsResponse(
-                trip.Tripid,
+                trip.Id,
                 trip.LeaderId,
                 trip.TravelStartDate,
                 trip.TravelEndDate,

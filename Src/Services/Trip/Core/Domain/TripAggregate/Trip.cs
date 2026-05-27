@@ -15,7 +15,7 @@ namespace Domain.TripAggregate
         public Trip( Guid leaderId, DateTime travelStartDate, DateTime travelEndDate, string locationName, TripStatus tripStatus, Price price) 
         {
           
-            //Id = Guid.NewGuid();
+          
             GuardAgainstLeaderId(leaderId);
             GuardAgainstTravelStartDate(travelStartDate);
             GuardAgainstTravelEndDate(travelEndDate);
@@ -35,7 +35,6 @@ namespace Domain.TripAggregate
         }
         #endregion
         #region propertys
-        public Guid Tripid { get; private set; }
         public Guid LeaderId { get; private set; }
         public DateTime TravelStartDate { get; private set; }
         public DateTime TravelEndDate { get; private set; }

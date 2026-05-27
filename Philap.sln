@@ -119,6 +119,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingDomain test", "Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonDomain Test", "Test\Person.test\PersonDomain Test\PersonDomain Test.csproj", "{8AB4BB3E-95AD-4AEC-A84E-3BBF5296A0C2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trip.FunctionalTests", "Test\TripTest\Trip.FunctionalTests\Trip.FunctionalTests.csproj", "{3BCA9C35-3611-429A-ADFC-522EC6E6271C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -245,6 +247,10 @@ Global
 		{8AB4BB3E-95AD-4AEC-A84E-3BBF5296A0C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AB4BB3E-95AD-4AEC-A84E-3BBF5296A0C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AB4BB3E-95AD-4AEC-A84E-3BBF5296A0C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BCA9C35-3611-429A-ADFC-522EC6E6271C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BCA9C35-3611-429A-ADFC-522EC6E6271C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BCA9C35-3611-429A-ADFC-522EC6E6271C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BCA9C35-3611-429A-ADFC-522EC6E6271C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -306,6 +312,7 @@ Global
 		{5813F7AA-63ED-43E0-A0DF-30F020FB4181} = {01209564-A426-4678-A6BF-CE37C0DE8FCF}
 		{3FB87D89-B247-4BEF-A104-9751C5C471A1} = {5813F7AA-63ED-43E0-A0DF-30F020FB4181}
 		{8AB4BB3E-95AD-4AEC-A84E-3BBF5296A0C2} = {5B2DF0FC-0234-4E4C-9CB5-ADF2042E0636}
+		{3BCA9C35-3611-429A-ADFC-522EC6E6271C} = {A51D0F8E-206E-41F4-9274-D16BB2E338E2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F95E290E-203A-456C-BBD6-1B08D102C4F5}
