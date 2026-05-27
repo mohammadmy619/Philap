@@ -1,5 +1,7 @@
 using Scalar.AspNetCore;
 using Trip.Api;
+using Persistence;
+using Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,9 +11,17 @@ builder.AddServiceDefaults();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-builder.Services.ConfigureCors();
 
+
+builder.Services.ConfigureApplicationLayer(builder.Configuration);
+
+builder.Services.ConfigureInfrastructureLayer(builder.Configuration);
+
+builder.Services.AddOpenApi();
+
+
+builder.Services.ConfigureCors();
+builder.Services.AddEndpointsApiExplorer();
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
@@ -19,16 +29,19 @@ app.MapDefaultEndpoints();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+
+
     app.MapOpenApi();
+    //app.MapScalarApiReference();
 
     app.MapScalarApiReference(opt =>
-    {
-        opt.Title = "Identity";
-        opt.Theme = ScalarTheme.Purple;
-        opt.DefaultHttpClient = new(ScalarTarget.Http, ScalarClient.Http11);
-    });
+        {
+            opt.Title = "Trip";
+            opt.Theme = ScalarTheme.BluePlanet;
+            opt.DefaultHttpClient = new(ScalarTarget.Http, ScalarClient.Http11);
+        });
 }
-
+app.UseRouting(); 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
@@ -36,3 +49,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+    

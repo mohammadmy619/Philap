@@ -14,8 +14,8 @@ namespace Persistence.Configurations
         public void Configure(EntityTypeBuilder<Trip> builder)
         {
             builder.HasKey(t => t.Id);
-            builder.Property(t => t.Id)
-                   .ValueGeneratedOnAdd(); // Guid جدید در حین insert در دیتابیس تولید شود
+            builder.Property(t => t.Id);
+                   
 
             builder.Property(t => t.LocationName)
                    .IsRequired()
