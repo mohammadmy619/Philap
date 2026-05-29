@@ -6,4 +6,24 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="ExternalServices\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.35.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.80.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.80.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.80.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Philap.ACL\ACL\ACL.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks.Messaging\BuildingBlocks.Messaging.csproj" />
+  </ItemGroup>
+
 </Project>

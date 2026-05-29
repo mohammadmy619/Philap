@@ -20,8 +20,8 @@ namespace Domain.Persons.Passenger
         #region Constructor  
 
         public Passenger(List<Guid>? TripIds, string name, string lastName, string email, string phoneNumber,
-            DateTime dateOfBirth, Gender gender, Address address, string nationality, string passportNumber, List<string> frequentFlyerNumbers)
-            : base( TripIds, name, lastName, email, phoneNumber, dateOfBirth, gender, address, nationality)
+            DateTime dateOfBirth, Gender gender, Address address, string nationality,bool Address, bool isActive, string passportNumber, List<string> frequentFlyerNumbers)
+            : base( TripIds, name, lastName, email, phoneNumber, dateOfBirth, gender, address, nationality,isActive)
         {
             GuardAgainstPassportNumber(passportNumber);
             GuardAgainstFrequentFlyerNumbers(frequentFlyerNumbers);

@@ -1,33 +1,32 @@
+using k8s.Models;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 
 
 
 
-builder.AddProject<Projects.Ocelot_ApiGateways>("ocelot-apigateways");
-
-
-
-builder.AddProject<Projects.Person_Api>("person-api").WithExternalHttpEndpoints()
+var Identity_Api = builder.AddProject<Projects.Identity_Api>("identity-api")
     .WithHttpHealthCheck("/health");
 
 
-
-
-builder.AddProject<Projects.Ticketing_Api>("ticketing-api").WithExternalHttpEndpoints()
+var Person_Api = builder.AddProject<Projects.Person_Api>("person-api")
     .WithHttpHealthCheck("/health");
 
+var Trip_Api = builder.AddProject<Projects.Trip_Api>("trip-api").WithExternalHttpEndpoints()
+    .WithHttpHealthCheck("/health").WithReference(Person_Api)
+    .WaitFor(Person_Api);
 
-
-builder.AddProject<Projects.Identity_Api>("identity-api").WithExternalHttpEndpoints()
+var Ticketing_Api = builder.AddProject<Projects.Ticketing_Api>("ticketing-api")
     .WithHttpHealthCheck("/health");
 
+var Ocelot_ApiGateways = builder.AddProject<Projects.Ocelot_ApiGateways>("ocelot-apigateways");
 
 
-builder.AddProject<Projects.Trip_Api>("trip-api").WithExternalHttpEndpoints()
-    .WithHttpHealthCheck("/health");
+builder.Configuration["DcpPublisher:RandomizePorts"] = "false";
 
-
+builder.Build().Run();
+//.WithHttpEndpoint(name: "main", port: 7082, isProxied: false)
 
 //var apiService = builder.AddProject<Projects.AspireApp_host_ApiService>("apiservice")
 //    .WithHttpHealthCheck("/health");
@@ -38,4 +37,4 @@ builder.AddProject<Projects.Trip_Api>("trip-api").WithExternalHttpEndpoints()
 //    .WithReference(apiService)
 //    .WaitFor(apiService);
 
-builder.Build().Run();
+

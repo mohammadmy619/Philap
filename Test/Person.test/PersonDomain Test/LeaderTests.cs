@@ -31,6 +31,7 @@ namespace Domain.Tests.Persons
                 Gender.Male,
                 _validAddress,
                 "Iranian",
+                true,
                 "Senior Guide",
                 "Adventure",
                 DateTime.Now.AddDays(-10),
@@ -54,7 +55,7 @@ namespace Domain.Tests.Persons
             // Act
             Action act = () => new Leader(
                 _validTripIds, "Ali", "Alavi", "ali@example.com", "09123456789",
-                new DateTime(1990, 1, 1), Gender.Male, _validAddress, "Iranian",
+                new DateTime(1990, 1, 1), Gender.Male, _validAddress, "Iranian", true,
                 invalidTitle, "Department", DateTime.Now.AddDays(-1), _validSkills, "Bio"
             );
 
@@ -71,7 +72,7 @@ namespace Domain.Tests.Persons
             // Act
             Action act = () => new Leader(
                 _validTripIds, "Ali", "Alavi", "ali@example.com", "09123456789",
-                new DateTime(1990, 1, 1), Gender.Male, _validAddress, "Iranian",
+                new DateTime(1990, 1, 1), Gender.Male, _validAddress, "Iranian", true,
                 "Title", "Dept", futureDate, _validSkills, "Bio"
             );
 
@@ -85,7 +86,7 @@ namespace Domain.Tests.Persons
             // Arrange
             var leader = new Leader(
                 _validTripIds, "Ali", "Alavi", "ali@example.com", "09123456789",
-                new DateTime(1990, 1, 1), Gender.Male, _validAddress, "Iranian",
+                new DateTime(1990, 1, 1), Gender.Male, _validAddress, "Iranian", true,
                 "Old Title", "Old Dept", DateTime.Now.AddDays(-1), _validSkills, "Old Bio"
             );
 
@@ -125,7 +126,7 @@ namespace Domain.Tests.Persons
             // Act
             Action act = () => new Leader(
                 _validTripIds, "Ali", "Alavi", "ali@example.com", "09123456789",
-                new DateTime(1990, 1, 1), Gender.Male, _validAddress, "Iranian",
+                new DateTime(1990, 1, 1), Gender.Male, _validAddress, "Iranian", true,
                 "Title", "Dept", DateTime.Now.AddDays(-1), emptySkills, "Bio"
             );
 

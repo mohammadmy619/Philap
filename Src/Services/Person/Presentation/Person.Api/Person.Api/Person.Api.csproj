@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.35.0" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.80.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.80.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="MediatR" Version="12.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
     <PackageReference Include="Scalar.AspNetCore" Version="2.3.1" />
@@ -14,7 +20,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\AppHost\AspireApp.host\AspireApp.host.ServiceDefaults\AspireApp.host.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Shared\BuildingBlocks.Messaging\BuildingBlocks.Messaging.csproj" />
     <ProjectReference Include="..\..\..\Core\Application\Application.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\Persistence\Persistence.csproj" />
   </ItemGroup>
 
 </Project>

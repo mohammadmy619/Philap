@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Philap.ACL\ACL\ACL.csproj" />
     <ProjectReference Include="..\..\..\..\Shared\BuildingBlocks\BuildingBlocks.csproj" />
   </ItemGroup>
 

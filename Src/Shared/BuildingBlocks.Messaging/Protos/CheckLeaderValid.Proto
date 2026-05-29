@@ -1,0 +1,18 @@
+﻿syntax = "proto3";
+
+package CheckLeaderValided;
+
+service CheckLeaderValid
+{
+    rpc CheckLeaderValidity (IsLeaderValidRequest) returns (IsLeaderValidResponse);
+}
+
+message IsLeaderValidRequest
+{
+  string leaderId = 1; // Guid به صورت string منتقل می‌شود
+}
+
+message IsLeaderValidResponse
+{
+  bool isValid = 1;
+}

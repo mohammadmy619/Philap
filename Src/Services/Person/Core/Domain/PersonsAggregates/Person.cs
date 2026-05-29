@@ -22,11 +22,12 @@ namespace Domain.Persons
         public DateTime DateOfBirth { get; private set; }
         public Gender Gender { get; private set; }
         public string Nationality { get; private set; }
+        public bool IsActive { get; set; }
         public Address Address { get; private set; }/// value object
 
         #endregion
         #region Constractor
-        protected Person(List<Guid> TripIds, string name, string lastName, string email, string phoneNumber, DateTime dateOfBirth, Gender gender, Address address, string nationality)
+        protected Person(List<Guid> TripIds, string name, string lastName, string email, string phoneNumber, DateTime dateOfBirth, Gender gender, Address address, string nationality,bool isActive)
         {
             this.Id = Guid.NewGuid();
             GuardAgainstTripIds(TripIds);
@@ -46,6 +47,7 @@ namespace Domain.Persons
             Gender = gender;
             Address = address;
             Nationality = nationality;
+            IsActive = isActive;
         }
 
         private Person()

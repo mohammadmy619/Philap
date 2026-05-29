@@ -15,7 +15,7 @@ namespace Persistence
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection ConfigureInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigurePersistenceLayer(this IServiceCollection services, IConfiguration configuration)
         {
 
             var applicationAssembly = typeof(IAssemblyMarker).Assembly;
