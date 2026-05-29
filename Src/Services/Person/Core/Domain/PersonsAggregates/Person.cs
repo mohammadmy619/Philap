@@ -63,7 +63,7 @@ namespace Domain.Persons
          DateTime dateOfBirth,
          Gender gender,
          Address address,
-         string nationality)
+         string nationality,bool isActive)
         {
             // اعتبارسنجی تمام فیلدها
             GuardAgainstTripIds(tripIds);
@@ -85,6 +85,7 @@ namespace Domain.Persons
             Gender = gender;
             Address = address;
             Nationality = nationality;
+            IsActive = isActive;
         }
         #endregion
         #region Guards

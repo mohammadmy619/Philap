@@ -19,9 +19,20 @@ namespace Domain.Persons.Passenger
 
         #region Constructor  
 
-        public Passenger(List<Guid>? TripIds, string name, string lastName, string email, string phoneNumber,
-            DateTime dateOfBirth, Gender gender, Address address, string nationality,bool Address, bool isActive, string passportNumber, List<string> frequentFlyerNumbers)
-            : base( TripIds, name, lastName, email, phoneNumber, dateOfBirth, gender, address, nationality,isActive)
+        public Passenger(
+       List<Guid>? tripIds,
+       string name,
+       string lastName,
+       string email,
+       string phoneNumber,
+       DateTime dateOfBirth,
+       Gender gender,
+       Address address,
+       string nationality,
+       bool isActive,              // Fixed: removed duplicate "bool Address" typo
+       string passportNumber,
+       List<string> frequentFlyerNumbers)
+       : base(tripIds, name, lastName, email, phoneNumber, dateOfBirth, gender, address, nationality, isActive)
         {
             GuardAgainstPassportNumber(passportNumber);
             GuardAgainstFrequentFlyerNumbers(frequentFlyerNumbers);
@@ -43,6 +54,7 @@ namespace Domain.Persons.Passenger
             Gender gender,
             Address address,
             string nationality,
+            bool isActive,
             string passportNumber,
             List<string> frequentFlyerNumbers)
         {
@@ -56,7 +68,9 @@ namespace Domain.Persons.Passenger
                 dateOfBirth: dateOfBirth,
                 gender: gender,
                 address: address,
-                nationality: nationality);
+                nationality: nationality,
+                isActive: isActive
+                );
 
             // 2. اعتبارسنجی پاسپورت و شماره‌های مسافر تکراری
             GuardAgainstPassportNumber(passportNumber);

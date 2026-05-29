@@ -26,6 +26,7 @@ public class CreatePassengerCommandHandler(IPassengerRepository _passengerReposi
            gender: request.Gender,
            address: address,
            nationality: request.Nationality,
+           isActive:request.isActive,
            passportNumber: request.PassportNumber,
            frequentFlyerNumbers: request.FrequentFlyerNumbers);
      

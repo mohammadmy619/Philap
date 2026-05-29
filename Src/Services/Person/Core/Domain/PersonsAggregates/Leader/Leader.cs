@@ -64,10 +64,10 @@ namespace Domain.Persons.Leader
          string department,
          DateTime newJoiningDate,
          List<string> newSkills,
-         string newBio)
+         string newBio,bool isActive)
         {
 
-            UpdatePerson(tripIds,Name,LastName,Email,PhoneNumber,DateOfBirth, Gender, Address,Nationality);
+            UpdatePerson(tripIds,Name,LastName,Email,PhoneNumber,DateOfBirth, Gender, Address,Nationality, isActive);
          
 
             // Validate and update Leader-specific properties

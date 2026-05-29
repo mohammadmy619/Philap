@@ -9,6 +9,7 @@ public record class CreatePassengerCommand(
     string PhoneNumber,
     DateTime DateOfBirth,
     Gender Gender,
+    bool isActive,
     string Street,
     string City,
     string State,

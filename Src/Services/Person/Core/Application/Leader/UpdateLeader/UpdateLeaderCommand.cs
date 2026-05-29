@@ -18,6 +18,7 @@ namespace Application.Leader.UpdateLeader
       DateTime DateOfBirth,
       Gender Gender,
       string Nationality,
+      bool isActive,
       string Title,
       string Department,
       DateTime JoiningDate,

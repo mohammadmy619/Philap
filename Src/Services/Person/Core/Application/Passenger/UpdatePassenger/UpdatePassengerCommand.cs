@@ -16,5 +16,6 @@ public record class UpdatePassengerCommand(
     string State,
     string ZipCode,
     string Nationality,
+    bool isActive,
     string PassportNumber,
     List<string> FrequentFlyerNumbers) : IRequest<Unit>;
