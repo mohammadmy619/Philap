@@ -108,6 +108,7 @@ namespace Domain.Tests.Persons
                 DateTime.Now.AddDays(-2),
                 newSkills,
                 "New Bio"
+                ,false
             );
 
             // Assert

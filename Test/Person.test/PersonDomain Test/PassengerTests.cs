@@ -19,17 +19,19 @@ namespace Domain.UnitTests.Persons
         {
             // Arrange & Act
             var passenger = new Passenger(
-                _validTripIds,
-                "John",
-                "Doe",
-                "john.doe@email.com",
-                "09123456789",
-                new DateTime(1990, 1, 1),
-                Gender.Male,
-                _validAddress,
-                "Iranian",
-                "A12345678",
-                _validFrequentFlyerNumbers);
+             tripIds: _validTripIds,
+             name: "John",
+             lastName: "Doe",
+             email: "john.doe@email.com",
+             phoneNumber: "09123456789",
+             dateOfBirth: new DateTime(1990, 1, 1),
+             gender: Gender.Male,
+             address: _validAddress,
+             nationality: "Iranian",
+             isActive: true,
+             passportNumber: "A12345678",
+             frequentFlyerNumbers: _validFrequentFlyerNumbers // Fixed truncated variable name
+            );
 
             // Assert
             passenger.Should().NotBeNull();
@@ -37,7 +39,7 @@ namespace Domain.UnitTests.Persons
             passenger.PassportNumber.Should().Be("A12345678");
             passenger.FrequentFlyerNumbers.Should().HaveCount(2);
         }
-        
+
         [Theory]
         [InlineData("")]           // رشته کاملاً خالی
         [InlineData("   ")]        // رشته‌ای که فقط شامل فاصله است
@@ -55,6 +57,7 @@ namespace Domain.UnitTests.Persons
                 Gender.Male,
                 _validAddress,
                 "Iranian",
+                true,
                 invalidPassport, // ورودی نامعتبر
                 _validFrequentFlyerNumbers);
 
@@ -70,7 +73,7 @@ namespace Domain.UnitTests.Persons
             // Act
             Action act = () => new Passenger(
                 _validTripIds, "John", "Doe", "john@email.com", "0912",
-                DateTime.Now.AddYears(-20), Gender.Male, _validAddress, "IR",
+                DateTime.Now.AddYears(-20), Gender.Male, _validAddress, "IR", true,
                 invalidPassport, _validFrequentFlyerNumbers);
 
             // Assert
@@ -83,7 +86,7 @@ namespace Domain.UnitTests.Persons
             // Act
             Action act = () => new Passenger(
                 _validTripIds, "John", "Doe", "john@email.com", "0912",
-                DateTime.Now.AddYears(-20), Gender.Male, _validAddress, "IR",
+                DateTime.Now.AddYears(-20), Gender.Male, _validAddress, "IR", true,
                 "A12345678", new List<string>()); // لیست خالی
 
             // Assert
@@ -96,7 +99,7 @@ namespace Domain.UnitTests.Persons
             // Arrange
             var passenger = new Passenger(
                 _validTripIds, "OldName", "OldLast", "old@email.com", "0911",
-                new DateTime(1990, 1, 1), Gender.Male, _validAddress, "OldNat",
+                new DateTime(1990, 1, 1), Gender.Male, _validAddress, "OldNat", true,
                 "OldPass", _validFrequentFlyerNumbers);
 
             var newTrips = new List<Guid> { Guid.NewGuid() };
@@ -114,6 +117,7 @@ namespace Domain.UnitTests.Persons
                 Gender.Female,
                 newAddress,
                 "NewNat",
+                true,
                 "NewPass123",
                 newFlyers);
 
@@ -133,14 +137,14 @@ namespace Domain.UnitTests.Persons
             // Arrange
             var passenger = new Passenger(
                 _validTripIds, "John", "Doe", "john@email.com", "0912",
-                DateTime.Now.AddYears(-20), Gender.Male, _validAddress, "IR",
+                DateTime.Now.AddYears(-20), Gender.Male, _validAddress, "IR", true,
                 "A12345678", _validFrequentFlyerNumbers);
 
             // Act
             // ارسال ایمیل خالی که در کلاس پایه (Person) چک می‌شود
             Action act = () => passenger.Update(
                 _validTripIds, "John", "Doe", "", "0912",
-                DateTime.Now.AddYears(-20), Gender.Male, _validAddress, "IR",
+                DateTime.Now.AddYears(-20), Gender.Male, _validAddress, "IR",false,
                 "A12345678", _validFrequentFlyerNumbers);
 
             // Assert
