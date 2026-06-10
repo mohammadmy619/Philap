@@ -14,6 +14,7 @@ namespace Domain.PermissionAgregate
         Task AddPermissionAsync(Permission permission, CancellationToken cancellationToken);
         Task UpdatePermissionAsync(Permission permission, CancellationToken cancellationToken);
         Task DeletePermissionAsync(Guid permissionId, CancellationToken cancellationToken);
+        Task<List<Permission>> GetPermissionByIdAsync(IEnumerable<Guid> permissionIds, CancellationToken cancellationToken);
         Task<Permission> GetPermissionByIdAsync(Guid permissionId, CancellationToken cancellationToken);
         Task<IEnumerable<Permission>> GetAllPermissionsAsync(CancellationToken cancellationToken);
         Task<IEnumerable<Permission>> FindPermissionsAsync(Expression<Func<Permission, bool>> predicate, CancellationToken cancellationToken);
@@ -21,6 +22,9 @@ namespace Domain.PermissionAgregate
 
         //AccessControl methods
         Task<IReadOnlyCollection<AccessControl>> GetAllAccessControlAsync(Guid permissionId,CancellationToken cancellationToken);
+
+        Task<IReadOnlyCollection<AccessControl>> GetAccessControlsByPermissionIdAsync(Guid permissionId, CancellationToken cancellationToken);
+        
 
         // Save changes  
         Task SaveChangesAsync(CancellationToken cancellationToken); // ذخیره تغییرات 

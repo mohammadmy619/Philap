@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.services
+namespace Application.ApplicationServices
 {
-   public interface IPasswordHelper
+   public interface IService
     {
-        public string EncodePasswordMd5(string pass);
     }
 }

@@ -1,1 +1,1 @@
-﻿public record LoginUserResponse(string token);
+﻿public record LoginUserResponse(string Token,string UserName);

@@ -1,6 +1,5 @@
 ﻿using Domain.UserAgregate;
 using MediatR;
-using Application.services;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.User.Exceptions;

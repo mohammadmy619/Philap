@@ -1,8 +1,8 @@
 ﻿using Domain.UserAgregate;
 using MediatR;
-using Application.services;
 using Domain.Services;
 using Domain.RoleAgregate;
+using Application.ApplicationServices;
 
 namespace Application.User.CreateUser
 {
@@ -17,7 +17,7 @@ namespace Application.User.CreateUser
 
             if (string.IsNullOrEmpty(request.Password)) throw new UserPasswordInvalidException();
 
-            var passwordHash = _passwordHasher.EncodePasswordMd5(request.Password);
+            var passwordHash = _passwordHasher.HashPassword(request.Password);
 
 
             // Create User

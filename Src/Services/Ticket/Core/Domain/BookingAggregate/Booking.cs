@@ -70,7 +70,7 @@ namespace Domain.BookingAggregate
         }
         public void Update(Guid tripId, Guid passengerId, DateTime purchaseDate, Money price)
         {
-            // اعتبارسنجی مقادیر جدید با استفاده از گارد متدهای موجود
+           
             GuardAgainstTripId(tripId);
             GuardAgainstPassengerId(passengerId);
             GuardAgainstPurchaseDate(purchaseDate);
@@ -82,7 +82,7 @@ namespace Domain.BookingAggregate
             PurchaseDate = purchaseDate;
             Price = price;
 
-            // ثبت ایونت برای ردیابی تغییرات (اختیاری اما توصیه شده)
+
             //AddEvent(new BookingUpdatedDomainEvent(
             //    Id,
             //    TripId,

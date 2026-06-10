@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.services;
+﻿using Application.ApplicationServices;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SixLabors.ImageSharp;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Application
 {
@@ -26,7 +27,7 @@ namespace Application
             {
                 configure.RegisterServicesFromAssembly(applicationAssembly);
             });
-
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             return services;
         }

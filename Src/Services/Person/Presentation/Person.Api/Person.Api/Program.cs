@@ -13,7 +13,10 @@ builder.Services.AddGrpc();
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<NotFoundExceptionFilter>();
+});
 builder.Services.ConfigurePersistenceLayer(builder.Configuration);
 builder.Services.ConfigureApplicationLayer(builder.Configuration);
 

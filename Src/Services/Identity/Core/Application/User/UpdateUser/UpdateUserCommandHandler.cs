@@ -1,14 +1,14 @@
 ﻿using Domain.UserAgregate;
 using MediatR;
-using Application.services;
 using Application.User.Exceptions;
 using Application.User.CreateUser;
 using Domain.Services;
 using Domain.RoleAgregate;
+using Application.ApplicationServices;
 
 namespace Application.User.UpdateUser
 {
-    public class UpdateUserCommandHandler(IUserRepository _userRepository, IRoleRepository _RoleRepository, IPasswordHelper _passwordHasher,IEmailService _EmailService) : IRequestHandler<UpdateUserCommand, UpdateUserResponse>
+    public class UpdateUserCommandHandler(IUserRepository _userRepository, IRoleRepository _RoleRepository, IPasswordHelper _PasswordHelper, IEmailService _EmailService) : IRequestHandler<UpdateUserCommand, UpdateUserResponse>
     {
        
 
@@ -22,7 +22,7 @@ namespace Application.User.UpdateUser
                 throw new UserNotFoundException($"User with ID {request.UserId} not found.");
 
 
-            if (!string.IsNullOrEmpty(request.Password)) _passwordHasher.EncodePasswordMd5(request.Password);
+            if (!string.IsNullOrEmpty(request.Password)) _PasswordHelper.HashPassword(request.Password);
 
             user.UpdateUser(request.UserId,request.UserName,request.Email,request.Password, _EmailService);
 

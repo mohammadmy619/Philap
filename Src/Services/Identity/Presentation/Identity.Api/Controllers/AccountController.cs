@@ -1,9 +1,11 @@
 ﻿using Application.DTO;
 using Application.User.CreateUser;
+using Application.User.LoginUser;
 using Application.User.UpdateUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Win32;
 
 
 
@@ -26,26 +28,14 @@ namespace Identity.Api.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginModel login)
+        [ProducesResponseType(typeof(LoginUserResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Login([FromBody] LoginUserQuery login)
         {
-            //// اعتبارسنجی کاربر
-            //var user = _users.FirstOrDefault(u =>
-            //    u.Username == login.Username && u.Password == login.Password);
-
-            //if (user == null)
-            //{
-            //    return Unauthorized(new { message = "نام کاربری یا رمز عبور اشتباه است" });
-            //}
-
-            return null;
-            // ایجاد توکن
-            //var token = GenerateJwtToken(user);
-
-            //return Ok(new { token });
+            var result = await _mediator.Send(login);
+            return Ok(result);
         }
-
-
-
 
 
 

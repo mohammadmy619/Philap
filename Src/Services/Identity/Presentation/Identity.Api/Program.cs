@@ -1,9 +1,10 @@
-using Scalar.AspNetCore;
 using Application;
-using Persistence;
+using Application.Utils;
 using Identity.Api;
-using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Persistence;
+using Scalar.AspNetCore;
+using System.Text;
 
 
 
@@ -11,19 +12,23 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-// Add services to the container.
 
 builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.ConfigureInfrastructureLayer(builder.Configuration);
 builder.Services.ConfigureApplicationLayer(builder.Configuration);
 
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.ConfigureCors();
-var key = Encoding.ASCII.GetBytes("THIS_IS_A_VERY_LONG_AND_SECURE_SECRET_KEY_1234567890"); 
 
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ExceptionFilter>();
+});
+
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
+var key = Encoding.UTF8.GetBytes(jwtSettings.SecretKey);
 
 builder.Services.AddAuthentication()
     .AddJwtBearer("Bearer", options =>
@@ -33,12 +38,23 @@ builder.Services.AddAuthentication()
         {
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ClockSkew = TimeSpan.Zero
+
+            ValidateIssuer = true,
+            ValidIssuer = jwtSettings.Issuer,
+
+
+            ValidateAudience = true,
+            ValidAudience = jwtSettings.Audience,
+
+            ClockSkew = TimeSpan.Zero,
+            ValidateLifetime = true,
         };
         options.RequireHttpsMetadata = false; // ??? ???? ?????
     });
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ExceptionFilter>();
+});
 
 var app = builder.Build();
 

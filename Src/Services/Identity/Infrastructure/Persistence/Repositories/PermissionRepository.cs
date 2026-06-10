@@ -79,4 +79,29 @@ public class PermissionRepository(IdentityDbContext _context) : IPermissionRepos
 
         return (IReadOnlyCollection<AccessControl>)res;
     }
+
+    public async Task<List<Permission>> GetPermissionByIdAsync(IEnumerable<Guid> permissionIds, CancellationToken cancellationToken)
+    {
+        if (permissionIds == null || !permissionIds.Any())
+            return new List<Permission>();
+
+        return await _context.Permission
+            .Include(p => p.AccessControl) 
+            .Where(p => permissionIds.Contains(p.Id))
+            .ToListAsync(cancellationToken);
+    }
+
+
+    public async  Task<IReadOnlyCollection<AccessControl>> GetAccessControlsByPermissionIdAsync(Guid permissionId, CancellationToken cancellationToken)
+    {
+        var permission = await _context.Permission
+      .Include(p => p.AccessControl)
+      .FirstOrDefaultAsync(p => p.Id == permissionId, cancellationToken);
+
+        if (permission == null)
+            return Array.Empty<AccessControl>(); // یا throw new NotFoundException()
+
+        // فرض می‌کنیم AccessControl یک IReadOnlyCollection است
+        return permission.AccessControl;
+    }
 }

@@ -14,7 +14,7 @@ builder.Services.AddServiceDiscoveryCore();
 
 builder.Services.AddControllers(options =>
 {
-    options.Filters.Add<NotFoundExceptionFilter>();
+    options.Filters.Add<ExceptionFilter>();
 });
 
 
