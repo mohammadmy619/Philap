@@ -8,7 +8,7 @@ public class NotFoundExceptionFilter : IExceptionFilter
     {
         if (context.Exception is NotFoundException)
         {
-            context.Result = new NotFoundObjectResult(new { message = "Trip not found" });
+            context.Result = new NotFoundObjectResult(new { message = context.Exception.Message });
             context.ExceptionHandled = true;
         }
     }
