@@ -1,5 +1,4 @@
-﻿using Domain.DiscountAggregate;
-using MediatR;
+﻿using MediatR;
 
 namespace Application.Ticketing
 {
@@ -10,7 +9,8 @@ namespace Application.Ticketing
        DateTime PurchaseDate,
        decimal PriceAmount,
        string PriceCurrency,
-       string PriceDescription = null) : IRequest<CreateBookingResponse>;
+        string DiscountCode
+       ) : IRequest<CreateBookingResponse>;
 
 
 }

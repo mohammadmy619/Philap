@@ -18,4 +18,5 @@ namespace BuildingBlocks.Exeptions
         public CurrencyIsInvalidException(string message = "Currency is invalid.", string code = "0517009")
             : base(message, code) { }
     }
+  
 }

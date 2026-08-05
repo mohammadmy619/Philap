@@ -38,10 +38,7 @@ namespace Application.Validator.BookingValdation
                 .NotEmpty().WithMessage("PriceCurrency is required.")
                 .Length(3, 10).WithMessage("PriceCurrency must be between 3 and 10 characters.");
 
-            // اعتبارسنجی توضیحات قیمت (اختیاری)
-            RuleFor(x => x.PriceDescription)
-                .MaximumLength(200).WithMessage("PriceDescription cannot exceed 200 characters.")
-                .When(x => !string.IsNullOrEmpty(x.PriceDescription));
+    
         }
     }
 }

@@ -9,11 +9,10 @@ using System.Threading.Tasks;
 
 namespace Domain.DomainServices
 {
-    public interface ICalculateBookingPricing
+    public interface ICalculateBookingPriceService
     {
-       PricingResult ProcessBookingPriceDiscount(Booking booking, Discount? discount);
+        Money ProcessBookingPriceDiscount(Money money, Discount? discount,Guid tripId,Guid passengerId);
 
-       //string GetCurrency(Money price);
 
     }
 }

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-using BuildingBlocks.Domain;
+﻿using BuildingBlocks.Domain;
 using Domain.AccountingAggregate.Exceptions;
+using Domain.BookingAggregate;
 using Domain.BookingAggregate.Exceptions;
+
+
 
 namespace Domain.AccountingAggregate
 {
-    public class Accounting:AggregateRoot<Guid>
+    public class Accounting : AggregateRoot<Guid>
     {
 
         #region Properties
@@ -22,9 +18,7 @@ namespace Domain.AccountingAggregate
         public DateTime EntryDate { get; private set; }
         public DateTime PurchaseDate { get; private set; }
 
-        public Money BaseAmount { get; private set; }
-        public Money DiscountAmount { get; private set; }
-        public Money FinalAmount { get; private set; }
+        public Money Price { get; private set; }
         public PaymentStatus PaymentStatus { get; private set; }
         public string? Description { get; private set; }
         #endregion
@@ -38,9 +32,8 @@ namespace Domain.AccountingAggregate
             Guid passengerId,
             DateTime entryDate,
             DateTime purchaseDate,
-            Money baseAmount,
-            Money discountAmount,
-            Money finalAmount,
+            Money price,
+
             PaymentStatus paymentStatus,
             string? description = null)
         {
@@ -49,7 +42,7 @@ namespace Domain.AccountingAggregate
             GuardAgainstPassengerId(passengerId);
             GuardAgainstEntryDate(entryDate);
             GuardAgainstPurchaseDate(purchaseDate);
-            GuardAgainstAmounts(baseAmount, discountAmount, finalAmount);
+            GuardAgainstPrice(price);
             GuardAgainstPaymentStatus(paymentStatus);
 
             BookingId = bookingId;
@@ -57,9 +50,7 @@ namespace Domain.AccountingAggregate
             PassengerId = passengerId;
             EntryDate = entryDate;
             PurchaseDate = purchaseDate;
-            BaseAmount = baseAmount;
-            DiscountAmount = discountAmount;
-            FinalAmount = finalAmount;
+            Price = price;
             PaymentStatus = paymentStatus;
             Description = description;
         }
@@ -113,40 +104,16 @@ namespace Domain.AccountingAggregate
             }
         }
 
-        private void GuardAgainstAmounts(Money baseAmount, Money discountAmount, Money finalAmount)
+        private void GuardAgainstPrice(Money price)
         {
-            if (baseAmount == null)
-            {
-                throw new BaseAmountIsInvalidException();
-            }
-            if (discountAmount == null)
-            {
-                throw new DiscountAmountIsInvalidException();
-            }
-            if (finalAmount == null)
-            {
-                throw new FinalAmountIsInvalidException();
-            }
+            if (price == null)
+                throw new PriceIsInvalidException();
 
-            if (baseAmount.Amount < 0)
-            {
-                throw new BaseAmountIsInvalidException();
-            }
-            if (discountAmount.Amount < 0)
-            {
-                throw new DiscountAmountIsInvalidException();
-            }
-            if (finalAmount.Amount < 0)
-            {
-                throw new FinalAmountIsInvalidException();
-            }
-
-            // بررسی اینکه مقدار نهایی برابر با (پایه - تخفیف) باشد
-            if (Math.Abs(finalAmount.Amount - (baseAmount.Amount - discountAmount.Amount)) > 0.01m)
-            {
-                throw new FinalAmountIsInvalidException("FinalAmount must equal BaseAmount minus DiscountAmount");
-            }
+            // چک کردن Invariant کلیدی: مبلغ نهایی نباید منفی باشد
+            if (price.FinalAmount < 0)
+                throw new PriceIsInvalidException("Final amount in accounting cannot be negative.");
         }
+
 
         private void GuardAgainstPaymentStatus(PaymentStatus paymentStatus)
         {
@@ -156,8 +123,7 @@ namespace Domain.AccountingAggregate
             }
         }
         #endregion
-        #region Methods
-        #endregion
+
 
 
 

@@ -23,20 +23,17 @@ namespace Domain.BookingAggregate
 
         {
             GuardAgainstTripId(tripId);
-            //GuardAgainstTicketId(ticketId);
             GuardAgainstPassengerId(passengerId);
             GuardAgainstPurchaseDate(purchaseDate);
             GuardAgainstPrice(price);
 
             TripId = tripId;
-            //TicketId = ticketId;
             PassengerId = passengerId;
             PurchaseDate = purchaseDate;
             Price = price;
             Status = BookingStatus.Created;
             AddEvent(new BookingCreatedDomainEvent(
                          Id,
-                         //ticketId,
                          tripId,
                          passengerId,
                          PurchaseDate,
@@ -48,6 +45,15 @@ namespace Domain.BookingAggregate
 
         #endregion
         #region Method
+
+
+        //public void SetPricing(Money price)
+        //{
+        //    GuardAgainstPrice(price);
+        //    Price = price;
+        //}
+
+
         // متد برای کنسل کردن رزرو
         public void Cancel()
         {
@@ -137,6 +143,7 @@ namespace Domain.BookingAggregate
             }
         }
 
+    
         #endregion
     }
 }
