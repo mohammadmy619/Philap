@@ -1,28 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BuildingBlocks.Domain;
+﻿using BuildingBlocks.Domain;
+using Domain.BookingAggregate;
+using System;
 
 namespace Domain.TripAggregate.Events
 {
-    public class BookingCreatedDomainEvent(
-      Guid bookingId,
-      Guid tripId,
-      Guid passengerId,
-      DateTime purchaseDate,
-      decimal priceAmount,
-      BookingStatus Status
-          ) : IDomainEvent
+    public class BookingCreatedDomainEvent : IDomainEvent
     {
-        public Guid BookingId { get; } = bookingId;
-        public Guid TripId { get; } = tripId;
-        public Guid PassengerId { get; } = passengerId;
-        public DateTime PurchaseDate { get; } = purchaseDate;
-        public decimal PriceAmount { get; } = priceAmount;
-        public BookingStatus Status { get;  }= Status;
-        public DateTime OccurredOn => DateTime.Now;
+        public Guid Id { get; }
+        public DateTime OccurredOn { get; }
 
+        public Guid BookingId { get; }
+        public Guid TripId { get; }
+        public Guid PassengerId { get; }
+        public Guid? DiscountId { get; }
+        public DateTime PurchaseDate { get; }
+        public Money Price { get; }
+        public BookingStatus Status { get; }
+
+        public BookingCreatedDomainEvent(
+            Guid bookingId,
+            Guid tripId,
+            Guid passengerId,
+            Guid? discountId,
+            DateTime purchaseDate,
+            Money priceAmount,
+            BookingStatus status)
+        {
+            Id = Guid.NewGuid(); // تولید EventId منحصر به فرد
+            OccurredOn = DateTime.UtcNow; // استفاده از UTC به جای Now
+
+            BookingId = bookingId;
+            TripId = tripId;
+            PassengerId = passengerId;
+            DiscountId = discountId;
+            PurchaseDate = purchaseDate;
+            Price = priceAmount;
+            Status = status;
+        }
     }
 }

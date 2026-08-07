@@ -10,6 +10,7 @@ namespace Domain.BookingAggregate
         #region Properties  
         public Guid TripId { get; private set; }
         public Guid PassengerId { get; private set; }
+        public Guid? DiscountId { get; private set; }
         public DateTime PurchaseDate { get; private set; }
         public Money Price { get; private set; }
         public BookingStatus Status { get; private set; }
@@ -19,7 +20,7 @@ namespace Domain.BookingAggregate
         // Constructor برای EF Core
         private Booking() { }
 
-        public Booking(Guid tripId, Guid passengerId, DateTime purchaseDate, Money price)
+        public Booking(Guid tripId, Guid passengerId, Guid? discountId, DateTime purchaseDate, Money price)
 
         {
             GuardAgainstTripId(tripId);
@@ -29,6 +30,7 @@ namespace Domain.BookingAggregate
 
             TripId = tripId;
             PassengerId = passengerId;
+            DiscountId = discountId;
             PurchaseDate = purchaseDate;
             Price = price;
             Status = BookingStatus.Created;
@@ -36,8 +38,9 @@ namespace Domain.BookingAggregate
                          Id,
                          tripId,
                          passengerId,
+                           null,
                          PurchaseDate,
-                         price.Amount,
+                         price,
                          Status
 
                      ));
@@ -69,14 +72,14 @@ namespace Domain.BookingAggregate
                 TripId,
                 PassengerId,
                 PurchaseDate,
-                Price.Amount,
+                Price,
                 Status,
                 oldStatus
             ));
         }
         public void Update(Guid tripId, Guid passengerId, DateTime purchaseDate, Money price)
         {
-           
+
             GuardAgainstTripId(tripId);
             GuardAgainstPassengerId(passengerId);
             GuardAgainstPurchaseDate(purchaseDate);
@@ -89,14 +92,16 @@ namespace Domain.BookingAggregate
             Price = price;
 
 
-            //AddEvent(new BookingUpdatedDomainEvent(
-            //    Id,
-            //    TripId,
-            //    PassengerId,
-            //    PurchaseDate,
-            //    Price.Amount,
-            //    Status
-            //));
+            AddEvent(new BookingCreatedDomainEvent(
+                      Id,
+                      tripId,
+                      passengerId,
+                        null,
+                      PurchaseDate,
+                      price,
+                      Status
+
+                  ));
         }
         #endregion
 
@@ -107,8 +112,8 @@ namespace Domain.BookingAggregate
         }
 
 
-      
-    
+
+
         private void GuardAgainstTripId(Guid tripId)
         {
             if (tripId == Guid.Empty)
@@ -143,7 +148,7 @@ namespace Domain.BookingAggregate
             }
         }
 
-    
+
         #endregion
     }
 }

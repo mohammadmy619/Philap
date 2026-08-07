@@ -48,6 +48,7 @@ namespace Application.Ticketing
             tripId: command.TripId,
             passengerId: command.PassengerId,
             purchaseDate: command.PurchaseDate,
+            discountId: discount?.Id,
             price: pricing
         );
 

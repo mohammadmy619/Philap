@@ -16,6 +16,16 @@ public interface IDiscountRepository : IRepository
     // Related entities methods
     Task<IReadOnlyCollection<Discount>> GetAllDiscountAsync(Guid discountId, CancellationToken cancellationToken);
 
+
+    // DiscountUsage methods
+    Task AddDiscountUsageAsync(DiscountUsage usage, CancellationToken cancellationToken);
+    Task<IReadOnlyCollection<DiscountUsage>> GetUsagesByDiscountIdAsync(Guid discountId, CancellationToken cancellationToken);
+    Task<IReadOnlyCollection<DiscountUsage>> GetUsagesByBookingIdAsync(Guid bookingId, CancellationToken cancellationToken);
+    Task<IReadOnlyCollection<DiscountUsage>> GetUsagesByPassengerIdAsync(Guid passengerId, CancellationToken cancellationToken);
+    Task<DiscountUsage?> GetUsageByIdAsync(Guid usageId, CancellationToken cancellationToken);
+    Task<bool> HasUsageForBookingAsync(Guid discountId, Guid bookingId, CancellationToken cancellationToken);
+
+
     // Save changes
     Task SaveChangesAsync(CancellationToken cancellationToken);
 }
