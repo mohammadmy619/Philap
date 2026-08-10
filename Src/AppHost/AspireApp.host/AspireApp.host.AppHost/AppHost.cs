@@ -25,6 +25,8 @@ var Ocelot_ApiGateways = builder.AddProject<Projects.Ocelot_ApiGateways>("ocelot
 
 builder.Configuration["DcpPublisher:RandomizePorts"] = "false";
 
+builder.AddProject<Projects.Orchestration_Api>("orchestration-api");
+
 builder.Build().Run();
 //.WithHttpEndpoint(name: "main", port: 7082, isProxied: false)
 
