@@ -28,7 +28,6 @@ namespace Domain.TripAggregate.Events
         {
             Id = Guid.NewGuid(); // تولید EventId منحصر به فرد
             OccurredOn = DateTime.UtcNow; // استفاده از UTC به جای Now
-
             BookingId = bookingId;
             TripId = tripId;
             PassengerId = passengerId;
