@@ -10,11 +10,18 @@ namespace Domain.Persons.Passenger
 {
     public class Passenger : Person
     {
+
+
+        #region Fields
+        private readonly List<Guid> _ticketIds = new();
+        #endregion
+
         #region Properties  
 
         public string PassportNumber { get; private set; }
         public List<string> FrequentFlyerNumbers { get; private set; }
 
+        public IReadOnlyCollection<Guid> TicketIds => _ticketIds.AsReadOnly();
         #endregion
 
         #region Constructor  
@@ -82,6 +89,34 @@ namespace Domain.Persons.Passenger
         }
 
         #endregion
+
+
+        #region method
+        public void AddTicketId(Guid ticketId)
+        {
+            GuardAgainstTicketId(ticketId);
+            GuardAgainstDuplicateTicketId(ticketId);
+
+            _ticketIds.Add(ticketId);
+        }
+
+        public void RemoveTicketId(Guid ticketId)
+        {
+            GuardAgainstTicketId(ticketId);
+
+            var removed = _ticketIds.Remove(ticketId);
+
+            if (!removed)
+                throw new TicketNotFoundException();
+        }
+
+        public bool HasTicket(Guid ticketId)
+        {
+            GuardAgainstTicketId(ticketId);
+
+            return _ticketIds.Contains(ticketId);
+        }
+        #endregion
         #region Guard Methods  
 
         private void GuardAgainstPassportNumber(string passportNumber)
@@ -99,6 +134,19 @@ namespace Domain.Persons.Passenger
             {
                 throw new FrequentFlyerNumbersAreNullException();
             }
+        }
+
+
+        private static void GuardAgainstTicketId(Guid ticketId)
+        {
+            if (ticketId == Guid.Empty)
+                throw new ArgumentException("TicketId cannot be empty.");
+        }
+
+        private void GuardAgainstDuplicateTicketId(Guid ticketId)
+        {
+            if (_ticketIds.Contains(ticketId))
+                throw new InvalidOperationException($"TicketId '{ticketId}' already exists in trip.");
         }
 
         #endregion

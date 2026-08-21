@@ -18,6 +18,16 @@ namespace Persistence.Repositories
             await _TripDbContext.Trip.AddAsync(trip, cancellationToken);
         }
 
+        public async Task<bool> ChecktTripById(Guid tripId, CancellationToken? cancellationToken)
+        {
+            var token = cancellationToken ?? CancellationToken.None;
+
+            var trip = await _TripDbContext.Trip
+                .FirstOrDefaultAsync(t => t.Id == tripId, token);
+
+            return trip is not null;
+        }
+
         public async Task DeleteTripAsync(Guid tripId, CancellationToken cancellationToken)
         {
             var trip = await _TripDbContext.Trip
@@ -35,9 +45,10 @@ namespace Persistence.Repositories
             return await _TripDbContext.Trip.ToListAsync(cancellationToken);
         }
 
-        public async Task<Trip> GetTripByIdAsync(Guid tripId, CancellationToken cancellationToken)
+        public async Task<Trip> GetTripByIdAsync(Guid tripId, CancellationToken? cancellationToken)
         {
-            return await _TripDbContext.Trip.Where(v => v.Id == tripId).FirstOrDefaultAsync(cancellationToken);
+            var token = cancellationToken ?? CancellationToken.None;
+            return await _TripDbContext.Trip.Where(v => v.Id == tripId).FirstOrDefaultAsync(token);
                 
         }
 

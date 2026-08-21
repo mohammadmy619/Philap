@@ -30,4 +30,6 @@ namespace Domain.Persons.Leader.Exception
         public SkillsAreEmptyException(string message = "At least one skill is required.", string code = "0156004")
             : base(message, code) { }
     }
+
+    
 }

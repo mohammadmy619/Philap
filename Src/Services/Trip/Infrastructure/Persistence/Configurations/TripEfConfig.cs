@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 using Domain.TripAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -14,11 +12,10 @@ namespace Persistence.Configurations
         public void Configure(EntityTypeBuilder<Trip> builder)
         {
             builder.HasKey(t => t.Id);
-            
+
 
             builder.Property(t => t.LocationName)
-                   .IsRequired()
-                   .HasMaxLength(100);
+                   .IsRequired();
 
             builder.Property(t => t.LeaderId)
                    .IsRequired();
@@ -29,20 +26,23 @@ namespace Persistence.Configurations
             builder.Property(t => t.TravelEndDate)
                    .IsRequired();
 
-            // Price یک Value Object است، بنابراین باید با Owned Types کانفیگ شود
+            // Price - در MongoDB به صورت Nested Document ذخیره می‌شود
             builder.OwnsOne(t => t.Price, pb =>
             {
                 pb.Property(p => p.Amount).IsRequired();
-                pb.Property(p => p.Currency).IsRequired().HasMaxLength(3);
+                pb.Property(p => p.Currency).IsRequired();
             });
 
-            // TripStatus یک enum است، می‌توان آن را بصورت زیر کانفیگ کرد
+            // TripStatus - به صورت string در MongoDB ذخیره می‌شود
             builder.Property(t => t.TripStatus)
-                   .HasConversion(
-                       v => v.ToString(),
-                       v => (TripStatus)Enum.Parse(typeof(TripStatus), v))
-                   .HasMaxLength(50)
+                   .HasConversion<string>()
                    .IsRequired();
+
+            // ✅ لیست TripIds - فقط HasConversion لازم است
+            builder.Property<List<Guid>>("_ticketIds")
+                   .HasConversion(
+                       v => JsonSerializer.Serialize(v, new JsonSerializerOptions()),
+                       v => JsonSerializer.Deserialize<List<Guid>>(v, new JsonSerializerOptions()) ?? new List<Guid>());
         }
     }
 }

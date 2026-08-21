@@ -36,7 +36,11 @@ namespace Persistence.Configurations
                 .IsRequired()
             .HasMaxLength(256);
 
-
+            modelBuilder.Property(p => p.TripIds)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, new JsonSerializerOptions()),
+                v => JsonSerializer.Deserialize<List<Guid>>(v, new JsonSerializerOptions()) ?? new List<Guid>())
+            .HasColumnType("nvarchar(max)");
 
             // --- تنظیم فیلدهای Leader ---
             modelBuilder

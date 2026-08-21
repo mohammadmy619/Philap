@@ -14,7 +14,8 @@ namespace Domain.TripAggregate
 
         Task DeleteTripAsync(Guid tripId, CancellationToken cancellationToken);
 
-        Task<Trip> GetTripByIdAsync(Guid tripId, CancellationToken cancellationToken);
+        Task<Trip> GetTripByIdAsync(Guid tripId, CancellationToken? cancellationToken);
+        Task<bool> ChecktTripById(Guid tripId, CancellationToken? cancellationToken);
 
         Task<IEnumerable<Trip>> GetAllTripsAsync(CancellationToken cancellationToken);
 

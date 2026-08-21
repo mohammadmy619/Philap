@@ -74,7 +74,6 @@ namespace Persistence.Repositories
         public async Task<Booking> GetBookingByIdAsync(Guid bookingId, CancellationToken cancellationToken)
         {
             return await _dbContext.Booking
-                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == bookingId, cancellationToken);
         }
 

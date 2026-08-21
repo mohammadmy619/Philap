@@ -88,6 +88,14 @@ namespace Persistence.Configurations
                     v => JsonSerializer.Serialize(v, new JsonSerializerOptions()),
                     v => JsonSerializer.Deserialize<List<string>>(v, new JsonSerializerOptions()) ?? new List<string>())
                 .HasColumnType("nvarchar(max)");
+
+
+
+            builder.Property(p => p.TicketIds)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, new JsonSerializerOptions()),
+                v => JsonSerializer.Deserialize<List<Guid>>(v, new JsonSerializerOptions()) ?? new List<Guid>())
+            .HasColumnType("nvarchar(max)");
         }
     }
 }

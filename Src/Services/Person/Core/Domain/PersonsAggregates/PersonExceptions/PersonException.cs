@@ -62,4 +62,18 @@ namespace Domain.Persons.Exceptions
         {
         }
     }
+    public class TripIdIsInvalidException : DomainException
+    {
+        public TripIdIsInvalidException(string message = "Trip Id is invalid", string code = "0114008")
+            : base(message, code)
+        {
+        }
+    }
+    public class TripNotFoundException : DomainException
+    {
+        public TripNotFoundException(string message = "Trip not found in person trips", string code = "0114009")
+            : base(message, code)
+        {
+        }
+    }
 }

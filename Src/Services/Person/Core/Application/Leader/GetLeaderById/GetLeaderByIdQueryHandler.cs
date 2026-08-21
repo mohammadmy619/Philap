@@ -15,7 +15,7 @@ public class GetLeaderByIdQueryHandler(ILeaderRepository _leaderRepository) : IR
 
         return new GetLeaderByIdResponse(
             Id: leader.Id,
-            TripIds: leader.TripIds,
+            TripIds: leader.TripIds.ToList(),
             Name: leader.Name,
             LastName: leader.LastName,
             Email: leader.Email,
@@ -33,4 +33,6 @@ public class GetLeaderByIdQueryHandler(ILeaderRepository _leaderRepository) : IR
             Skills: leader.Skills,
             Bio: leader.Bio);
     }
+
+ 
 }

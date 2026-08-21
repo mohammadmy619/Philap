@@ -79,6 +79,14 @@ namespace Domain.TripAggregate.Exceptions
         {
         }
     }
-
+    public class TicketNotFoundException : DomainException
+    {
+        public TicketNotFoundException(
+            string message = "Ticket id is invalid.",
+            string code = "0156007")
+            : base(message, code)
+        {
+        }
+    }
 
 }

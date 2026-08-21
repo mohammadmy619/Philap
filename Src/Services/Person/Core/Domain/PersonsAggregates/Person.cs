@@ -2,19 +2,20 @@
 using Domain.Persons.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Persons
 {
     public class Person : AggregateRoot<Guid>
     {
-        #region property
+        #region Fields
+
+        private readonly List<Guid> _tripIds = new();
+
+        #endregion
+
+        #region Properties
+
         public Guid Id { get; private set; }
-        public List<Guid> TripIds { get; private set; }
         public string Name { get; private set; }
         public string LastName { get; private set; }
         public string Email { get; private set; }
@@ -22,15 +23,30 @@ namespace Domain.Persons
         public DateTime DateOfBirth { get; private set; }
         public Gender Gender { get; private set; }
         public string Nationality { get; private set; }
-        public bool IsActive { get; set; }
-        public Address Address { get; private set; }/// value object
+        public bool IsActive { get; private set; }
+        public Address Address { get; private set; }
+
+        // کپسوله‌سازی شده - فقط خواندنی از بیرون
+        public IReadOnlyCollection<Guid> TripIds => _tripIds.AsReadOnly();
 
         #endregion
-        #region Constractor
-        protected Person(List<Guid> TripIds, string name, string lastName, string email, string phoneNumber, DateTime dateOfBirth, Gender gender, Address address, string nationality,bool isActive)
+
+        #region Constructor
+
+        protected Person(
+            List<Guid> tripIds,
+            string name,
+            string lastName,
+            string email,
+            string phoneNumber,
+            DateTime dateOfBirth,
+            Gender gender,
+            Address address,
+            string nationality,
+            bool isActive)
         {
             this.Id = Guid.NewGuid();
-            GuardAgainstTripIds(TripIds);
+            GuardAgainstTripIds(tripIds);
             GuardAgainstName(name);
             GuardAgainstLastName(lastName);
             GuardAgainstEmail(email);
@@ -38,6 +54,8 @@ namespace Domain.Persons
             GuardAgainstDateOfBirth(dateOfBirth);
             GuardAgainstGender(gender);
             GuardAgainstNationality(nationality);
+
+            SetTripIds(tripIds);
 
             Name = name;
             LastName = lastName;
@@ -52,20 +70,24 @@ namespace Domain.Persons
 
         private Person()
         {
-
         }
+
+        #endregion
+
+        #region Methods
+
         public void UpdatePerson(
-         List<Guid> tripIds,
-         string name,
-         string lastName,
-         string email,
-         string phoneNumber,
-         DateTime dateOfBirth,
-         Gender gender,
-         Address address,
-         string nationality,bool isActive)
+            List<Guid> tripIds,
+            string name,
+            string lastName,
+            string email,
+            string phoneNumber,
+            DateTime dateOfBirth,
+            Gender gender,
+            Address address,
+            string nationality,
+            bool isActive)
         {
-            // اعتبارسنجی تمام فیلدها
             GuardAgainstTripIds(tripIds);
             GuardAgainstName(name);
             GuardAgainstLastName(lastName);
@@ -75,8 +97,8 @@ namespace Domain.Persons
             GuardAgainstGender(gender);
             GuardAgainstNationality(nationality);
 
-            // آپدیت مقادیر
-            TripIds = tripIds;
+            SetTripIds(tripIds);
+
             Name = name;
             LastName = lastName;
             Email = email;
@@ -87,18 +109,68 @@ namespace Domain.Persons
             Nationality = nationality;
             IsActive = isActive;
         }
-        #endregion
-        #region Guards
-        private static void GuardAgainstLeaderId(Guid leaderId)
+
+        public void AddTripId(Guid tripId)
         {
-            if (leaderId == Guid.Empty)
-                throw new LeaderIdIsNullException();
+            GuardAgainstTripId(tripId);
+            GuardAgainstDuplicateTripId(tripId);
+
+            _tripIds.Add(tripId);
         }
-        private static void GuardAgainstTripIds(List<Guid> TripIds)
+
+        public void RemoveTripId(Guid tripId)
         {
-            //to do check TripId with acl
-            if (TripIds.Count > 1) { }
-            //throw new TripIds();
+            GuardAgainstTripId(tripId);
+
+            var removed = _tripIds.Remove(tripId);
+
+            if (!removed)
+                throw new TripNotFoundException();
+        }
+
+        public bool HasTrip(Guid tripId)
+        {
+            GuardAgainstTripId(tripId);
+
+            return _tripIds.Contains(tripId);
+        }
+
+        private void SetTripIds(IEnumerable<Guid> tripIds)
+        {
+            _tripIds.Clear();
+            if (tripIds == null)
+                return;
+
+            foreach (var tripId in tripIds)
+            {
+                AddTripId(tripId);
+            }
+        }
+
+        #endregion
+
+        #region Guards
+
+        private static void GuardAgainstTripId(Guid tripId)
+        {
+            if (tripId == Guid.Empty)
+                throw new ArgumentException("TripId cannot be empty.", nameof(tripId));
+        }
+
+        private static void GuardAgainstTripIds(List<Guid> tripIds)
+        {
+            // TODO: بررسی TripId از طریق ACL (پروتکل تطبیق با سیستم سفر)
+            if (tripIds == null)
+                return;
+
+            if (tripIds.Any(t => t == Guid.Empty))
+                throw new TripIdIsInvalidException();
+        }
+
+        private void GuardAgainstDuplicateTripId(Guid tripId)
+        {
+            if (_tripIds.Contains(tripId))
+                throw new InvalidOperationException($"TripId '{tripId}' already exists for this person.");
         }
 
         private static void GuardAgainstName(string name)
@@ -130,21 +202,18 @@ namespace Domain.Persons
             if (dateOfBirth == default(DateTime))
                 throw new LeaderDateOfBirthIsNullException();
         }
-        private static void GuardAgainstGender(Gender Gender)
+
+        private static void GuardAgainstGender(Gender gender)
         {
-
-
-            if (!Enum.IsDefined(typeof(Gender), Gender))
+            if (!Enum.IsDefined(typeof(Gender), gender))
                 throw new LeaderGenderIsNullException();
         }
-        private static void GuardAgainstNationality(string Nationality)
+
+        private static void GuardAgainstNationality(string nationality)
         {
-
-
-            if (string.IsNullOrEmpty(Nationality))
+            if (string.IsNullOrEmpty(nationality))
                 throw new NationalityIsNullException();
         }
-
 
         #endregion
     }

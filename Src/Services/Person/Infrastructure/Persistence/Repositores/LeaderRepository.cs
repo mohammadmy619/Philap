@@ -32,6 +32,13 @@ namespace Persistence.Repositores
             }
         }
 
+
+        public async  Task<Leader?> GetLeaderByTripIdAsync(Guid TripId, CancellationToken cancellationToken)
+        {
+            return await _context.Leaders
+             .FirstOrDefaultAsync(x => x.TripIds != null && x.TripIds.Any(t => t == TripId));
+        }
+
         public async Task<Leader?> GetLeaderByIdAsync(Guid leaderId, CancellationToken cancellationToken)
         {
             return await _context.Leaders
@@ -58,5 +65,7 @@ namespace Persistence.Repositores
         {
             await _context.SaveChangesAsync(cancellationToken);
         }
+
+       
     }
 }

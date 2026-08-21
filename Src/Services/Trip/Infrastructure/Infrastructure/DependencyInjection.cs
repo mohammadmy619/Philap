@@ -1,5 +1,4 @@
 ﻿using ACL.PersonACL;
-using Infrastructure.ExternalServices.ACLImplementation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CheckLeaderValided;
@@ -22,8 +21,7 @@ namespace Infrastructure
                 o.Address = new Uri("https://localhost:7211"); 
             });
 
-            services.AddScoped<IPersonACL, PersonGrpcAcl>();
-
+         
             return services;
 
         }

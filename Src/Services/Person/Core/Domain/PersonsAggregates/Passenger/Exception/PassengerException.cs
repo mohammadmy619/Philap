@@ -22,4 +22,14 @@ namespace Domain.Persons.Passenger.Exception
         public FrequentFlyerNumbersAreNullException(string message = "At least one frequent flyer number is required.", string code = "0124002")
             : base(message, code) { }
     }
+
+    public class TicketNotFoundException : DomainException
+    {
+        public TicketNotFoundException(
+            string message = "Ticket id is invalid.",
+            string code = "0156007")
+            : base(message, code)
+        {
+        }
+    }
 }

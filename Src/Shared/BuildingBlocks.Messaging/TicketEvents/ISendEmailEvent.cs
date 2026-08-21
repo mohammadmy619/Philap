@@ -1,6 +1,6 @@
 ﻿namespace BuildingBlocks.Messaging.TicketEvents
 {
-    public interface ISendEmailEvent : IBaseTicketEvent
+    public interface ISendTripEvent : IBaseTicketEvent
     {
 
     }

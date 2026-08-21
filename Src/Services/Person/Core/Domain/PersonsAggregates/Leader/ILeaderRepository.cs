@@ -16,6 +16,7 @@ namespace Domain.Persons.Leader
         Task DeleteLeaderAsync(Guid leaderId, CancellationToken cancellationToken);  
 
         Task<Leader?> GetLeaderByIdAsync(Guid leaderId, CancellationToken cancellationToken); 
+        Task<Leader?> GetLeaderByTripIdAsync(Guid TripId, CancellationToken cancellationToken); 
         Task<IReadOnlyCollection<Leader>> GetLeaders(int Page,int PageSize, CancellationToken cancellationToken); 
 
         Task<IEnumerable<Leader>> FindLeadersAsync(Expression<Func<Leader, bool>> predicate, CancellationToken cancellationToken);

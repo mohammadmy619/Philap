@@ -1,16 +1,17 @@
-﻿using ACL.PersonACL;
-using CheckLeaderValided;
+﻿using CheckLeaderValided;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-
-namespace Infrastructure.ExternalServices.ACLImplementation
+namespace ACL.PersonACL.Implementations
 {
-    public class PersonGrpcAcl : IPersonACL
+    public class PersonACL : IPersonACL
     {
-
         private readonly CheckLeaderValid.CheckLeaderValidClient _client;
 
-        public PersonGrpcAcl(CheckLeaderValid.CheckLeaderValidClient client)
+        public PersonACL(CheckLeaderValid.CheckLeaderValidClient client)
         {
             _client = client;
         }
@@ -25,6 +26,9 @@ namespace Infrastructure.ExternalServices.ACLImplementation
                 request,
                 cancellationToken: cancellationToken);
 
+
+
+         
             return response.IsValid;
         }
     }

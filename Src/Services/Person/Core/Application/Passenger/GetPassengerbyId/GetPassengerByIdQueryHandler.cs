@@ -13,7 +13,7 @@ public class GetPassengerByIdQueryHandler(IPassengerRepository _passengerReposit
 
         return new GetPassengerByIdResponse(
             Id: passenger.Id,
-            TripIds: passenger.TripIds,
+            TripIds: passenger.TripIds.ToList(),
             Name: passenger.Name,
             LastName: passenger.LastName,
             Email: passenger.Email,
