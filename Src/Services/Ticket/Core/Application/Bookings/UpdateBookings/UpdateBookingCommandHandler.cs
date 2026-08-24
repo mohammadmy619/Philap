@@ -15,17 +15,16 @@ namespace Application.Ticketing
 
         public async Task<UpdateBookingResponse> Handle(UpdateBookingCommand command, CancellationToken cancellationToken)
         {
-            // 1. بارگذاری رزرو از دیتابیس
+         
             var booking = await _bookingRepository.GetBookingByIdAsync(command.BookingId, cancellationToken)
                 ?? throw new InvalidOperationException($"Booking with Id {command.BookingId} not found");
         
-            // 2. اعتبارسنجی بیزینسی (اختیاری: مثلاً رزروهای کنسل شده قابل آپدیت نباشند)
+          
             if (booking.Status == BookingStatus.Cancelled)
             {
                 throw new InvalidOperationException("Cancelled bookings cannot be updated");
             }
 
-            // 3. فراخوانی متد دامنه برای اعمال تغییرات
             var newPrice = new Money(command.PriceAmount, command.PriceCurrency);
             booking.Update(
                 command.TripId,
@@ -34,10 +33,8 @@ namespace Application.Ticketing
                 newPrice
             );
 
-            // 4. ذخیره تغییرات
             await _bookingRepository.SaveChangesAsync(cancellationToken);
 
-            // 5. بازگرداندن پاسخ
             return new UpdateBookingResponse(
                 BookingId: booking.Id,
                 TripId: booking.TripId,

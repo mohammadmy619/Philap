@@ -1,9 +1,15 @@
-using k8s.Models;
-
 var builder = DistributedApplication.CreateBuilder(args);
 
 
 
+var username = builder.AddParameter("Admin");
+
+var password = builder.AddParameter("Admin", secret: true);
+
+var mongo = builder.AddMongoDB("mongo", userName: username, password: password).WithLifetime(ContainerLifetime.Persistent); 
+
+
+var mongodb = mongo.AddDatabase("mongodb");
 
 
 var Identity_Api = builder.AddProject<Projects.Identity_Api>("identity-api")
@@ -13,9 +19,14 @@ var Identity_Api = builder.AddProject<Projects.Identity_Api>("identity-api")
 var Person_Api = builder.AddProject<Projects.Person_Api>("person-api")
     .WithHttpHealthCheck("/health");
 
+
+
 var Trip_Api = builder.AddProject<Projects.Trip_Api>("trip-api").WithExternalHttpEndpoints()
     .WithHttpHealthCheck("/health").WithReference(Person_Api)
-    .WaitFor(Person_Api);
+    .WaitFor(Person_Api).WithReference(mongodb)
+    .WaitFor(mongodb);
+
+
 
 var Ticketing_Api = builder.AddProject<Projects.Ticketing_Api>("ticketing-api")
     .WithHttpHealthCheck("/health");

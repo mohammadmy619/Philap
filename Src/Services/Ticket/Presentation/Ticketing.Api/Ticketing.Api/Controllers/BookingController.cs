@@ -34,14 +34,9 @@ namespace Ticketing.Api.Controllers
         [ProducesResponseType(typeof(UpdateBookingResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdateBooking(Guid bookingId, [FromBody] UpdateBookingCommand command)
+        public async Task<IActionResult> UpdateBooking( [FromBody] UpdateBookingCommand command)
         {
-            // اطمینان از تطابق BookingId در URL و Body
-            if (bookingId != command.BookingId)
-            {
-                return BadRequest("BookingId mismatch");
-            }
-
+          
             var result = await _mediator.Send(command);
 
             return Ok(result);

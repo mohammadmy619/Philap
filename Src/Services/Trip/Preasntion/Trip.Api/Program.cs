@@ -1,11 +1,14 @@
 using Application;
 using Infrastructure;
 using Persistence;
+using Persistence.Settings;
 using Scalar.AspNetCore;
 using Trip.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.AddMongoDBClient(connectionName: "mongodb");
 builder.AddServiceDefaults();
 // Add services to the container.
 builder.Services.AddProblemDetails();
@@ -17,6 +20,8 @@ builder.Services.AddControllers(options =>
     options.Filters.Add<ExceptionFilter>();
 });
 
+builder.Services.Configure<MongoDbSettings>(
+    builder.Configuration.GetSection("MongoDbSettings"));
 
 
 builder.Services.ConfigureApplicationLayer(builder.Configuration);

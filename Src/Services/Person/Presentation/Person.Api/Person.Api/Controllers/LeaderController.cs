@@ -22,7 +22,7 @@ namespace Person.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(GetLeaderByIdResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetLeaderById(Guid id)
+        public async Task<IActionResult> GetLeaderById(Guid id)  
         {
             var query = new GetLeaderByIdQuery(id);
             var result = await _mediator.Send(query);

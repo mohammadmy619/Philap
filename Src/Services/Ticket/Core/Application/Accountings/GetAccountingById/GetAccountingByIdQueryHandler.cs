@@ -2,25 +2,30 @@
 using Domain.AccountingAggregate;
 using MediatR;
 
-namespace Application.Accountings.GetAllAccountings
+namespace Application.Accountings.GetAccountingById
 {
-    public class GetAllAccountingsQueryHandler
-        : IRequestHandler<GetAllAccountingsQuery, IEnumerable<GetAccountingResponse>>
+    public class GetAccountingByIdQueryHandler
+        : IRequestHandler<GetAccountingByIdQuery, GetAccountingResponse?>
     {
         private readonly IAccountingRepository _accountingRepository;
 
-        public GetAllAccountingsQueryHandler(IAccountingRepository accountingRepository)
+        public GetAccountingByIdQueryHandler(IAccountingRepository accountingRepository)
         {
             _accountingRepository = accountingRepository;
         }
 
-        public async Task<IEnumerable<GetAccountingResponse>> Handle(
-            GetAllAccountingsQuery query,
+        public async Task<GetAccountingResponse?> Handle(
+            GetAccountingByIdQuery query,
             CancellationToken cancellationToken)
         {
-            var accountings = await _accountingRepository.GetAllAccountingsAsync(cancellationToken);
+            var accounting = await _accountingRepository.GetAccountingByIdAsync(query.AccountingId, cancellationToken);
 
-            return accountings.Select(MapToResponse);
+            if (accounting == null)
+            {
+                return null;
+            }
+
+            return MapToResponse(accounting);
         }
 
         private static GetAccountingResponse MapToResponse(Accounting accounting)
