@@ -6,7 +6,7 @@ using Persistence.Repositories;
 
 namespace Application.Handlers.Events
 {
-    public class ImportDiscountUsageHandler : INotificationHandler<BookingCreatedDomainEvent>
+    public class ImportDiscountUsageHandler : INotificationHandler<BookingCreatedEvent>
     {
         private readonly IDiscountRepository _discountRepository;
         private readonly ILogger<ImportDiscountUsageHandler> _logger;
@@ -19,7 +19,7 @@ namespace Application.Handlers.Events
             _logger = logger;
         }
 
-        public async Task Handle(BookingCreatedDomainEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(BookingCreatedEvent notification, CancellationToken cancellationToken)
         {
             try
             {

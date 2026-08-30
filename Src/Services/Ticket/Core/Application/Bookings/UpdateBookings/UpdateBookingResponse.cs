@@ -13,6 +13,7 @@ namespace Application.Ticketing
         Guid PassengerId,
         DateTime PurchaseDate,
         decimal PriceAmount,
-        BookingStatus Status);
+        BookingStatus Status,
+        string? DiscountCode);
 }
 

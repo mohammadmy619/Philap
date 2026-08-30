@@ -3,7 +3,7 @@ using Domain.BookingAggregate;
 
 namespace Domain.BookingAggregate.Events
 {
-    public class BookingCancelledDomainEvent(
+    public class BookingCancelledEvent(
         Guid ticketId,
         Guid tripId,
         Guid passengerId,

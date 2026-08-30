@@ -7,7 +7,7 @@ namespace Application.Mapping
     public static class BookingCreatedDomainEventMapper
     {
         public static AddTicketEvent ToIntegrationEvent(
-            this BookingCreatedDomainEvent domainEvent)
+            this BookingCreatedEvent domainEvent)
         {
             return new AddTicketEvent(
                 ticketId: domainEvent.BookingId,
@@ -19,5 +19,7 @@ namespace Application.Mapping
                 status: domainEvent.Status.ToString()
             );
         }
+
     }
 }
+

@@ -7,7 +7,7 @@ using Persistence.Repositories;
 
 namespace Application.Accountings.EventHandlers.CreateAccount
 {
-    public class CreateAccountHandler : INotificationHandler<BookingCreatedDomainEvent>
+    public class CreateAccountHandler : INotificationHandler<BookingCreatedEvent>
     {
         private readonly IAccountingRepository _accountingRepository;
         private readonly ILogger<CreateAccountHandler> _logger;
@@ -20,7 +20,7 @@ namespace Application.Accountings.EventHandlers.CreateAccount
             _logger = logger;
         }
 
-        public async Task Handle(BookingCreatedDomainEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(BookingCreatedEvent notification, CancellationToken cancellationToken)
         {
             try
             {

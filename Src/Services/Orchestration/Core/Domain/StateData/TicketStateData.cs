@@ -16,7 +16,7 @@ namespace Domain.StateData
         public DateTime TicketCancelDate { get; set; }
         public Guid TicketId { get; set; }
         public Guid TripId { get;  set; }
-        public Guid LeaderId { get;  set; }
+        public Guid? LeaderId { get;  set; }
         public Guid PassengerId { get;  set; }
         public string? Status { get; set; }
 
@@ -30,5 +30,12 @@ namespace Domain.StateData
         // وضعیت‌ها
         public bool IsCancelled { get; set; }
         public string? CancelReason { get; set; }
+
+
+        // ✨ فیلدهای جدید برای پشتیبانی از رویداد آپدیت
+        public decimal PriceAmountUpdate { get; set; }
+        public string PriceCurrencyUpdate { get; set; }
+        public string PreviousState { get; set; }
+        public DateTime TicketUpdatedDate { get; set; }
     }
 }

@@ -37,6 +37,9 @@ namespace Application.Ticketing
 
                 // گرفتن اولین نتیجه یا null اگر پیدا نشد
                 discount = discounts.FirstOrDefault();
+
+                if (command.DiscountCode != null && discount == null)
+                    throw new InvalidOperationException("Invalid discount code");
             }
 
             // 2) محاسبه قیمت‌ها

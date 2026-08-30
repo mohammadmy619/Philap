@@ -7,6 +7,7 @@ namespace Application.Ticketing
         Guid BookingId,
         Guid TripId,
         Guid PassengerId,
+        string? DiscountCode,
         DateTime PurchaseDate,
         decimal PriceAmount,
         string PriceCurrency) : IRequest<UpdateBookingResponse>;

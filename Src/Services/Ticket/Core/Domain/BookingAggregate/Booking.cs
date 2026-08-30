@@ -34,11 +34,11 @@ namespace Domain.BookingAggregate
             PurchaseDate = purchaseDate;
             Price = price;
             Status = BookingStatus.Created;
-            AddEvent(new BookingCreatedDomainEvent(
+            AddEvent(new BookingCreatedEvent(
                          Id,
                          tripId,
                          passengerId,
-                           null,
+                         discountId,
                          PurchaseDate,
                          price,
                          Status
@@ -67,7 +67,7 @@ namespace Domain.BookingAggregate
             Status = BookingStatus.Cancelled;
 
             // اضافه کردن Domain Event برای کنسل کردن
-            AddEvent(new BookingCancelledDomainEvent(
+            AddEvent(new BookingCancelledEvent(
                 Id,
                 TripId,
                 PassengerId,
@@ -77,7 +77,7 @@ namespace Domain.BookingAggregate
                 oldStatus
             ));
         }
-        public void Update(Guid tripId, Guid passengerId, DateTime purchaseDate, Money price)
+        public void Update(Guid tripId, Guid passengerId, Guid? discountId, DateTime purchaseDate, Money price)
         {
 
             GuardAgainstTripId(tripId);
@@ -92,11 +92,11 @@ namespace Domain.BookingAggregate
             Price = price;
 
 
-            AddEvent(new BookingCreatedDomainEvent(
+            AddEvent(new BookingUpdatedEvent(
                       Id,
                       tripId,
                       passengerId,
-                        null,
+                        discountId,
                       PurchaseDate,
                       price,
                       Status
