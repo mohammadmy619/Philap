@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Consumers
+namespace Infrastructure.ExternalServices.Consumers.UpdateTicketEvents
 {
     public class UpdateTripEventConsumer : IConsumer<IUpdateTripEvent>
     {

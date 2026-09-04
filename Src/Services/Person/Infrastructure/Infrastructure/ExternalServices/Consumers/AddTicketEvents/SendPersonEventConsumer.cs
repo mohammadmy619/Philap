@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace Infrastructure.ExternalServices.Consumers
+namespace Infrastructure.ExternalServices.Consumers.AddTicketEvents
 {
     public class SendPersonEventConsumer : IConsumer<ISendPersonEvent>
     {

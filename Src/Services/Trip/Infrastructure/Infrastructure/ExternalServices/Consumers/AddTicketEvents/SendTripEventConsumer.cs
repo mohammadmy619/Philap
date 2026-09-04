@@ -5,7 +5,7 @@ using MassTransit;
 using MassTransit.NewIdProviders;
 using Microsoft.Extensions.Logging;
 
-namespace Infrastructure.Consumers
+namespace Infrastructure.ExternalServices.Consumers.AddTicketEvents
 {
     public class SendTripEventConsumer : IConsumer<ISendTripEvent>
     {

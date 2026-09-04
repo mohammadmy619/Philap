@@ -1,30 +1,28 @@
 ﻿using BuildingBlocks.Messaging.TicketEvents;
+using BuildingBlocks.Messaging.TicketEvents.Implements;
 using Domain.TripAggregate;
-using Infrastructure.Consumers;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.ExternalServices.Consumers
+namespace Infrastructure.ExternalServices.Consumers.AddTicketEvents
 {
-    public class CancelTicketEventConsumer : IConsumer<ICancelTicketEvent>
+
+    public class CancelTripConsumer : IConsumer<ICancelPersonEvent>
     {
-        private readonly ILogger<CancelTicketEventConsumer> _logger;
+        private readonly ILogger<CancelTripConsumer> _logger;
         private readonly ITripRepository _tripRepository;
 
-        public CancelTicketEventConsumer(
-            ILogger<CancelTicketEventConsumer> logger,
+        public CancelTripConsumer(
+            ILogger<CancelTripConsumer> logger,
             ITripRepository tripRepository)
         {
             _logger = logger;
             _tripRepository = tripRepository;
         }
 
-        public async Task Consume(ConsumeContext<ICancelTicketEvent> context)
+        public async Task Consume(ConsumeContext<ICancelPersonEvent> context)
         {
             try
             {
@@ -44,9 +42,17 @@ namespace Infrastructure.ExternalServices.Consumers
                     await _tripRepository.SaveChangesAsync(context.CancellationToken);
 
 
+                    _logger.LogInformation(
+                      "Publishing ICancelTripEvent | TicketId: {TicketId}, TripId: {TripId}",
+                      context.Message.TicketId,
+                      context.Message.TripId);
+
+                    await context.Publish<ICancelTripEvent>(context.Message);
+                 
+
                 }
 
-
+         
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Messaging.TicketEvents;
+using BuildingBlocks.Messaging.TicketEvents.CancelTicketEvents;
 using BuildingBlocks.Messaging.TicketEvents.Implements;
 using BuildingBlocks.Messaging.TicketEvents.UpdateBookingEvents;
 using Domain.StateData;
@@ -30,13 +31,16 @@ namespace Infrastructure.StateMachine
         public State UpdatingTicket { get; set; }
         public State UpdateTripSent { get; set; }
         public State UpdatePersonSent { get; set; }
-        public State UpdateAccepted { get; set; }
         public State UpdateTripCancelled { get; set; }
         public State UpdatePersonCancelled { get; set; }
         public State UpdateFailed { get; set; }
 
         //state Cancel
         public State CancelTicket { get; set; }
+        public State CancellingTrip { get; set; }
+        public State CancellingPerson { get; set; }
+        public State TicketCancelled { get; set; }
+        public State TicketCancelFailed { get; set; }
 
 
         // event
@@ -57,8 +61,12 @@ namespace Infrastructure.StateMachine
 
 
         //event Cancel
-        public Event<ICancelTicketEvent> CancelTicketEvent { get; private set; }
-
+        public Event<IIPersonCancellationEvent> CancelTicketEvent { get; private set; }
+        public Event<ITripCancellationEvent> TripCancellationEvent { get; private set; }
+        public Event<ITripCancellationFailedEvent> TripCancellationFailedEvent { get; private set; }
+        public Event<IPersonCancellationEvent> PersonCancellationEvent { get; private set; }
+        public Event<IPersonCancellationFailedEvent> PersonCancellationFailedEvent { get; private set; }
+        public Event<ICancellationConfirmedEvent> CancellationConfirmedEvent { get; private set; }
 
 
 
@@ -226,14 +234,21 @@ namespace Infrastructure.StateMachine
                    context.Saga.TicketUpdatedDate = DateTime.UtcNow;
                })
              .TransitionTo(UpdatingTicket)
-             // ارسال رویداد برای تغییر اطلاعات در سرویس Trip
-             .Publish(context => new UpdateTripEvent(
-                 TicketId: context.Saga.TicketId,
-                 TripId: context.Saga.TripId,
-                 PassengerId: context.Saga.PassengerId,
-                 Status: context.Saga.Status
-             ))
-            );
+          // ارسال رویداد برای تغییر اطلاعات در سرویس Trip
+          .Publish(context => new UpdateTripEvent(
+             ticketId: context.Saga.TicketId,
+             tripId: context.Saga.TripId,
+             passengerId: context.Saga.PassengerId,
+             currentState: context.Saga.CurrentState,
+             ticketCreatedDate: context.Saga.TicketCreatedDate,
+             ticketCancelDate: context.Saga.TicketCancelDate,
+             status: context.Saga.Status,
+           
+             ticketUpdatedDate: DateTime.UtcNow
+              )
+             )
+          
+          );
 
 
 
@@ -274,6 +289,219 @@ namespace Infrastructure.StateMachine
                     })
                     .TransitionTo(UpdatePersonCancelled)
               );
+
+
+            // ==========================================
+            // 3. فلو لغو و ابطال کل تیکت (Cancellation Flow)
+            // ==========================================
+
+            // ۱. شروع فرآیند لغو از وضعیت Accepted
+            During(Accepted,
+                When(CancelTicketEvent)
+                    .Then(context =>
+                    {
+                        _logger.LogInformation("CancelTicketEvent initiated for TicketId: {TicketId}", context.Message.TicketId);
+
+                        context.Saga.PreviousState = context.Saga.CurrentState;
+                        context.Saga.CurrentState = "CancellingTrip";
+                        context.Saga.Status = "Cancelling";
+                        context.Saga.TicketCancelDate = DateTime.UtcNow;
+                    })
+                    .TransitionTo(CancellingTrip)
+                    .Publish(context => new TripCancellationEvent(
+                        ticketId: context.Saga.TicketId,
+                        tripId: context.Saga.TripId,
+                        passengerId: context.Saga.PassengerId,
+                        currentState: context.Saga.CurrentState,
+                        ticketCreatedDate: context.Saga.TicketCreatedDate,
+                        status: context.Saga.Status,
+                        cancelledAt: context.Saga.TicketCancelDate
+                    ))
+            );
+
+            // ۲. وضعیت در حال لغو سفر (منتظر پاسخ از سرویس Trip یا مشاهده رویداد Person)
+            During(CancellingTrip,
+                // حالت الف: سرویس Trip در لغو شکست خورده است
+                When(TripCancellationFailedEvent)
+                    .Then(context =>
+                    {
+                        _logger.LogError(
+                            "Trip cancellation failed | TicketId: {TicketId}, TripId: {TripId}, Reason: {Reason}",
+                            context.Message.TicketId,
+                            context.Message.TripId,
+                            context.Message.Reason);
+
+                        context.Saga.CurrentState = "TripCancellationFailed";
+                        context.Saga.Status = "TripCancellationFailed";
+                        context.Saga.IsCancelled = true; // یا false، بسته به منطق بیزینس شما برای نمایش "شکست فرآیند"
+                    })
+                    .TransitionTo(TicketCancelFailed),
+
+                // حالت ب: سرویس Trip با موفقیت لغو را انجام داد و رویداد PersonCancellationEvent را منتشر کرد
+                // (این رویداد توسط سرویس Trip Publish می‌شود تا به سرویس Person بگوید کار را شروع کند، 
+                // و Saga هم آن را می‌شنود تا بداند مرحله Trip تمام شده است)
+                When(PersonCancellationEvent)
+                    .Then(context =>
+                    {
+                        _logger.LogInformation(
+                            "Trip cancelled successfully, Person cancellation initiated | TicketId: {TicketId}",
+                            context.Message.TicketId);
+
+                        context.Saga.CurrentState = "CancellingPerson";
+                        context.Saga.Status = "CancellingPerson";
+                        context.Saga.TripCancelDate = DateTime.UtcNow; // همگام‌سازی تاریخ
+                    })
+                    .TransitionTo(CancellingPerson)
+            );
+
+// ۳. وضعیت در حال لغو مسافر (منتظر پاسخ نهایی از سرویس Person)
+During(CancellingPerson,
+    // حالت الف: سرویس Person با موفقیت لغو را تأیید کرد
+    When(CancellationConfirmedEvent)
+        .Then(context =>
+        {
+            _logger.LogInformation("Ticket {TicketId} fully cancelled successfully.", context.Saga.TicketId);
+
+            context.Saga.CurrentState = "Cancelled";
+            context.Saga.Status = "Cancelled";
+            context.Saga.IsCancelled = true;
+            context.Saga.PersonCancelDate = DateTime.UtcNow;
+        })
+        .TransitionTo(TicketCancelled)
+        .Finalize(), // پایان چرخه عمر Saga و حذف از دیتابیس (در صورت تنظیمات معمول MassTransit)
+
+    // حالت ب: سرویس Person در لغو شکست خورده است
+    When(PersonCancellationFailedEvent)
+        .Then(context =>
+        {
+            _logger.LogError(
+                "Person cancellation failed | TicketId: {TicketId}, Reason: {Reason}",
+                context.Message.TicketId,
+                context.Message.Reason);
+
+            context.Saga.CurrentState = "PersonCancellationFailed";
+            context.Saga.Status = "PersonCancellationFailed";
+            context.Saga.IsCancelled = true;
+        })
+        .TransitionTo(TicketCancelFailed));
+
+
+
+
+
+//            During(Accepted,
+//          When(CancelTicketEvent)
+//              .Then(context =>
+//              {
+//                  _logger.LogInformation("CancelTicketEvent initiated for TicketId: {TicketId}", context.Message.TicketId);
+
+            //                  context.Saga.PreviousState = context.Saga.CurrentState;
+
+            //                  context.Saga.CurrentState = "CancellingTrip";
+            //                  context.Saga.Status = "Cancelling";
+            //                  context.Saga.TicketCancelDate = DateTime.UtcNow;
+            //              })
+            //              .TransitionTo(CancellingTrip)
+            //              .Publish(context => new TripCancellationEvent(
+            //                  ticketId: context.Saga.TicketId,
+            //                  tripId: context.Saga.TripId,
+            //                  passengerId: context.Saga.PassengerId,
+            //                  currentState: context.Saga.CurrentState, 
+            //                  ticketCreatedDate: context.Saga.TicketCreatedDate,
+            //                  status: context.Saga.Status,
+            //                  cancelledAt: context.Saga.TicketCancelDate 
+            //               )
+            //                )
+
+            //              );
+
+
+            ////            During(CancellingTrip,
+            ////    // ۱. وقتی لغو در سرویس Trip با موفقیت انجام شد
+            ////    When(TripCancellationConfirmedEvent)
+            ////        .Then(context =>
+            ////        {
+            ////            _logger.LogInformation(
+            ////                "Trip cancellation confirmed | TicketId: {TicketId}, TripId: {TripId}",
+            ////                context.Message.TicketId,
+            ////                context.Message.TripId);
+
+            ////            // به‌روزرسانی وضعیت ساگا
+            ////            context.Saga.CurrentState = "CancellingPerson";
+            ////            context.Saga.Status = "CancellingPerson";
+
+            ////            // استفاده از تاریخ ثبت‌شده در پیام برای یکپارچگی زمانی در کل سیستم
+            ////            context.Saga.TripCancelDate = context.Message.CancelledDate;
+            ////        })
+            ////        .TransitionTo(CancellingPerson)
+
+            ////        // ارسال کامند لغو به سرویس Person
+            ////        // ⚠️ نکته مهم: برای Commandها در MassTransit از .Send استفاده می‌شود، نه .Publish
+            ////        .Send(context => new CancelPersonBookingCommand(
+            ////            ticketId: context.Saga.TicketId,       // حروف کوچک برای تطابق با Constructor
+            ////            passengerId: context.Saga.PassengerId  // حروف کوچک برای تطابق با Constructor
+            ////        )),
+
+            ////    // ۲. اگر لغو در سرویس Trip با خطا مواجه شد
+            ////    When(TripCancellationFailedEvent)
+            ////        .Then(context =>
+            ////        {
+            ////            _logger.LogError(
+            ////                "Trip cancellation failed | TicketId: {TicketId}, TripId: {TripId}, Reason: {Reason}",
+            ////                context.Message.TicketId,
+            ////                context.Message.TripId,
+            ////                context.Message.Reason);
+
+            ////            context.Saga.CurrentState = "TripCancellationFailed";
+            ////            context.Saga.Status = "TripCancellationFailed";
+
+            ////            // اگر در کلاس Saga خود فیلد FailureReason دارید، خط زیر را از کامنت خارج کنید:
+            ////            // context.Saga.FailureReason = context.Message.Reason;
+            ////        })
+            ////        .TransitionTo(TicketCancelFailed)
+            ////)
+
+
+
+
+
+            //            //      During(CancellingTrip,
+            //            //    When(TripCancellationConfirmedEvent)
+            //            //        .Then(context =>
+            //            //        {
+            //            //            context.Saga.Status = "CancellingPerson";
+            //            //            context.Saga.TripCancelDate = DateTime.UtcNow;
+            //            //        })
+            //            //        .TransitionTo(CancellingPerson)
+            //            //        // ارسال ایونت/کامند لغو مسافر به سرویس Person
+            //            //        .Publish(context => new CancelPersonBookingCommand(
+            //            //            TicketId: context.Saga.TicketId,
+            //            //            PassengerId: context.Saga.PassengerId
+            //            //        )),
+
+            //            //    // ۲. اگر لغو در Trip با خطا مواجه شد
+            //            //    When(TripCancellationFailedEvent)
+            //            //        .Then(context =>
+            //            //        {
+            //            //            _logger.LogError("Trip cancellation failed for TicketId: {TicketId}", context.Message.TicketId);
+            //            //            context.Saga.Status = "TripCancellationFailed";
+            //            //        })
+            //            //        .TransitionTo(TicketCancelFailed)
+            //            //);
+
+            //            //During(CancellingPerson,
+            //            //    // مسافر هم آزاد و لغو شد -> کل تیکت ابطال و پرونده Saga بسته می‌شود
+            //            //    When(PersonCancellationConfirmedEvent)
+            //            //        .Then(context =>
+            //            //        {
+            //            //            _logger.LogInformation("Ticket {TicketId} fully cancelled.", context.Saga.TicketId);
+            //            //            context.Saga.Status = "Cancelled";
+            //            //            context.Saga.IsCancelled = true;
+            //            //            context.Saga.PersonCancelDate = DateTime.UtcNow;
+            //            //        })
+            //            //        .TransitionTo(TicketCancelled)
+            //            //        .Finalize() // پایان چرخه عمر سگا
+            //            //);
 
 
 

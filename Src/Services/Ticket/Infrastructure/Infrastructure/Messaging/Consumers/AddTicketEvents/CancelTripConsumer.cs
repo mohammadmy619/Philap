@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Messaging.Consumers
+namespace Infrastructure.Messaging.Consumers.AddTicketEvents
 {
     // استفاده از Primary Constructor مشابه کد AcceptTicketConsumer شما
     public class CancelTripConsumer(IBookingRepository bookingRepository, ILogger<CancelTripConsumer> _logger) : IConsumer<ICancelTripEvent>

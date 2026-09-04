@@ -10,4 +10,4 @@ public interface IAcceptUpdateTicketEvent : IBaseTicketEvent
     string Status { get; }
     DateTime CompletedDate { get; }
 }
-}
+

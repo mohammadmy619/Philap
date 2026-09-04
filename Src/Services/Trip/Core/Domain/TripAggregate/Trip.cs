@@ -115,7 +115,22 @@ namespace Domain.TripAggregate
             if (!removed)
                 throw new TicketNotFoundException();
         }
+        /// <summary>
+        /// بازگرداندن بلیط به سفر در صورت شکست فرآیند لغو در سرویس شخص (Compensation)
+        /// </summary>
+        public void RevertTicketCancellation(Guid ticketId)
+        {
+            GuardAgainstTicketId(ticketId);
 
+            // بررسی Idempotency: اگر بلیط از قبل در لیست وجود دارد، یعنی قبلاً بازگردانی شده است
+            // در این حالت هیچ کاری انجام نمی‌دهیم تا از خطای تکراری جلوگیری شود
+            if (_ticketIds.Contains(ticketId))
+            {
+                return;
+            }
+
+            _ticketIds.Add(ticketId);
+        }
         public bool HasTicket(Guid ticketId)
         {
             GuardAgainstTicketId(ticketId);

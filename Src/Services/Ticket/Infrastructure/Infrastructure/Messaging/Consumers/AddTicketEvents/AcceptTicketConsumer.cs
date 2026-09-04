@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Messaging.Consumers
+namespace Infrastructure.Messaging.Consumers.AddTicketEvents
 {
     public class AcceptTicketConsumer(IBookingRepository bookingRepository, ILogger<AcceptTicketConsumer> _logger) : IConsumer<IAcceptTicketEvent>
     {

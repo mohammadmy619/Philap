@@ -5,7 +5,7 @@ using MassTransit;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Messaging.Consumers
+namespace Infrastructure.Messaging.Consumers.UpdateTicketEvents
 {
     public class AcceptUpdateTicketConsumer(
         IBookingRepository bookingRepository,

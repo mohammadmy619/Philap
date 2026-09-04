@@ -6,8 +6,9 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Consumers
+namespace Infrastructure.ExternalServices.Consumers.UpdateTicketEvents
 {
+ 
     public class CancelUpdateTripEventConsumer : IConsumer<ICancelUpdatePersonEvent>
     {
         private readonly ILogger<CancelUpdateTripEventConsumer> _logger;
