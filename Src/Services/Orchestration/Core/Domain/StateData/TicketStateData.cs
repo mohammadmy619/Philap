@@ -37,5 +37,8 @@ namespace Domain.StateData
         public string PriceCurrencyUpdate { get; set; }
         public string PreviousState { get; set; }
         public DateTime TicketUpdatedDate { get; set; }
+
+        
+        public Guid? CancellationTimeoutTokenId { get; set; }
     }
 }

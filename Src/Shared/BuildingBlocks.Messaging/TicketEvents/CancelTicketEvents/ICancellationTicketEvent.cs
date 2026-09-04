@@ -1,6 +1,6 @@
 ﻿namespace BuildingBlocks.Messaging.TicketEvents.CancelTicketEvents
 {
-    public interface IIPersonCancellationEvent : IBaseTicketEvent
+    public interface ICancellationTicketEvent : IBaseTicketEvent
     {
 
     }
