@@ -32,8 +32,7 @@ namespace Trip.FunctionalTests
                 TravelEndDate: DateTime.UtcNow.AddDays(15),
                 LocationName: $"Tehran - {Guid.NewGuid()}",
                 PriceAmount: 1500.50m,
-                PriceCurrency: "USD",
-                TripStatus: TripStatus.Active // یا هر مقدار Enum که دارید
+                PriceCurrency: "USD"
             );
 
             var content = new StringContent(
@@ -153,8 +152,7 @@ namespace Trip.FunctionalTests
                 TravelEndDate: DateTime.UtcNow.AddDays(2),
                 LocationName: $"qom - Sample",
                 PriceAmount: 1000.00m,
-                PriceCurrency: "USD",
-                TripStatus: TripStatus.Active
+                PriceCurrency: "USD"
             );
 
             var content = new StringContent(
