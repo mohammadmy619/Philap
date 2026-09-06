@@ -24,22 +24,25 @@ namespace Domain.Persons.Passenger
         public IReadOnlyCollection<Guid> TicketIds => _ticketIds.AsReadOnly();
         #endregion
 
-        #region Constructor  
+        #region Constructors  
 
+        // ✅ ۱. کانستراکتور مخصوص EF Core (حتما protected باشد)
+        protected Passenger() { }
+
+        // ✅ ۲. کانستراکتور اصلی دامین (حالا address هم دارد)
         public Passenger(
-       List<Guid>? tripIds,
-       string name,
-       string lastName,
-       string email,
-       string phoneNumber,
-       DateTime dateOfBirth,
-       Gender gender,
-       Address address,
-       string nationality,
-       bool isActive,              // Fixed: removed duplicate "bool Address" typo
-       string passportNumber,
-       List<string> frequentFlyerNumbers)
-       : base(tripIds, name, lastName, email, phoneNumber, dateOfBirth, gender, address, nationality, isActive)
+            string name,
+            string lastName,
+            string email,
+            string phoneNumber,
+            DateTime dateOfBirth,
+            Gender gender,
+            Address address,  // ← address اضافه شد
+            string nationality,
+            bool isActive,
+            string passportNumber,
+            List<string> frequentFlyerNumbers)
+            : base(new List<Guid>(), name, lastName, email, phoneNumber, dateOfBirth, gender, address, nationality, isActive)
         {
             GuardAgainstPassportNumber(passportNumber);
             GuardAgainstFrequentFlyerNumbers(frequentFlyerNumbers);

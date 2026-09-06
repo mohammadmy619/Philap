@@ -1,11 +1,14 @@
-﻿using System;
+﻿using ACL.PersonACL;
+using ACL.PersonACL.Implementations;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FluentValidation;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Application
 {
@@ -15,6 +18,12 @@ namespace Application
         {
 
             var applicationAssembly = typeof(IAssemblyMarker).Assembly;
+
+            services.AddScoped<IPersonACL, PersonACL>();
+
+            services.AddTransient(
+    typeof(IPipelineBehavior<,>),
+    typeof(ValidationBehavior<,>));
 
             services.AddValidatorsFromAssemblies(new[] { applicationAssembly });
 

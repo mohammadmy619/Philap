@@ -27,7 +27,7 @@ namespace Application.Passenger.GetPassengers
                 Email: p.Email,
                 PhoneNumber: p.PhoneNumber,
                 DateOfBirth: p.DateOfBirth,
-                Gender: p.Gender,
+                Gender: p.Gender.ToString(),
                 Street: p.Address.Street,
                 City: p.Address.City,
                 State: p.Address.State,

@@ -15,9 +15,13 @@ namespace Domain.Persons.Leader
 
         #endregion
 
-        #region Constructor  
 
-        // 2. Class Constructor (in your Leader.cs file)
+        #region Constructors  
+
+       
+        private Leader() { }
+
+        // ۲. کانستراکتور اصلی شما برای ساختن آبجکت جدید در دامین (توسط کدهای برنامه)
         public Leader(
             List<Guid> tripIds,
             string name,

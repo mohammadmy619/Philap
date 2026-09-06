@@ -16,6 +16,10 @@ namespace Domain.TripAggregate
 
         #region Constructors
 
+ 
+
+
+
         public Trip(
             Guid leaderId,
             DateTime travelStartDate,
@@ -46,9 +50,10 @@ namespace Domain.TripAggregate
         }
 
         // برای EF Core و ORMها
-        protected Trip()
+        public Trip()
         {
         }
+
 
         #endregion
 

@@ -11,19 +11,19 @@ namespace Application.Trips.CreateTrip
 
         public async Task<CreateTripResponse> Handle(CreateTripCommand request, CancellationToken cancellationToken)
         {
-            var checkValidet = await _personACL.IsLeaderValidAsync(request.LeaderId, cancellationToken);
+            ////var checkValidet = await _personACL.IsLeaderValidAsync(request.LeaderId, cancellationToken);
 
-            if (!checkValidet)
-            {
-                throw new NotFoundException("LeaderId is not valid");
-            }
+            //if (!checkValidet)
+            //{
+            //    throw new NotFoundException("LeaderId is not valid");
+            //}
 
             var trip = new Trip(
                 leaderId: request.LeaderId,
                 travelStartDate: request.TravelStartDate,
                 travelEndDate: request.TravelEndDate,
                 locationName: request.LocationName,
-                tripStatus: request.TripStatus,
+                tripStatus: 0,
                 price: new Price(request.PriceAmount, request.PriceCurrency));
 
             await _tripRepository.AddTripAsync(trip, cancellationToken);

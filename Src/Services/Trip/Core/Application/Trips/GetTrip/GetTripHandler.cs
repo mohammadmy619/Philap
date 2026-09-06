@@ -30,7 +30,7 @@ namespace Application.Trips.GetTrip
                          trip.LocationName,
                          trip.Price.Amount,
                          trip.Price.Currency,
-                         trip.TripStatus);
+                         trip.TripStatus.ToString());
         }
     }
 }

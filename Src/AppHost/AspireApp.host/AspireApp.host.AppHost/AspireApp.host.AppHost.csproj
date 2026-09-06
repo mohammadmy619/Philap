@@ -9,8 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.MongoDB" Version="13.5.2" />
-    <PackageReference Include="Aspire.MongoDB.Driver" Version="13.5.2" />
+    <PackageReference Include="Aspire.Hosting.MongoDB" Version="9.5.2" />
   </ItemGroup>
 
   <ItemGroup>

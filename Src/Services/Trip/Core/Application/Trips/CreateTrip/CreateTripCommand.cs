@@ -9,6 +9,5 @@ namespace Application.Trips.CreateTrip
     DateTime TravelEndDate,
     string LocationName,
     decimal PriceAmount,
-    string PriceCurrency,
-    TripStatus TripStatus) : IRequest<CreateTripResponse>;
+    string PriceCurrency) : IRequest<CreateTripResponse>;
 }

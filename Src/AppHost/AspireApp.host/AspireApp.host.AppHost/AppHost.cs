@@ -1,53 +1,46 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
 
+//Aspire.Hosting.MongoDB
 
-var username = builder.AddParameter("Admin");
+//var username = builder.AddParameter("Admin");
 
-var password = builder.AddParameter("Admin", secret: true);
+//var password = builder.AddParameter("Admin", secret: true);
 
-var mongo = builder.AddMongoDB("mongo", userName: username, password: password).WithLifetime(ContainerLifetime.Persistent); 
-
-
-var mongodb = mongo.AddDatabase("mongodb");
+var mongo = builder.AddMongoDB("mongo").WithLifetime(ContainerLifetime.Persistent);
 
 
-var Identity_Api = builder.AddProject<Projects.Identity_Api>("identity-api")
-    .WithHttpHealthCheck("/health");
+var mongodb = mongo.AddDatabase("Trip");
 
 
-var Person_Api = builder.AddProject<Projects.Person_Api>("person-api")
-    .WithHttpHealthCheck("/health");
+//var Identity_Api = builder.AddProject<Projects.Identity_Api>("identity-api")
+//    .WithHttpHealthCheck("/health");
+
+
+//var Person_Api = builder.AddProject<Projects.Person_Api>("person-api")
+//    .WithHttpHealthCheck("/health");
 
 
 
 var Trip_Api = builder.AddProject<Projects.Trip_Api>("trip-api").WithExternalHttpEndpoints()
-    .WithHttpHealthCheck("/health").WithReference(Person_Api)
-    .WaitFor(Person_Api).WithReference(mongodb)
+    .WithHttpHealthCheck("/health")
+    //.WithReference(Person_Api)
+    //.WaitFor(Person_Api)
+    .WithReference(mongodb)
     .WaitFor(mongodb);
 
 
 
-var Ticketing_Api = builder.AddProject<Projects.Ticketing_Api>("ticketing-api")
-    .WithHttpHealthCheck("/health");
-
-var Ocelot_ApiGateways = builder.AddProject<Projects.Ocelot_ApiGateways>("ocelot-apigateways");
-
-
-builder.Configuration["DcpPublisher:RandomizePorts"] = "false";
-
-builder.AddProject<Projects.Orchestration_Api>("orchestration-api");
-
-builder.Build().Run();
-//.WithHttpEndpoint(name: "main", port: 7082, isProxied: false)
-
-//var apiService = builder.AddProject<Projects.AspireApp_host_ApiService>("apiservice")
+//var Ticketing_Api = builder.AddProject<Projects.Ticketing_Api>("ticketing-api")
 //    .WithHttpHealthCheck("/health");
 
-//builder.AddProject<Projects.AspireApp_host_Web>("webfrontend")
-//    .WithExternalHttpEndpoints()
-//    .WithHttpHealthCheck("/health")
-//    .WithReference(apiService)
-//    .WaitFor(apiService);
+//var Ocelot_ApiGateways = builder.AddProject<Projects.Ocelot_ApiGateways>("ocelot-apigateways");
+
+
+//builder.Configuration["DcpPublisher:RandomizePorts"] = "false";
+
+//builder.AddProject<Projects.Orchestration_Api>("orchestration-api");
+
+builder.Build().Run();
 
 

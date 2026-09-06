@@ -16,12 +16,12 @@ public class GetLeadersQueryHandler(ILeaderRepository _leaderRepository) : IRequ
             LastName: l.LastName,
             Email: l.Email,
             DateOfBirth: l.DateOfBirth,
-            Gender: l.Gender,
+            Gender: l.Gender.ToString(),
             Nationality: l.Nationality,
             Title: l.Title,
             Department: l.Department,
             JoiningDate: l.JoiningDate,
-            SkillsCount: l.Skills.Count
+            SkillsCount: l.Skills
            
         
         )).ToList();

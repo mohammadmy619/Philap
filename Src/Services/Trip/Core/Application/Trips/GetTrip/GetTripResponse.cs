@@ -7,6 +7,6 @@ using Domain.TripAggregate;
 
 namespace Application.Trips.GetTrip
 { 
-    public record class GetTripResponse(  Guid TripId ,Guid LeaderId, DateTime TravelStartDa, DateTime TravelEndDate , string LocationName, decimal PriceAmount, string Currency,TripStatus TripStatus) ;
+    public record class GetTripResponse(  Guid TripId ,Guid LeaderId, DateTime TravelStartDa, DateTime TravelEndDate , string LocationName, decimal PriceAmount, string Currency, string TripStatus) ;
 
 }

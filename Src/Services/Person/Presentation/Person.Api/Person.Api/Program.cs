@@ -1,6 +1,6 @@
 using Application;
 using Persistence;
-using Person.Api.GrpcServer.CheckLeader;
+//using Person.Api.GrpcServer.CheckLeader;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,7 +36,7 @@ if (app.Environment.IsDevelopment())
         opt.DefaultHttpClient = new(ScalarTarget.Http, ScalarClient.Http11);
     });
 }
-app.MapGrpcService<CheckLeaderValidService>();
+//app.MapGrpcService<CheckLeaderValidService>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

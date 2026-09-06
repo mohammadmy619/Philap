@@ -33,7 +33,7 @@ namespace Application.Trips.GetTripsWithPagination
                 trip.LocationName,
                 trip.Price.Amount,
                 trip.Price.Currency,
-                trip.TripStatus
+                trip.TripStatus.ToString()
             )).ToList();
 
             return responseItems;

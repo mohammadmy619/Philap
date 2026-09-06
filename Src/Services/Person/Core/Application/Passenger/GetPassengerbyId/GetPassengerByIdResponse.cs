@@ -8,7 +8,7 @@ public record GetPassengerByIdResponse(
     string Email,
     string PhoneNumber,
     DateTime DateOfBirth,
-    Gender Gender,
+    string Gender,
     string Street,
     string City,
     string State,

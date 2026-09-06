@@ -10,7 +10,7 @@ namespace Application.Passenger.GetPassengers
     string Email,
     string PhoneNumber,
     DateTime DateOfBirth,
-    Gender Gender,
+    string Gender,
     string Street,
     string City,
     string State,

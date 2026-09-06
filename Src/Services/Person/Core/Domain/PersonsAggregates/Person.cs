@@ -33,6 +33,8 @@ namespace Domain.Persons
 
         #region Constructor
 
+
+     
         protected Person(
             List<Guid> tripIds,
             string name,
@@ -68,7 +70,7 @@ namespace Domain.Persons
             IsActive = isActive;
         }
 
-        private Person()
+        protected Person()
         {
         }
 

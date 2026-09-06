@@ -16,4 +16,4 @@ public record class CreatePassengerCommand(
     string ZipCode,
     string Nationality,
     string PassportNumber,
-    List<string> FrequentFlyerNumbers) : IRequest<Guid>;
+    List<string> FrequentFlyerNumbers) : IRequest<CreatePassengerResponse>;

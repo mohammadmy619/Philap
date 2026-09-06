@@ -19,7 +19,7 @@ public class GetPassengerByIdQueryHandler(IPassengerRepository _passengerReposit
             Email: passenger.Email,
             PhoneNumber: passenger.PhoneNumber,
             DateOfBirth: passenger.DateOfBirth,
-            Gender: passenger.Gender,
+            Gender: passenger.Gender.ToString(),
             Street: passenger.Address.Street,
             City: passenger.Address.City,
             State: passenger.Address.State,

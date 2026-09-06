@@ -2,15 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Persistence.Repositories;
-using Persistence.Settings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Persistence
 {
@@ -21,15 +15,25 @@ namespace Persistence
 
         public static IServiceCollection ConfigurePersistenceLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            // استفاده از overload ای که به serviceProvider دسترسی دارد
+
+
+            var connectionString = configuration.GetConnectionString("Trip")
+    ?? throw new InvalidOperationException("ConnectionStrings:Trip is missing.");
+
+            // پارس کردن Connection String برای استخراج DatabaseName
+            var mongoUrl = new MongoUrl(connectionString);
+            var databaseName = mongoUrl.DatabaseName ?? "Trip";
+
+            Console.WriteLine($"MongoDB Connecting to: {mongoUrl.Server} | Database: {databaseName}");
+
             services.AddDbContext<TripDbContext>((serviceProvider, options) =>
             {
                 // دریافت تنظیمات از IOptions که در Program.cs ثبت شده است
-                var settings = serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value;
+                //var settings = serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value;
 
                 options.UseMongoDB(
-                    settings.ConnectionString,
-                    settings.DatabaseName);
+                    mongoUrl.Url,
+                    databaseName);
             });
 
             services.AddScoped<ITripRepository, TripRepository>();

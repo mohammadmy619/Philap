@@ -3,9 +3,9 @@ using Domain.Persons.Passenger;
 using MediatR;
 
 public class CreatePassengerCommandHandler(IPassengerRepository _passengerRepository)
-    : IRequestHandler<CreatePassengerCommand, Guid>
+    : IRequestHandler<CreatePassengerCommand, CreatePassengerResponse>
 {
-    public async Task<Guid> Handle(CreatePassengerCommand request, CancellationToken ct)
+    public async Task<CreatePassengerResponse> Handle(CreatePassengerCommand request, CancellationToken ct)
     {
         // ساخت Address از داده‌های ورودی
         var address = new Address(
@@ -14,22 +14,28 @@ public class CreatePassengerCommandHandler(IPassengerRepository _passengerReposi
             state: request.State,
             zipCode: request.ZipCode);
 
-        //ساخت Passenger جدید
-       var passenger = new Passenger(
-         
-           request.TripIds ?? new List<Guid>(),
-           name: request.Name,
-           lastName: request.LastName,
-           email: request.Email,
-           phoneNumber: request.PhoneNumber,
-           dateOfBirth: request.DateOfBirth,
-           gender: request.Gender,
-           address: address,
-           nationality: request.Nationality,
-           isActive:request.isActive,
-           passportNumber: request.PassportNumber,
-           frequentFlyerNumbers: request.FrequentFlyerNumbers);
-     
+        var passenger = new Passenger(
+               name: request.Name,
+               lastName: request.LastName,
+               email: request.Email,
+               phoneNumber: request.PhoneNumber,
+               dateOfBirth: request.DateOfBirth,
+               gender: request.Gender,
+               address: address,
+               nationality: request.Nationality,
+               isActive: request.isActive,
+               passportNumber: request.PassportNumber,
+               frequentFlyerNumbers: request.FrequentFlyerNumbers);
+
+        // ۳. اضافه کردن TripIds به صورت امن و طبق اصول DDD (اگر مقداری وجود داشته باشد)
+        if (request.TripIds != null && request.TripIds.Any())
+        {
+            foreach (var tripId in request.TripIds)
+            {
+                passenger.AddTripId(tripId);
+            }
+        }
+
 
         // اضافه کردن به ریپوزیتوری
         await _passengerRepository.AddPassengerAsync(passenger, ct);
@@ -38,6 +44,6 @@ public class CreatePassengerCommandHandler(IPassengerRepository _passengerReposi
         await _passengerRepository.SaveChangesAsync(ct);
 
         // بازگشت Id مسافر ایجاد شده
-        return passenger.Id;
+        return new CreatePassengerResponse(passenger.Id);
     }
 }

@@ -19,10 +19,10 @@ namespace Application.Leader.GetLeaders
         string LastName,
         string Email,
         DateTime DateOfBirth,
-        Gender Gender,
+        string Gender,
         string Nationality,
         string Title,
         string Department,
         DateTime JoiningDate,
-        int SkillsCount);
+        List<string> SkillsCount);
 }
