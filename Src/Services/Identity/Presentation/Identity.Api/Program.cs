@@ -15,7 +15,7 @@ builder.AddServiceDefaults();
 
 builder.Configuration.AddEnvironmentVariables();
 
-builder.Services.ConfigureInfrastructureLayer(builder.Configuration);
+builder.Services.ConfigurePersistenceLayer(builder.Configuration);
 builder.Services.ConfigureApplicationLayer(builder.Configuration);
 
 builder.Services.AddOpenApi();
