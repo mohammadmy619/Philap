@@ -1,4 +1,4 @@
-﻿using Application.DTO;
+﻿using Application.Commons.DTO;
 using AutoMapper;
 using System;
 using System.Collections.Generic;

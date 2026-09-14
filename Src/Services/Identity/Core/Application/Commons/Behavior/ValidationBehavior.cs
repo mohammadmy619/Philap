@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Behavior
+namespace Application.Commons.Behavior
 {
     public class ValidationBehavior<TRequest, TRespone> : IPipelineBehavior<TRequest, TRespone>
       where TRequest : IRequest<TRespone>

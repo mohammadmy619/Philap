@@ -1,4 +1,4 @@
-﻿using Application.DTO;
+﻿using Application.Commons.DTO;
 using Application.Utils;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

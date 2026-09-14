@@ -1,4 +1,5 @@
-﻿using Application.DTO;
+﻿using Application.Commons.DTO;
+using Application.Commons.Interfaces;
 
 public interface IJwtService
 {

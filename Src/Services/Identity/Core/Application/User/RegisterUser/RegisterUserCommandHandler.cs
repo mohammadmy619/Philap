@@ -2,7 +2,6 @@
 using MediatR;
 using Domain.Services;
 using Domain.RoleAgregate;
-using Application.ApplicationServices;
 
 namespace Application.User.CreateUser
 {

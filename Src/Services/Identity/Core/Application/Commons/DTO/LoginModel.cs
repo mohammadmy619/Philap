@@ -1,4 +1,4 @@
-﻿namespace Application.DTO;
+﻿namespace Application.Commons.DTO;
 public class LoginModel
 {
     public string Username { get; set; }

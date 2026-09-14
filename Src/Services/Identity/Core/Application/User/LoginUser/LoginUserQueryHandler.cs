@@ -1,5 +1,5 @@
 ﻿using Application.ApplicationServices;
-using Application.DTO;
+using Application.Commons.DTO;
 using Application.User.LoginUser;
 using AutoMapper;
 using Domain.PermissionAgregate;

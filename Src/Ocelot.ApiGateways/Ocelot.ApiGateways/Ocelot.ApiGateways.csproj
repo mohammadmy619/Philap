@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.13" />
+    <PackageReference Include="Ocelot" Version="25.0.0" />
+    <PackageReference Include="Ocelot.Provider.Consul" Version="24.1.0" />
   </ItemGroup>
 
   <ItemGroup>
