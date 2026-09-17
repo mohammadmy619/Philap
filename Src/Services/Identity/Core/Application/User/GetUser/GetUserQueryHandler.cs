@@ -6,13 +6,20 @@ using Application.User.Exceptions;
 
 namespace Application.User.GetUser
 {
-    public class GetUserQueryHandler(IUserRepository _userRepository) : IRequestHandler<GetUserQuery, GetUserResponse>
+    public class GetUserQueryHandler(IUserRepository _userRepository, ICurrentUserService _currentUserService) : IRequestHandler<GetUserQuery, GetUserResponse>
     {
        
         public async Task<GetUserResponse> Handle(GetUserQuery request, CancellationToken cancellationToken)
         {
+
+
+            var userId = _currentUserService.UserId
+          ?? throw new UnauthorizedAccessException("کاربر معتبر نیست.");
+
+
+
             // دریافت کاربر از repo  
-            var user = await _userRepository.GetUserByIdAsync(request.UserId, cancellationToken);
+            var user = await _userRepository.GetUserByIdAsync(userId, cancellationToken);
 
             if (user == null)
             {

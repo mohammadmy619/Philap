@@ -1,5 +1,4 @@
-﻿using Application.DTO;
-using Application.User.CreateUser;
+﻿using Application.User.CreateUser;
 using Application.User.LoginUser;
 using Application.User.UpdateUser;
 using MediatR;

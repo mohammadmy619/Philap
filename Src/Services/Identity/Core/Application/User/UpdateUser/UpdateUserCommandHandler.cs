@@ -4,11 +4,10 @@ using Application.User.Exceptions;
 using Application.User.CreateUser;
 using Domain.Services;
 using Domain.RoleAgregate;
-using Application.ApplicationServices;
 
 namespace Application.User.UpdateUser
 {
-    public class UpdateUserCommandHandler(IUserRepository _userRepository, IRoleRepository _RoleRepository, IPasswordHelper _PasswordHelper, IEmailService _EmailService) : IRequestHandler<UpdateUserCommand, UpdateUserResponse>
+    public class UpdateUserCommandHandler(IUserRepository _userRepository, IRoleRepository _RoleRepository, IEmailService _EmailService, ICurrentUserService _currentUserService) : IRequestHandler<UpdateUserCommand, UpdateUserResponse>
     {
        
 
@@ -16,15 +15,22 @@ namespace Application.User.UpdateUser
 
         public async Task<UpdateUserResponse> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
+            var userId = _currentUserService.UserId
+           ?? throw new UnauthorizedAccessException("کاربر معتبر نیست.");
+
             // Fetch existing user  
-            var user = await _userRepository.GetUserByIdAsync(request.UserId, cancellationToken);
+            var user = await _userRepository.GetUserByIdAsync(userId, cancellationToken);
             if (user == null)
-                throw new UserNotFoundException($"User with ID {request.UserId} not found.");
+                throw new UserNotFoundException($"User with ID {userId} not found.");
 
 
-            if (!string.IsNullOrEmpty(request.Password)) _PasswordHelper.HashPassword(request.Password);
-
-            user.UpdateUser(request.UserId,request.UserName,request.Email,request.Password, _EmailService);
+            string? passwordHash = null;
+            if (!string.IsNullOrWhiteSpace(request.Password))
+            {
+                passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            }
+            if (string.IsNullOrEmpty(request.Password)) throw new UserPasswordInvalidException();
+            user.UpdateUser(userId, request.UserName,request.Email, passwordHash, _EmailService);
 
             if (request.RoleId.Any()) {
 

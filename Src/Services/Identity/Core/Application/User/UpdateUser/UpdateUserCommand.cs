@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Application.User.UpdateUser
 {
-    public record UpdateUserCommand(Guid UserId, string UserName, string Email, string Password, List<Guid> RoleId) : IRequest<UpdateUserResponse>;
+    public record UpdateUserCommand(string UserName, string Email, string Password, List<Guid> RoleId) : IRequest<UpdateUserResponse>;
 }

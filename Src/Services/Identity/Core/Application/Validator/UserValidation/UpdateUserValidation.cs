@@ -13,9 +13,7 @@ namespace Application.Validator.UserValidation
     {
         public UpdateUserValidation()
         {
-            RuleFor(x => x.UserId)
-           .NotEmpty();
-
+    
             RuleFor(x => x.UserName)
             .NotEmpty().WithMessage("Username is required.")
             .Length(3, 20).WithMessage("Username must be between 3 and 20 characters.");

@@ -1,5 +1,5 @@
-﻿using Application.ApplicationServices;
-using Application.Commons.DTO;
+﻿using Application.Commons.DTO;
+using Application.User.CreateUser;
 using Application.User.LoginUser;
 using AutoMapper;
 using Domain.PermissionAgregate;
@@ -9,7 +9,7 @@ using MediatR;
 
 
 public class LoginUserQueryHandler(IUserRepository _userRepository, IRoleRepository _RoleRepository
-    ,IPermissionRepository _PermissionRepository, IPasswordHelper _PasswordHelper, IJwtService _jwtService, IMapper _mapper) : IRequestHandler<LoginUserQuery, LoginUserResponse>
+    ,IPermissionRepository _PermissionRepository,  IJwtService _jwtService, IMapper _mapper) : IRequestHandler<LoginUserQuery, LoginUserResponse>
 {
     public async Task<LoginUserResponse> Handle(LoginUserQuery request, CancellationToken cancellationToken)
     {
@@ -21,8 +21,12 @@ public class LoginUserQueryHandler(IUserRepository _userRepository, IRoleReposit
         if (user == null)
             throw new UserNotFoundException();
 
+
+
+
+  
         // بررسی رمز عبور با هش
-        if (!_PasswordHelper.VerifyPassword(user.PasswordHash, request.Password))
+        if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
             throw new InvalidCredentialsException(); // یک اکسپشن سفارشی
 
         // دریافت نقش‌ها و مجوزها (Permissions)

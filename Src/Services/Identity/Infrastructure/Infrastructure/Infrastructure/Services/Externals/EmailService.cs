@@ -1,5 +1,4 @@
-﻿using Application.ApplicationServices;
-using Domain.Services;
+﻿using Domain.Services;
 using Microsoft.Extensions.Options;
 using System.Net;
 using System.Net.Mail;

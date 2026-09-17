@@ -5,7 +5,7 @@ using Domain.RoleAgregate;
 
 namespace Application.User.CreateUser
 {
-    public class RegisterUserCommandHandler(IUserRepository _userRepository, IRoleRepository _RoleRepository, IPasswordHelper _passwordHasher, IEmailService _EmailService) : IRequestHandler<RegisterUserCommand, RegisterUserResponse>
+    public class RegisterUserCommandHandler(IUserRepository _userRepository, IRoleRepository _RoleRepository, IEmailService _EmailService) : IRequestHandler<RegisterUserCommand, RegisterUserResponse>
     {
 
         public async Task<RegisterUserResponse> Handle(
@@ -14,9 +14,15 @@ namespace Application.User.CreateUser
         {
 
 
-            if (string.IsNullOrEmpty(request.Password)) throw new UserPasswordInvalidException();
+            
 
-            var passwordHash = _passwordHasher.HashPassword(request.Password);
+          
+            if (string.IsNullOrEmpty(request.Password)) throw new UserPasswordInvalidException();
+            string? passwordHash = null;
+            if (!string.IsNullOrWhiteSpace(request.Password))
+            {
+                passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            }
 
 
             // Create User

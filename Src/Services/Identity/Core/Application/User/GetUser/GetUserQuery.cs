@@ -2,5 +2,5 @@
 
 namespace Application.User.GetUser
 {
-    public record GetUserQuery(Guid UserId) : IRequest<GetUserResponse>;
+    public record GetUserQuery() : IRequest<GetUserResponse>;
 }

@@ -2,6 +2,7 @@
 using Application.User.GetUser;
 using Application.User.UpdateUser;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,11 +15,12 @@ namespace Identity.Api.Controllers
 
 
         [HttpGet("{userId}")]
+        [Authorize]
         [ProducesResponseType(typeof(GetUserResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetUserById(Guid userId)
+        public async Task<IActionResult> GetUserById()
         {
-            var query = new GetUserQuery(userId);
+            var query = new GetUserQuery();
             var result = await _mediator.Send(query);
 
             return Ok(result);
@@ -28,6 +30,7 @@ namespace Identity.Api.Controllers
       
 
         [HttpPut]
+        [Authorize]
         [ProducesResponseType(typeof(UpdateUserResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -1,5 +1,4 @@
-﻿using Application.ApplicationServices;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SixLabors.ImageSharp;
@@ -19,7 +18,6 @@ namespace Application
         {
 
             var applicationAssembly = typeof(IAssemblyMarker).Assembly;
-            services.AddScoped<IPasswordHelper, PasswordHelper>();
             services.AddValidatorsFromAssemblies(new[] { applicationAssembly });
 
 
