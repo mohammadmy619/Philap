@@ -14,7 +14,7 @@ namespace Identity.Api.Controllers
     {
 
 
-        [HttpGet("{userId}")]
+        [HttpGet]
         [Authorize]
         [ProducesResponseType(typeof(GetUserResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

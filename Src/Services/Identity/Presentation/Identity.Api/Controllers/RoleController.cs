@@ -50,7 +50,7 @@ namespace Identity.Api.Controllers
         /// <summary>
         /// به‌روزرسانی یک نقش موجود
         /// </summary>
-        [HttpPut("{roleId:guid}")]
+        [HttpPut]
         [Authorize]
         [ProducesResponseType(typeof(UpdateRoleResponse), 200)]
         [ProducesResponseType(404)]

@@ -3,7 +3,7 @@ using Application.Permission.GetAccess;
 using Application.Permission.GetPermission;
 using Application.Permission.UpdatePermission;
 using MediatR;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.Api.Controllers
@@ -17,6 +17,7 @@ namespace Identity.Api.Controllers
         /// دریافت جزئیات یک Permission بر اساس ID
         /// </summary>
         [HttpGet("{permissionId:guid}")]
+        [Authorize]
         [ProducesResponseType(typeof(GetPermissionResponse), 200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
@@ -36,6 +37,7 @@ namespace Identity.Api.Controllers
         /// ایجاد یک Permission جدید
         /// </summary>
         [HttpPost]
+        [Authorize]
         [ProducesResponseType(typeof(CreatePermissionResponse), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
@@ -52,7 +54,8 @@ namespace Identity.Api.Controllers
         /// <summary>
         /// به‌روزرسانی یک permission موجود
         /// </summary>
-        [HttpPut("{id:guid}")]
+        [HttpPut]
+        [Authorize]
         [ProducesResponseType(typeof(UpdatePermissionResponse), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]

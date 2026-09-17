@@ -3,11 +3,13 @@ using Application.Permission.CreatePermission;
 using Application.Permission.GetAccess;
 using Application.Permission.UpdateAccessControl;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AccessControlController(IMediator _mediator) : ControllerBase
