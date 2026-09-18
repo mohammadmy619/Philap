@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence;
@@ -12,11 +11,9 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20250329111756_MigrationName")]
-    partial class MigrationName
+    partial class IdentityDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,10 +33,6 @@ namespace Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.PrimitiveCollection<Guid[]>("RoleIds")
-                        .IsRequired()
-                        .HasColumnType("uuid[]");
-
                     b.HasKey("Id");
 
                     b.ToTable("Permission");
@@ -56,7 +49,7 @@ namespace Persistence.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.PrimitiveCollection<Guid[]>("UserIds")
+                    b.PrimitiveCollection<Guid[]>("PermissionIds")
                         .IsRequired()
                         .HasColumnType("uuid[]");
 
@@ -80,10 +73,6 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.PrimitiveCollection<Guid[]>("Roleds")
-                        .IsRequired()
-                        .HasColumnType("uuid[]");
-
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -92,6 +81,42 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("Domain.PermissionAgregate.Permission", b =>
+                {
+                    b.OwnsMany("Domain.PermissionAgregate.AccessControl", "AccessControl", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer");
+
+                            NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b1.Property<int>("Id"));
+
+                            b1.Property<string>("Action")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("character varying(100)");
+
+                            b1.Property<Guid>("PermissionId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("Resource")
+                                .IsRequired()
+                                .HasMaxLength(150)
+                                .HasColumnType("character varying(150)");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("PermissionId");
+
+                            b1.ToTable("PermissionAccessControls", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("PermissionId");
+                        });
+
+                    b.Navigation("AccessControl");
                 });
 #pragma warning restore 612, 618
         }

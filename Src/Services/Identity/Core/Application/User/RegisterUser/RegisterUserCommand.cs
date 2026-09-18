@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace Application.User.CreateUser
 {
-    public record RegisterUserCommand(string UserName, string Email, string Password,List<Guid> RoleId) : IRequest<RegisterUserResponse>;
+    public record RegisterUserCommand(string UserName, string Email, string Password) : IRequest<RegisterUserResponse>;
 }

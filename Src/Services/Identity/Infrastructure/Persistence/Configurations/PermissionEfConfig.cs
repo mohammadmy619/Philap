@@ -24,8 +24,30 @@ namespace Persistence.Configurations
                 .IsRequired() // الزامی بودن نام  
                 .HasMaxLength(100); // مقدار حداکثر طول نام  
 
-            builder.HasMany<AccessControl>();
- 
+
+            // کانفیگ AccessControl به عنوان یک Owned Collection (Value Object)
+            builder.OwnsMany(p => p.AccessControl, ac =>
+            {
+                // نام جدولی که در دیتابیس برای این Value Objectها ساخته می‌شود
+                ac.ToTable("PermissionAccessControls");
+
+                // نام کلید خارجی که به Permission اشاره می‌کند
+                ac.WithOwner().HasForeignKey("PermissionId");
+
+                // پراپرتی‌ها
+                ac.Property(a => a.Resource)
+                  .IsRequired()
+                  .HasMaxLength(150);
+
+                ac.Property(a => a.Action)
+                  .IsRequired()
+                  .HasMaxLength(100);
+
+                // اگر ستون Id در کلاس AccessControl ندارید، EF به صورت Shadow Property یک Id برای جدول می‌سازد:
+                ac.Property<int>("Id");
+                ac.HasKey("Id");
+            });
+
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Application.Commons.Interfaces;
 using System.Text;
 
-namespace Blogger.Infrastructure.Services;
+
 public class LinkGenerator : ILinkGenerator
 {
 

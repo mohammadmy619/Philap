@@ -32,12 +32,12 @@ namespace Application.User.CreateUser
                 passwordHash: passwordHash,
                 _EmailService
                 );
-            if (request.RoleId.Any()) 
-            {
-                var roles = await _RoleRepository.GetRoleIdsAsync(request.RoleId, cancellationToken);
-                user.AddRolesToUser(roles.ToList());
+            //if (request.RoleId.Any()) 
+            //{
+            //    var roles = await _RoleRepository.GetRoleIdsAsync(request.RoleId, cancellationToken);
+            //    user.AddRolesToUser(roles.ToList());
 
-            } 
+            //} 
 
 
             // Persist

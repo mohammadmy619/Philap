@@ -18,30 +18,38 @@ namespace Persistence
     {
         public static IServiceCollection ConfigurePersistenceLayer(this IServiceCollection services, IConfiguration configuration)
         {
-
             var applicationAssembly = typeof(IAssemblyMarker).Assembly;
 
             services.Configure<EmailSettings>(options =>
             {
                 options.From = configuration.GetSection("EmailSettings:UserId").Value;
-                options.SmtpPort =int.Parse(configuration.GetSection("EmailSettings:SmtpPort").Value);
-
+                options.SmtpPort = int.Parse(configuration.GetSection("EmailSettings:SmtpPort").Value ?? "587");
             });
 
-            // 3. Register IdentityDbContext with Npgsql (PostgreSQL)
+            // 1. خواندن کانکشن استرینگ با اولویت Environment Variable سپس Configuration
+            var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__postgresdb")
+                                   ?? Environment.GetEnvironmentVariable("ConnectionStrings:postgresdb")
+                                   ?? configuration.GetConnectionString("postgresdb")
+                                   ?? configuration.GetConnectionString("DefaultConnection");
+
+            Console.WriteLine(connectionString);
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException("PostgreSQL connection string was not found in environment variables or configuration.");
+            }
+
+            // 2. Register IdentityDbContext with Npgsql (PostgreSQL)
             services.AddDbContext<IdentityDbContext>(options =>
             {
-                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+                options.UseNpgsql(connectionString);
             });
 
-
-            services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IPermissionRepository, PermissionRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             //services.AddScoped<IPermissonValidationService, PermissonValidationService>();
             //services.AddScoped<IRoleValidationService, RoleValidationService>();
-
 
             return services;
         }

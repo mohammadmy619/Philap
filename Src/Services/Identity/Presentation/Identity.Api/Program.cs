@@ -1,9 +1,13 @@
 using Application;
-using Application.Utils;
 using Identity.Api;
+using Infrastructure;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Persistence;
+using Persistence.Extensions;
 using Scalar.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi;
 using System.Text;
 
 
@@ -16,9 +20,38 @@ builder.AddServiceDefaults();
 builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.ConfigurePersistenceLayer(builder.Configuration);
+builder.Services.ConfigureInfrastructureLayer(builder.Configuration);
 builder.Services.ConfigureApplicationLayer(builder.Configuration);
 
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer((document, _, _) =>
+    {
+
+        document.Servers = new List<OpenApiServer>
+        {
+            new OpenApiServer { Url = "https://localhost:7106" }
+        };
+
+        document.Components ??= new OpenApiComponents();
+        //document.Components.SecuritySchemes ??= new Dictionary<string, IOpenApiSecurityScheme>();
+        document.Components.SecuritySchemes["BearerAuth"] = new OpenApiSecurityScheme
+        {
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            Description = "توکن JWT را بدون پیشوند Bearer وارد کنید."
+        };
+
+        //document.Security ??= [];
+        //document.Security.Add(new OpenApiSecurityRequirement
+        //{
+        //    [new OpenApiSecuritySchemeReference("BearerAuth", document)] = []
+        //});
+
+        return Task.CompletedTask;
+    });
+});
 builder.Services.ConfigureCors();
 
 
@@ -60,21 +93,24 @@ builder.Services.AddControllers(options =>
 
 var app = builder.Build();
 
+
+  app.ApplyMigrations<IdentityDbContext>();
+
+
 app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-
-    
+   
     app.MapOpenApi();
     app.MapScalarApiReference(opt =>
     {
         opt.Title = "Identity";
         opt.Theme = ScalarTheme.Purple;
         opt.DefaultHttpClient = new(ScalarTarget.Http, ScalarClient.Http11);
+        opt.AddPreferredSecuritySchemes(["BearerAuth"]);
+        opt.EnablePersistentAuthentication();
     });
-}
+
 
 app.UseHttpsRedirection();
 
