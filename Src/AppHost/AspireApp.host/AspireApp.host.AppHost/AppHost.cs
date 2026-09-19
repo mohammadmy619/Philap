@@ -41,8 +41,8 @@ var Identity_Api = builder.AddProject<Projects.Identity_Api>("identity-api")
 //var Ticketing_Api = builder.AddProject<Projects.Ticketing_Api>("ticketing-api")
 //    .WithHttpHealthCheck("/health");
 
-var Ocelot_ApiGateways = builder.AddProject<Projects.Ocelot_ApiGateways>("ocelot-apigateways")
-        .WaitFor(Identity_Api)
+var Ocelot_ApiGateways = builder.AddProject<Projects.Ocelot_ApiGateway>("ocelot-apigateways")
+    .WaitFor(Identity_Api)
     .WithReference(Identity_Api);
 
 

@@ -50,7 +50,39 @@ builder.Services.AddOcelot(builder.Configuration);
 builder.Services.AddControllers();
 
 
-builder.Services.AddOpenApi();
+//builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer((document, _, _) =>
+    {
+
+        document.Servers = new List<OpenApiServer>
+        {
+            new OpenApiServer { Url = "https://localhost:7106" }
+        };
+
+        document.Components ??= new OpenApiComponents();
+        //document.Components.SecuritySchemes ??= new Dictionary<string, IOpenApiSecurityScheme>();
+        document.Components.SecuritySchemes["BearerAuth"] = new OpenApiSecurityScheme
+        {
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            Description = "توکن JWT را بدون پیشوند Bearer وارد کنید."
+        };
+
+        //document.Security ??= [];
+        //document.Security.Add(new OpenApiSecurityRequirement
+        //{
+        //    [new OpenApiSecuritySchemeReference("BearerAuth", document)] = []
+        //});
+
+        return Task.CompletedTask;
+    });
+});
+
+
+
 //builder.Services.AddOpenApi(options =>
 //{
 //    options.AddDocumentTransformer((document, context, cancellationToken) =>
@@ -99,6 +131,8 @@ builder.Services.AddOpenApi();
 //    });
 //});
 
+builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
@@ -111,22 +145,53 @@ app.UseAuthorization();
 
 app.MapOpenApi(); // مسیر پیش‌فرض: /openapi/v1.json
 
-//app.MapScalarApiReference(options =>
-//{
-//    options.Title = "API Gateway Documentation";
-//    options.Theme = ScalarTheme.Purple;
+
+//app.MapGet(
+//    "/openapi/identity/v1.json",
+//    async (IHttpClientFactory httpClientFactory, CancellationToken cancellationToken) =>
+//    {
+//        var client = httpClientFactory.CreateClient();
+
+//        using var response = await client.GetAsync(
+//            "https://localhost:7106/openapi/v1.json",
+//            cancellationToken);
+
+//        var document = await response.Content.ReadAsStringAsync(cancellationToken);
+
+//        return Results.Content(
+//            document,
+//            response.Content.Headers.ContentType?.ToString()
+//                ?? "application/json",
+//            statusCode: (int)response.StatusCode);
+//    });
 
 
-//    options.WithOpenApiRoutePattern("/docs/{documentName}/openapi.json");
+app.MapScalarApiReference("/scalar", options =>
+{
+    options.AddDocument("Identity", "Identity API", "https://localhost:7106/openapi/v1.json");
+    options.Title = "ApiGateWay";
+    options.Theme = ScalarTheme.DeepSpace;
+    options.DefaultHttpClient = new(ScalarTarget.Http, ScalarClient.Http11);
+    options.AddPreferredSecuritySchemes(["BearerAuth"]);
+    options.EnablePersistentAuthentication();
 
-//    // مسیر OpenAPI خودِ Gateway یا روت‌های پروکسی شده
-//    //options.WithOpenApiRoutePattern("/docs/{service}/openapi.json");
 
-//    options.AddPreferredSecuritySchemes(["BearerAuth"]);
-//    options.EnablePersistentAuthentication();
-//});
-app.MapControllers();
 
-await app.UseOcelot();
+
+});
+
+app.MapGet("/", () => Results.Redirect("/scalar"));
+
+// Ocelot فقط برای مسیرهایی غیر از اینها اجرا شود
+app.UseWhen(
+    ctx =>
+        !ctx.Request.Path.StartsWithSegments("/scalar") &&
+        !ctx.Request.Path.StartsWithSegments("/openapi") &&
+        ctx.Request.Path != "/",
+    branch =>
+    {
+        branch.UseOcelot().Wait();
+    });
+//app.MapControllers();
 
 app.Run();

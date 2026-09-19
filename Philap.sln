@@ -109,7 +109,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireApp.host.AppHost", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireApp.host.ServiceDefaults", "Src\AppHost\AspireApp.host\AspireApp.host.ServiceDefaults\AspireApp.host.ServiceDefaults.csproj", "{10DC373F-D698-535C-5B94-2AE567E93DFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ocelot.ApiGateways", "Src\Ocelot.ApiGateways\Ocelot.ApiGateways\Ocelot.ApiGateways.csproj", "{C2F492AF-2988-6A05-E957-F1144CF9FC85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ocelot.ApiGateway", "Src\Ocelot.ApiGateways\Ocelot.ApiGateways\Ocelot.ApiGateway.csproj", "{C2F492AF-2988-6A05-E957-F1144CF9FC85}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Person.test", "Person.test", "{5B2DF0FC-0234-4E4C-9CB5-ADF2042E0636}"
 EndProject

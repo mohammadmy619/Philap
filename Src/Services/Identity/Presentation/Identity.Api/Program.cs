@@ -52,7 +52,14 @@ builder.Services.AddOpenApi(options =>
         return Task.CompletedTask;
     });
 });
-builder.Services.ConfigureCors();
+//builder.Services.ConfigureCors();
+builder.Services.AddCors(o =>
+{
+    o.AddPolicy("Scalar", p => p
+        .WithOrigins("https://localhost:7261") // origin گیت‌وی
+        .AllowAnyHeader()
+        .AllowAnyMethod());
+});
 
 
 builder.Services.AddControllers(options =>
@@ -102,6 +109,7 @@ app.MapDefaultEndpoints();
 // Configure the HTTP request pipeline.
    
     app.MapOpenApi();
+
     app.MapScalarApiReference(opt =>
     {
         opt.Title = "Identity";
@@ -111,7 +119,7 @@ app.MapDefaultEndpoints();
         opt.EnablePersistentAuthentication();
     });
 
-
+app.UseCors("Scalar");
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
