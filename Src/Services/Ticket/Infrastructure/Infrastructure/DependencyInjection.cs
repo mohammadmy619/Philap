@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Domain;
+using Domain.DomainServices;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +30,6 @@ public static class DependencyInjection
             // ۲. ثبت تمام کانسیومرهای اسمبلی مورد نظر
             x.AddConsumers(typeof(IAssemblyMarker).Assembly);
 
-            // ۳. کانفیگ هاست RabbitMQ و ساخت خودکار اندپوینت‌ها
             x.UsingRabbitMq((context, cfg) =>
             {
                 if (Uri.TryCreate(
@@ -48,11 +48,9 @@ public static class DependencyInjection
             });
         });
 
-
         services.AddScoped<
             IIntegrationEventPublisher,
             MassTransitIntegrationEventPublisher>();
-
 
         return services;
     }

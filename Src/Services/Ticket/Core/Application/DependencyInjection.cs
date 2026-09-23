@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Domain.DomainServices;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -24,6 +25,7 @@ namespace Application
                 configure.RegisterServicesFromAssembly(applicationAssembly);
             });
 
+            services.AddScoped<ICalculateBookingPriceService, CalculateBookingPriceService>();
 
             return services;
         }

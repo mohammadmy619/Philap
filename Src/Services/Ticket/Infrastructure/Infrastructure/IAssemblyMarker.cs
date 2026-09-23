@@ -1,0 +1,6 @@
+﻿namespace Infrastructure;
+
+interface IAssemblyMarker
+{
+
+}

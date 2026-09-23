@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Domain.AccountingAggregate;
 using Domain.BookingAggregate;
 using Domain.DiscountAggregate;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,5 +47,34 @@ namespace Persistence
 
             return services;
         }
+
+        public static IApplicationBuilder ApplyMigrations(this IApplicationBuilder app)
+        {
+            using var scope = app.ApplicationServices.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<TicketingDbContext>();
+
+            try
+            {
+                var pendingMigrations = dbContext.Database.GetPendingMigrations();
+                if (pendingMigrations.Any())
+                {
+                    dbContext.Database.Migrate();
+                    Console.WriteLine("--> [Database] Migrations applied successfully & tables created.");
+                }
+                else
+                {
+                    Console.WriteLine("--> [Database] Database is already up to date.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"--> [Database Error] Failed to apply migrations: {ex.Message}");
+                throw;
+            }
+
+            return app;
+        }
+
+
     }
 }

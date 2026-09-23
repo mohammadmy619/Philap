@@ -9,8 +9,13 @@ using System.Reflection;
 
 namespace Persistence
 {
-    public class TicketingDbContext:DbContext
+    public class TicketingDbContext : DbContext
     {
+
+
+        public TicketingDbContext(DbContextOptions options) : base(options)
+        {
+        }
 
         public DbSet<Accounting> Accounting { get; set; }
         public DbSet<Booking> Booking { get; set; }

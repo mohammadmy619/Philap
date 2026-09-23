@@ -1,9 +1,9 @@
-﻿using BuildingBlocks.Domain;
+﻿using Infrastructure;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure;
+namespace Orchestration.Infrastructure;
 
 public static class DependencyInjection
 {
@@ -47,11 +47,6 @@ public static class DependencyInjection
                 cfg.ConfigureEndpoints(context);
             });
         });
-
-
-        services.AddScoped<
-            IIntegrationEventPublisher,
-            MassTransitIntegrationEventPublisher>();
 
 
         return services;

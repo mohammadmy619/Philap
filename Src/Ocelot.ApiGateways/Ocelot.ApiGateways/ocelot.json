@@ -8,12 +8,7 @@
     {
       "DownstreamPathTemplate": "/api/User",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5062
-        }
-      ],
+      "ServiceName": "identity-api",
       "UpstreamPathTemplate": "/api/identity/user",
       "UpstreamHttpMethod": [ "GET" ],
       "AuthenticationOptions": {
@@ -26,12 +21,7 @@
     {
       "DownstreamPathTemplate": "/api/User",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5062
-        }
-      ],
+      "ServiceName": "identity-api",
       "UpstreamPathTemplate": "/api/identity/user",
       "UpstreamHttpMethod": [ "PUT" ],
       "AuthenticationOptions": {
@@ -48,12 +38,7 @@
     {
       "DownstreamPathTemplate": "/api/Role",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5062
-        }
-      ],
+      "ServiceName": "identity-api",
       "UpstreamPathTemplate": "/api/identity/role",
       "UpstreamHttpMethod": [ "GET" ],
       "AuthenticationOptions": {
@@ -66,12 +51,7 @@
     {
       "DownstreamPathTemplate": "/api/Role",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5062
-        }
-      ],
+      "ServiceName": "identity-api",
       "UpstreamPathTemplate": "/api/identity/role",
       "UpstreamHttpMethod": [ "POST" ],
       "AuthenticationOptions": {
@@ -84,12 +64,7 @@
     {
       "DownstreamPathTemplate": "/api/Role/{roleId}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5062
-        }
-      ],
+      "ServiceName": "identity-api",
       "UpstreamPathTemplate": "/api/identity/role/{roleId}",
       "UpstreamHttpMethod": [ "PUT" ],
       "AuthenticationOptions": {
@@ -106,12 +81,7 @@
     {
       "DownstreamPathTemplate": "/api/Permission/{permissionId}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5062
-        }
-      ],
+      "ServiceName": "identity-api",
       "UpstreamPathTemplate": "/api/identity/permission/{permissionId}",
       "UpstreamHttpMethod": [ "GET" ],
       "AuthenticationOptions": {
@@ -124,12 +94,7 @@
     {
       "DownstreamPathTemplate": "/api/Permission",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5062
-        }
-      ],
+      "ServiceName": "identity-api",
       "UpstreamPathTemplate": "/api/identity/permission",
       "UpstreamHttpMethod": [ "POST" ],
       "AuthenticationOptions": {
@@ -142,12 +107,7 @@
     {
       "DownstreamPathTemplate": "/api/Permission/{id}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5062
-        }
-      ],
+      "ServiceName": "identity-api",
       "UpstreamPathTemplate": "/api/identity/permission/{id}",
       "UpstreamHttpMethod": [ "PUT" ],
       "AuthenticationOptions": {
@@ -164,12 +124,7 @@
     {
       "DownstreamPathTemplate": "/api/AccessControl/access-control/{permissionId}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5062
-        }
-      ],
+      "ServiceName": "identity-api",
       "UpstreamPathTemplate": "/api/identity/accesscontrol/{permissionId}",
       "UpstreamHttpMethod": [ "GET" ],
       "AuthenticationOptions": {
@@ -182,12 +137,7 @@
     {
       "DownstreamPathTemplate": "/api/AccessControl",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5062
-        }
-      ],
+      "ServiceName": "identity-api",
       "UpstreamPathTemplate": "/api/identity/accesscontrol",
       "UpstreamHttpMethod": [ "POST" ],
       "AuthenticationOptions": {
@@ -200,12 +150,7 @@
     {
       "DownstreamPathTemplate": "/api/AccessControl",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5062
-        }
-      ],
+      "ServiceName": "identity-api",
       "UpstreamPathTemplate": "/api/identity/accesscontrol",
       "UpstreamHttpMethod": [ "PUT" ],
       "AuthenticationOptions": {
@@ -221,12 +166,7 @@
     {
       "DownstreamPathTemplate": "/api/Account",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5062
-        }
-      ],
+      "ServiceName": "identity-api",
       "UpstreamPathTemplate": "/api/identity/account/register",
       "UpstreamHttpMethod": [ "POST" ]
     },
@@ -235,12 +175,7 @@
     {
       "DownstreamPathTemplate": "/api/Account/login",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5062
-        }
-      ],
+      "ServiceName": "identity-api",
       "UpstreamPathTemplate": "/api/identity/account/login",
       "UpstreamHttpMethod": [ "POST" ]
     },
@@ -249,12 +184,7 @@
     {
       "DownstreamPathTemplate": "/api/Account/private",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5062
-        }
-      ],
+      "ServiceName": "identity-api",
       "UpstreamPathTemplate": "/api/identity/account/private",
       "UpstreamHttpMethod": [ "GET" ],
       "AuthenticationOptions": {
@@ -264,84 +194,55 @@
     }
 
 
-
-    //,
-
-
     //// ==========================================
-    //// Trip Service - TripController (Port: 5063)
+    //// Trip Service - TripController
     //// ==========================================
 
-    //// 1. Get Trip By Id
-    //{
+    //// 1. Get Trip By Id (GET)
+    //,{
     //  "DownstreamPathTemplate": "/api/Trip/{id}",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5063
-    //    }
-    //  ],
+    //  "ServiceName": "trip-api",
     //  "UpstreamPathTemplate": "/api/trip/trip/{id}",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
 
-    //// 2. Get All Trips (Pagination)
+    //// 2. Get All Trips (GET)
     //{
     //  "DownstreamPathTemplate": "/api/Trip",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5063
-    //    }
-    //  ],
+    //  "ServiceName": "trip-api",
     //  "UpstreamPathTemplate": "/api/trip/trip",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
 
-    //// 3. Create Trip
+    //// 3. Create Trip (POST)
     //{
     //  "DownstreamPathTemplate": "/api/Trip",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5063
-    //    }
-    //  ],
+    //  "ServiceName": "trip-api",
     //  "UpstreamPathTemplate": "/api/trip/trip",
     //  "UpstreamHttpMethod": [ "POST" ]
     //},
 
-    //// 4. Update Trip
+    //// 4. Update Trip (PUT)
     //{
     //  "DownstreamPathTemplate": "/api/Trip/{id}",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5063
-    //    }
-    //  ],
+    //  "ServiceName": "trip-api",
     //  "UpstreamPathTemplate": "/api/trip/trip/{id}",
     //  "UpstreamHttpMethod": [ "PUT" ]
     //},
 
     //// ==========================================
-    //// Person Service - LeaderController (Port: 5064)
+    //// Person Service - LeaderController
     //// ==========================================
 
     //// 1. Create Leader (POST)
     //{
     //  "DownstreamPathTemplate": "/api/Leader",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5064
-    //    }
-    //  ],
+    //  "ServiceName": "person-api",
     //  "UpstreamPathTemplate": "/api/person/leader",
     //  "UpstreamHttpMethod": [ "POST" ]
     //},
@@ -350,12 +251,7 @@
     //{
     //  "DownstreamPathTemplate": "/api/Leader/{id}",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5064
-    //    }
-    //  ],
+    //  "ServiceName": "person-api",
     //  "UpstreamPathTemplate": "/api/person/leader/{id}",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
@@ -364,44 +260,29 @@
     //{
     //  "DownstreamPathTemplate": "/api/Leader",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5064
-    //    }
-    //  ],
+    //  "ServiceName": "person-api",
     //  "UpstreamPathTemplate": "/api/person/leader",
     //  "UpstreamHttpMethod": [ "PUT" ]
     //},
 
     //// 4. Get All Leaders (GET)
-    //// نکته: پارامترهای Query String (pageNumber/pageSize) در Ocelot به صورت خودکار به سرویس مقصد پاس داده می‌شوند.
     //{
     //  "DownstreamPathTemplate": "/api/Leader",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5064
-    //    }
-    //  ],
+    //  "ServiceName": "person-api",
     //  "UpstreamPathTemplate": "/api/person/leader",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
+
     //// ==========================================
-    //// Person Service - PassengerController (Port: 5064)
+    //// Person Service - PassengerController
     //// ==========================================
 
     //// 1. Create Passenger (POST)
     //{
     //  "DownstreamPathTemplate": "/api/Passenger",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5064
-    //    }
-    //  ],
+    //  "ServiceName": "person-api",
     //  "UpstreamPathTemplate": "/api/person/passenger",
     //  "UpstreamHttpMethod": [ "POST" ]
     //},
@@ -410,12 +291,7 @@
     //{
     //  "DownstreamPathTemplate": "/api/Passenger/{id}",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5064
-    //    }
-    //  ],
+    //  "ServiceName": "person-api",
     //  "UpstreamPathTemplate": "/api/person/passenger/{id}",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
@@ -424,12 +300,7 @@
     //{
     //  "DownstreamPathTemplate": "/api/Passenger",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5064
-    //    }
-    //  ],
+    //  "ServiceName": "person-api",
     //  "UpstreamPathTemplate": "/api/person/passenger",
     //  "UpstreamHttpMethod": [ "PUT" ]
     //},
@@ -438,60 +309,42 @@
     //{
     //  "DownstreamPathTemplate": "/api/Passenger",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5064
-    //    }
-    //  ],
+    //  "ServiceName": "person-api",
     //  "UpstreamPathTemplate": "/api/person/passenger",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
+
     //// ==========================================
-    //// Ticketing Service - AccountingController (Port: 5065)
+    //// Ticketing Service - AccountingController
     //// ==========================================
 
-    //// 1. Get All Accountings
+    //// 1. Get All Accountings (GET)
     //{
     //  "DownstreamPathTemplate": "/api/Accounting",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5065
-    //    }
-    //  ],
+    //  "ServiceName": "ticketing-api",
     //  "UpstreamPathTemplate": "/api/ticketing/accounting",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
 
-    //// 2. Get Accounting By Id
+    //// 2. Get Accounting By Id (GET)
     //{
     //  "DownstreamPathTemplate": "/api/Accounting/{accountingId}",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5065
-    //    }
-    //  ],
+    //  "ServiceName": "ticketing-api",
     //  "UpstreamPathTemplate": "/api/ticketing/accounting/{accountingId}",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
+
     //// ==========================================
-    //// Ticketing Service - BookingController (Port: 5065)
+    //// Ticketing Service - BookingController
     //// ==========================================
 
     //// 1. Get Booking By Id (GET)
     //{
     //  "DownstreamPathTemplate": "/api/Booking/{bookingId}",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5065
-    //    }
-    //  ],
+    //  "ServiceName": "ticketing-api",
     //  "UpstreamPathTemplate": "/api/ticketing/booking/{bookingId}",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
@@ -500,12 +353,7 @@
     //{
     //  "DownstreamPathTemplate": "/api/Booking",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5065
-    //    }
-    //  ],
+    //  "ServiceName": "ticketing-api",
     //  "UpstreamPathTemplate": "/api/ticketing/booking",
     //  "UpstreamHttpMethod": [ "POST" ]
     //},
@@ -514,12 +362,7 @@
     //{
     //  "DownstreamPathTemplate": "/api/Booking/{bookingId}",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5065
-    //    }
-    //  ],
+    //  "ServiceName": "ticketing-api",
     //  "UpstreamPathTemplate": "/api/ticketing/booking/{bookingId}",
     //  "UpstreamHttpMethod": [ "PUT" ]
     //},
@@ -528,29 +371,20 @@
     //{
     //  "DownstreamPathTemplate": "/api/Booking/{bookingId}/cancel",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5065
-    //    }
-    //  ],
+    //  "ServiceName": "ticketing-api",
     //  "UpstreamPathTemplate": "/api/ticketing/booking/{bookingId}/cancel",
     //  "UpstreamHttpMethod": [ "PATCH" ]
     //},
+
     //// ==========================================
-    //// Ticketing Service - DiscountController (Port: 5065)
+    //// Ticketing Service - DiscountController
     //// ==========================================
 
     //// 1. Create Discount (POST)
     //{
     //  "DownstreamPathTemplate": "/api/Discount",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5065
-    //    }
-    //  ],
+    //  "ServiceName": "ticketing-api",
     //  "UpstreamPathTemplate": "/api/ticketing/discount",
     //  "UpstreamHttpMethod": [ "POST" ]
     //},
@@ -559,12 +393,7 @@
     //{
     //  "DownstreamPathTemplate": "/api/Discount/{discountId}",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5065
-    //    }
-    //  ],
+    //  "ServiceName": "ticketing-api",
     //  "UpstreamPathTemplate": "/api/ticketing/discount/{discountId}",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
@@ -573,12 +402,7 @@
     //{
     //  "DownstreamPathTemplate": "/api/Discount",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5065
-    //    }
-    //  ],
+    //  "ServiceName": "ticketing-api",
     //  "UpstreamPathTemplate": "/api/ticketing/discount",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
@@ -587,12 +411,7 @@
     //{
     //  "DownstreamPathTemplate": "/api/Discount/{id}",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5065
-    //    }
-    //  ],
+    //  "ServiceName": "ticketing-api",
     //  "UpstreamPathTemplate": "/api/ticketing/discount/{id}",
     //  "UpstreamHttpMethod": [ "PUT" ]
     //},
@@ -601,12 +420,7 @@
     //{
     //  "DownstreamPathTemplate": "/api/Discount/{discountId}/usages",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5065
-    //    }
-    //  ],
+    //  "ServiceName": "ticketing-api",
     //  "UpstreamPathTemplate": "/api/ticketing/discount/{discountId}/usages",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
@@ -615,64 +429,43 @@
     //{
     //  "DownstreamPathTemplate": "/api/Discount/{discountId}/usages/paged",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5065
-    //    }
-    //  ],
+    //  "ServiceName": "ticketing-api",
     //  "UpstreamPathTemplate": "/api/ticketing/discount/{discountId}/usages/paged",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
+
+    //// ==========================================
+    //// OpenAPI / Swagger Docs
+    //// ==========================================
+
     //{
     //  "DownstreamPathTemplate": "/openapi/v1.json",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5062
-    //    }
-    //  ],
+    //  "ServiceName": "identity-api",
     //  "UpstreamPathTemplate": "/docs/identity/openapi.json",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
     //{
     //  "DownstreamPathTemplate": "/openapi/v1.json",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5062
-    //    }
-    //  ],
+    //  "ServiceName": "trip-api",
     //  "UpstreamPathTemplate": "/docs/trip/openapi.json",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
     //{
     //  "DownstreamPathTemplate": "/openapi/v1.json",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5062
-    //    }
-    //  ],
+    //  "ServiceName": "person-api",
     //  "UpstreamPathTemplate": "/docs/person/openapi.json",
     //  "UpstreamHttpMethod": [ "GET" ]
     //},
     //{
     //  "DownstreamPathTemplate": "/openapi/v1.json",
     //  "DownstreamScheme": "http",
-    //  "DownstreamHostAndPorts": [
-    //    {
-    //      "Host": "localhost",
-    //      "Port": 5062
-    //    }
-    //  ],
+    //  "ServiceName": "ticketing-api",
     //  "UpstreamPathTemplate": "/docs/ticketing/openapi.json",
     //  "UpstreamHttpMethod": [ "GET" ]
     //}
-
 
   ]
 }

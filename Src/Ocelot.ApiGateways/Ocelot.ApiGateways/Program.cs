@@ -1,8 +1,10 @@
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Ocelot.ApiGateway.Extensions;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.ServiceDiscovery;
 using Scalar.AspNetCore;
 using System.Text;
 
@@ -38,7 +40,10 @@ builder.Services.AddAuthentication("Bearer")
         };
     });
 
+ServiceDiscoveryFinderDelegate finder = (provider, config, route) =>
+    new AspireServiceDiscoveryProvider(provider, config, route);
 
+builder.Services.AddSingleton(finder);
 
 
 
@@ -169,14 +174,15 @@ app.MapOpenApi(); // مسیر پیش‌فرض: /openapi/v1.json
 app.MapScalarApiReference("/scalar", options =>
 {
     options.AddDocument("Identity", "Identity API", "https://localhost:7106/openapi/v1.json");
+    options.AddDocument("trip", "trip API", "https://localhost:7082/openapi/v1.json");
+    options.AddDocument("Person", "Person API", "https://localhost:7211/openapi/v1.json");
+    options.AddDocument("Ticketing", "Ticketing API", "https://localhost:7283/openapi/v1.json");
+
     options.Title = "ApiGateWay";
     options.Theme = ScalarTheme.DeepSpace;
     options.DefaultHttpClient = new(ScalarTarget.Http, ScalarClient.Http11);
     options.AddPreferredSecuritySchemes(["BearerAuth"]);
     options.EnablePersistentAuthentication();
-
-
-
 
 });
 
@@ -187,6 +193,7 @@ app.UseWhen(
     ctx =>
         !ctx.Request.Path.StartsWithSegments("/scalar") &&
         !ctx.Request.Path.StartsWithSegments("/openapi") &&
+        !ctx.Request.Path.StartsWithSegments("/health") &&
         ctx.Request.Path != "/",
     branch =>
     {
