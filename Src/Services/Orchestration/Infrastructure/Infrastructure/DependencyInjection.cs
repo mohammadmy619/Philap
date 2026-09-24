@@ -1,7 +1,11 @@
-﻿using Infrastructure;
+﻿using Domain.StateData;
+using Infrastructure;
+using Infrastructure.StateMachine;
 using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Persistence;
 
 namespace Orchestration.Infrastructure;
 
@@ -23,31 +27,27 @@ public static class DependencyInjection
 
         services.AddMassTransit(x =>
         {
-            // ۱. استفاده از فرمت نام‌گذاری استاندارد (اختیاری ولی شدیداً توصیه‌شده)
             x.SetKebabCaseEndpointNameFormatter();
 
-            // ۲. ثبت تمام کانسیومرهای اسمبلی مورد نظر
-            x.AddConsumers(typeof(IAssemblyMarker).Assembly);
+            // ثبت State Machine
+            x.AddSagaStateMachine<TicketStateMachine, TicketStateData>()
+                .EntityFrameworkRepository(r =>
+                {
+                    r.ConcurrencyMode = ConcurrencyMode.Pessimistic; // یا Optimistic
+                    r.AddDbContext<DbContext, OrchestrationDbContext>((provider, builder) =>
+                    {
+                        builder.UseSqlServer(
+                            configuration.GetConnectionString("OrchestrationConnection"));
+                    });
+                });
 
-            // ۳. کانفیگ هاست RabbitMQ و ساخت خودکار اندپوینت‌ها
             x.UsingRabbitMq((context, cfg) =>
             {
-                if (Uri.TryCreate(
-                        rabbitMqConnectionString,
-                        UriKind.Absolute,
-                        out var rabbitMqUri))
-                {
-                    cfg.Host(rabbitMqUri);
-                }
-                else
-                {
-                    cfg.Host(rabbitMqConnectionString, "/");
-                }
+                cfg.Host(new Uri(rabbitMqConnectionString));
 
                 cfg.ConfigureEndpoints(context);
             });
         });
-
 
         return services;
     }
