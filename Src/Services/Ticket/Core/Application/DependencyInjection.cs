@@ -1,4 +1,5 @@
-﻿using Domain.DomainServices;
+﻿using Application.Common.Behaviors;
+using Domain.DomainServices;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,8 @@ namespace Application
             services.AddMediatR(configure =>
             {
                 configure.RegisterServicesFromAssembly(applicationAssembly);
+
+                configure.AddOpenBehavior(typeof(DomainEventDispatchingBehavior<,>));
             });
 
             services.AddScoped<ICalculateBookingPriceService, CalculateBookingPriceService>();

@@ -23,6 +23,8 @@ namespace Domain.BookingAggregate
         public Booking(Guid tripId, Guid passengerId, Guid? discountId, DateTime purchaseDate, Money price)
 
         {
+
+            Id = Guid.NewGuid();
             GuardAgainstTripId(tripId);
             GuardAgainstPassengerId(passengerId);
             GuardAgainstPurchaseDate(purchaseDate);
@@ -35,7 +37,7 @@ namespace Domain.BookingAggregate
             Price = price;
             Status = BookingStatus.Created;
             AddEvent(new BookingCreatedEvent(
-                         Id,
+                          this.Id,
                          tripId,
                          passengerId,
                          discountId,

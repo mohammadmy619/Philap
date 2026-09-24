@@ -27,7 +27,7 @@ namespace Application.Ticketing
 
             // 1) تخفیف را پیدا کن (بسته به طراحی شما)
             Discount? discount = null;
-            if (command.DiscountCode is not null)
+            if (!string.IsNullOrWhiteSpace(command.DiscountCode))
             {
                 // استفاده از متد جنریک موجود با استفاده از Expression
                 var discounts = await _DiscountRepository.FindDiscountsAsync(
@@ -38,7 +38,7 @@ namespace Application.Ticketing
                 // گرفتن اولین نتیجه یا null اگر پیدا نشد
                 discount = discounts.FirstOrDefault();
 
-                if (command.DiscountCode != null && discount == null)
+                if (discount == null)
                     throw new InvalidOperationException("Invalid discount code");
             }
 

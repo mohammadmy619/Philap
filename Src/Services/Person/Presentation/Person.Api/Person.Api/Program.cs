@@ -1,4 +1,6 @@
 using Application;
+using Infrastructure;
+using Infrastructure.ExternalServices.ACLImplementation.GrpcServices;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Persistence;
@@ -44,6 +46,7 @@ builder.Services.AddControllers(options =>
 });
 builder.Services.ConfigurePersistenceLayer(builder.Configuration);
 builder.Services.ConfigureApplicationLayer(builder.Configuration);
+builder.Services.ConfigureInfrastructureLayer(builder.Configuration);
 
 builder.Services.AddCors(o =>
 {
@@ -81,6 +84,8 @@ builder.Services.AddAuthentication("Bearer")
         };
     });
 
+builder.Services.AddGrpcReflection();
+
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
@@ -97,7 +102,8 @@ app.MapDefaultEndpoints();
         opt.EnablePersistentAuthentication();
     });
 
-//app.MapGrpcService<CheckLeaderValidService>();
+app.MapGrpcService<CheckLeaderValidService>();
+app.MapGrpcReflectionService();
 app.UseHttpsRedirection();
 app.ApplyMigrations();
 

@@ -64,6 +64,8 @@ var Orchestration_Api = builder.AddProject<Projects.Orchestration_Api>("orchestr
            .WithReference(Trip_Api)
            .WaitFor(Ticketing_Api)
            .WithReference(Ticketing_Api)
+            .WaitFor(rabbitmq)
+            .WithReference(rabbitmq)
            .WithHttpHealthCheck("/health");
     
 var Ocelot_ApiGateways = builder.AddProject<Projects.Ocelot_ApiGateway>("ocelot-apigateways")

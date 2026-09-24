@@ -12,9 +12,9 @@ namespace Application.Validator.BookingValdation
     {
         public CreateBookingCommandValidation()
         {
-            // اعتبارسنجی TicketId
-            RuleFor(x => x.TicketId)
-                .NotEmpty().WithMessage("TicketId is required.");
+            //// اعتبارسنجی TicketId
+            //RuleFor(x => x.TicketId)
+            //    .NotEmpty().WithMessage("TicketId is required.");
 
             // اعتبارسنجی TripId
             RuleFor(x => x.TripId)

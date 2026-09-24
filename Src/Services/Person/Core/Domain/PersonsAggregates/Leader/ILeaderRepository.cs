@@ -21,6 +21,8 @@ namespace Domain.Persons.Leader
 
         Task<IEnumerable<Leader>> FindLeadersAsync(Expression<Func<Leader, bool>> predicate, CancellationToken cancellationToken);
 
+
+        Task<bool> ChecktLeaderById(Guid leaderId, CancellationToken cancellationToken);
         Task SaveChangesAsync(CancellationToken cancellationToken ); 
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BuildingBlocks.Domain;
 using Domain.AccountingAggregate;
 using Domain.BookingAggregate;
 using Domain.DiscountAggregate;
@@ -11,6 +7,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Repositories;
+using Persistence.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Persistence
 {
@@ -44,6 +46,9 @@ namespace Persistence
             services.AddScoped<IDiscountRepository, DiscountRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IAccountingRepository, AccountingRepository>();
+
+            services.AddScoped<IDomainEventDispatcher, EfDomainEventDispatcher>();
+
 
             return services;
         }

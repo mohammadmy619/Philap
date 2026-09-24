@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Domain;
+using CheckLeaderValided;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -53,6 +54,12 @@ public static class DependencyInjection
             IIntegrationEventPublisher,
             MassTransitIntegrationEventPublisher>();
 
+
+        services.AddGrpcClient<CheckLeaderValid.CheckLeaderValidClient>(o =>
+        {
+
+            o.Address = new Uri("https://localhost:7211");
+        });
 
         return services;
     }

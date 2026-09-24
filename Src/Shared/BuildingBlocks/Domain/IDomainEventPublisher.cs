@@ -6,3 +6,4 @@ namespace BuildingBlocks.Domain
         Task Publish<T>(T @event) where T : IDomainEvent;
     }
 }
+

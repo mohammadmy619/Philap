@@ -60,12 +60,16 @@ namespace Persistence.Repositores
             return await _context.Leaders.AsQueryable().Where(predicate)
                 .ToListAsync(cancellationToken);
         }
-
+        public async Task<bool> ChecktLeaderById(Guid leaderId, CancellationToken cancellationToken)
+        {
+            return await _context.Leaders
+                 .AnyAsync(l => l.Id == leaderId, cancellationToken);
+        }
         public async Task SaveChangesAsync(CancellationToken cancellationToken)
         {
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-       
+   
     }
 }

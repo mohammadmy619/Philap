@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Common\Behaviors\InterFace\" />
     <Folder Include="Validator\AccountingValdation\" />
   </ItemGroup>
 
