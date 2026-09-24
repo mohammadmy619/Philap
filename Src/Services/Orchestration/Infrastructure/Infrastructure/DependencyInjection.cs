@@ -29,6 +29,9 @@ public static class DependencyInjection
         {
             x.SetKebabCaseEndpointNameFormatter();
 
+            x.AddConsumers(typeof(IAssemblyMarker).Assembly);
+
+
             // ثبت State Machine
             x.AddSagaStateMachine<TicketStateMachine, TicketStateData>()
                 .EntityFrameworkRepository(r =>

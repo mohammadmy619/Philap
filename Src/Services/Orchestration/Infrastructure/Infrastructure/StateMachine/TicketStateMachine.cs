@@ -336,7 +336,7 @@ namespace Infrastructure.StateMachine
                         context.Saga.IsCancelled = false;
                     })
                     .TransitionTo(TicketCancelFailed)
-                    
+
             );
         }
     }

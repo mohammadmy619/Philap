@@ -43,6 +43,7 @@ namespace Infrastructure.ExternalServices.Consumers.AddTicketEvents
 
                     trip.AddTicketId(context.Message.TicketId);
 
+                    await _tripRepository.UpdateTripAsync(trip, context.CancellationToken);
 
                     await _tripRepository.SaveChangesAsync(context.CancellationToken);
 
