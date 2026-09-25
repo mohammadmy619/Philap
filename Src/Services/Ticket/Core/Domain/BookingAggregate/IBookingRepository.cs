@@ -15,7 +15,7 @@ namespace Domain.BookingAggregate
         Task AddBookingAsync(Booking booking, CancellationToken cancellationToken);
         Task UpdateBookingAsync(Booking booking, CancellationToken cancellationToken);
         Task DeleteBookingAsync(Guid bookingId, CancellationToken cancellationToken);
-        Task<Booking> GetBookingByIdAsync(Guid bookingId, CancellationToken cancellationToken);
+        Task<Booking?> GetBookingByIdAsync(Guid bookingId, CancellationToken cancellationToken);
         Task<IEnumerable<Booking>> GetAllBookingsAsync(CancellationToken cancellationToken);
         Task<IEnumerable<Booking>> FindBookingsAsync(Expression<Func<Booking, bool>> predicate, CancellationToken cancellationToken);
         Task<IEnumerable<Guid>> GetBookingIdsAsync(IEnumerable<Guid> bookingIds, CancellationToken cancellationToken);

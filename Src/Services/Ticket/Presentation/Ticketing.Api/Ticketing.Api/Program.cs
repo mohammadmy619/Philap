@@ -14,15 +14,12 @@ builder.Services.ConfigurePersistenceLayer(builder.Configuration);
 builder.Services.ConfigureApplicationLayer(builder.Configuration);
 builder.Services.ConfigureInfrastructureLayer(builder.Configuration);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi(options =>
 {
     options.AddDocumentTransformer((document, context, cancellationToken) =>
     {
-        // آدرس را بر اساس پورتی که با آن صفحه را باز می‌کنید یا مستقیماً 7082 ست می‌کنیم
         document.Servers = new List<OpenApiServer>
         {
             new OpenApiServer { Url = "https://localhost:7283" }

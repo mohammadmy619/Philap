@@ -2,24 +2,33 @@
 
 public static class BookingStatusGuard
 {
-    public static void GuardAgainstInvalidStatusTransition(BookingStatus currentStatus, BookingStatus newStatus)
+    public static void GuardAgainstInvalidStatusTransition(
+        BookingStatus currentStatus,
+        BookingStatus newStatus)
     {
         if (!CanTransitionFrom(currentStatus, newStatus))
         {
-            throw new InvalidBookingStatusTransitionException(currentStatus, newStatus);
+            throw new InvalidBookingStatusTransitionException(
+                currentStatus,
+                newStatus);
         }
     }
 
-       private static bool CanTransitionFrom(BookingStatus current, BookingStatus target)
-        {
-            // منطق تغییر وضعیت
-            return (current, target) switch
-            {
-                (BookingStatus.Created, BookingStatus.Confirmed or BookingStatus.Cancelled) => true,
-                //(BookingStatus.PendingPayment, BookingStatus.Confirmed or BookingStatus.Cancelled or BookingStatus.Expired) => true,
-                (BookingStatus.Confirmed, BookingStatus.Cancelled or BookingStatus.Created) => true,
-                //(BookingStatus.Completed, BookingStatus.Cancelled) => true,
-                _ => current == target // اجازه برابر بودن
-            };
-        }
+    private static bool CanTransitionFrom(
+        BookingStatus current,
+        BookingStatus target)
+    {
+        if (current == target)
+            return true;
+
+        if (current == BookingStatus.Created)
+            return target == BookingStatus.Confirmed
+                || target == BookingStatus.Cancelled;
+
+        if (current == BookingStatus.Confirmed)
+            return target == BookingStatus.Cancelled
+                || target == BookingStatus.Created;
+
+        return false;
+    }
 }

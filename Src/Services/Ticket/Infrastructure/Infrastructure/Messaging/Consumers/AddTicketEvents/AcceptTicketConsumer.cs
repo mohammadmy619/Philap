@@ -20,7 +20,7 @@ namespace Infrastructure.Messaging.Consumers.AddTicketEvents
                 return;
             }
 
-            booking.ChangeStatus(BookingStatus.Rejected);
+            booking.ChangeStatus(BookingStatus.Confirmed);
 
              await  bookingRepository.UpdateBookingAsync(booking, context.CancellationToken);
 

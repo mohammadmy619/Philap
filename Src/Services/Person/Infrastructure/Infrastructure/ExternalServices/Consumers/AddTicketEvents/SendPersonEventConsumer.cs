@@ -48,11 +48,11 @@ namespace Infrastructure.ExternalServices.Consumers.AddTicketEvents
                     passenger.AddTicketId(context.Message.TicketId);
                     passenger.AddTripId(context.Message.TripId);
 
-
+                    await _passengerRepository.UpdatePassengerAsync(passenger, context.CancellationToken);
                     // ذخیره تغییرات هر دو موجودیت
                     await _passengerRepository.SaveChangesAsync(context.CancellationToken);
                     leader.AddTripId(context.Message.TripId);
-
+                    await _leaderRepository.UpdateLeaderAsync(leader, context.CancellationToken);
                     await _leaderRepository.SaveChangesAsync(context.CancellationToken);
 
                     await context.Publish<IAcceptTicketEvent>(new

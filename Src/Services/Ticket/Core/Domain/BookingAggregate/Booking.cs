@@ -111,6 +111,7 @@ namespace Domain.BookingAggregate
         public void ChangeStatus(BookingStatus newStatus)
         {
             BookingStatusGuard.GuardAgainstInvalidStatusTransition(Status, newStatus);
+            Status = newStatus;
         }
 
 

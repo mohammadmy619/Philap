@@ -71,10 +71,10 @@ namespace Persistence.Repositories
                 .ToListAsync(cancellationToken);
         }
 
-        public async Task<Booking> GetBookingByIdAsync(Guid bookingId, CancellationToken cancellationToken)
+        public async Task<Booking?> GetBookingByIdAsync(Guid bookingId, CancellationToken cancellationToken)
         {
             return await _dbContext.Booking
-                .FirstOrDefaultAsync(x => x.Id == bookingId, cancellationToken);
+                .Where(x => x.Id == bookingId).FirstOrDefaultAsync(cancellationToken);
         }
 
         public async Task<IEnumerable<Guid>> GetBookingIdsAsync(
@@ -101,14 +101,14 @@ namespace Persistence.Repositories
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public Task UpdateBookingAsync(Booking booking, CancellationToken cancellationToken)
+        public async Task UpdateBookingAsync(
+        Booking booking,
+        CancellationToken cancellationToken)
         {
-            if (booking is null)
-                throw new ArgumentNullException(nameof(booking));
+            ArgumentNullException.ThrowIfNull(booking);
 
             _dbContext.Booking.Update(booking);
-
-            return Task.CompletedTask;
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }
