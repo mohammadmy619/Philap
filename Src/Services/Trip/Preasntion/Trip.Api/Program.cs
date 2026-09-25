@@ -6,7 +6,7 @@ using Persistence;
 using Persistence.Settings;
 using Scalar.AspNetCore;
 using System.Text;
-using Trip.Api;
+using Trip.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

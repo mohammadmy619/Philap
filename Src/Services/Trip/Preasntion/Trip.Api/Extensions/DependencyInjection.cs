@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Trip.Api
+namespace Trip.Api.Extensions
 {
     public static class DependencyInjection
     {

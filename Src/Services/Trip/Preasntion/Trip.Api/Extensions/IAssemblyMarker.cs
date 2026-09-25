@@ -1,4 +1,4 @@
-﻿namespace Trip.Api
+﻿namespace Trip.Api.Extensions
 {
     public interface IAssemblyMarker
     {
